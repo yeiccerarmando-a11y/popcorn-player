@@ -11,7 +11,7 @@
     <!-- FontAwesome Icons CDN -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Google Fonts: Inter & Outfit -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@600;700;800;900&display=swap" rel="stylesheet">
     <script>
         tailwind.config = {
             theme: {
@@ -125,9 +125,93 @@
             display: inline-block;
             animation: titleGlowLoop 10s ease-in-out infinite;
         }
+
+        /* Animación ajustada exactamente a 7 segundos */
+        @keyframes splashProgress {
+            0% { width: 0%; }
+            100% { width: 100%; }
+        }
+        .animate-progress-7s {
+            animation: splashProgress 7s linear forwards;
+        }
     </style>
 </head>
 <body class="min-h-screen flex flex-col justify-between select-none">
+
+    <!-- 1. PANTALLA INTRO ANIMADA (Splash Screen de 7 Segundos) -->
+    <div id="splash-screen" class="fixed inset-0 z-50 bg-[#0D0E12] flex flex-col items-center justify-center p-6 transition-opacity duration-700">
+        <div class="flex flex-col items-center text-center">
+            <div class="relative w-36 h-36 mb-6 logo-levitate flex items-center justify-center">
+                <div class="absolute inset-0 bg-popcorn-red/20 rounded-full blur-2xl animate-pulse"></div>
+                <svg viewBox="0 0 120 120" class="w-32 h-32 filter drop-shadow-[0_10px_25px_rgba(229,9,20,0.6)] relative z-10">
+                    <ellipse cx="60" cy="108" rx="28" ry="6" fill="#000000" opacity="0.4"/>
+                    <path d="M35 45 L42 102 C42 105 45 107 48 107 L72 107 C75 107 78 105 78 102 L85 45 Z" fill="#E50914"/>
+                    <path d="M44 45 L48 107 L54 107 L51 45 Z" fill="#FFFFFF"/>
+                    <path d="M60 45 L60 107 L66 107 L66 45 Z" fill="#FFFFFF"/>
+                    <path d="M72 45 L72 107 L78 107 L75 45 Z" fill="#FFFFFF"/>
+                    <ellipse cx="60" cy="45" rx="25" ry="4" fill="#B20710"/>
+                    <ellipse cx="60" cy="43" rx="25" ry="4" fill="#E50914"/>
+                    <circle cx="43" cy="38" r="9" fill="#FFC107"/>
+                    <circle cx="43" cy="37" r="8" fill="#FFF8E7"/>
+                    <circle cx="60" cy="32" r="11" fill="#FFC107"/>
+                    <circle cx="60" cy="30" r="10" fill="#FFF8E7"/>
+                    <circle cx="77" cy="38" r="9" fill="#FFC107"/>
+                    <circle cx="77" cy="37" r="8" fill="#FFF8E7"/>
+                    <path d="M22 58 C 18 16, 102 16, 98 58" stroke="#1E202B" stroke-width="8" stroke-linecap="round" fill="none"/>
+                    <path d="M22 58 C 18 16, 102 16, 98 58" stroke="#E50914" stroke-width="5" stroke-linecap="round" fill="none"/>
+                    <rect x="15" y="48" width="13" height="25" rx="6" fill="#161820" stroke="#E50914" stroke-width="2.5"/>
+                    <rect x="92" y="48" width="13" height="25" rx="6" fill="#161820" stroke="#E50914" stroke-width="2.5"/>
+                    <circle cx="51" cy="70" r="3" fill="#161820"/>
+                    <circle cx="69" cy="70" r="3" fill="#161820"/>
+                    <path d="M56 77 Q60 82 64 77" stroke="#161820" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+                </svg>
+            </div>
+
+            <h1 class="font-display text-4xl sm:text-5xl font-extrabold tracking-wider text-white mb-2">
+                Popcorn <span class="text-popcorn-red">Player</span>
+            </h1>
+            <p class="text-xs sm:text-sm text-popcorn-butter uppercase font-bold tracking-widest mb-8">
+                Sistema de Audio de Alta Fidelidad
+            </p>
+
+            <div class="w-64 h-1.5 bg-gray-800 rounded-full overflow-hidden relative shadow-inner">
+                <div class="h-full bg-gradient-to-r from-popcorn-red via-popcorn-butter to-popcorn-red rounded-full animate-progress-7s"></div>
+            </div>
+            <span class="text-[10px] text-gray-500 font-mono mt-3 uppercase tracking-widest">Inicializando Motor Hi-Fi...</span>
+        </div>
+    </div>
+
+    <!-- 2. ALERTA Y MENSAJE DE BIENVENIDA GRANDE PERSONALIZADO -->
+    <div id="pro-welcome-modal" class="fixed inset-0 z-50 bg-black/85 backdrop-blur-md flex items-center justify-center p-4 opacity-0 pointer-events-none transition-opacity duration-500">
+        <div class="w-full max-w-lg bg-popcorn-card border border-popcorn-red/60 rounded-3xl p-6 sm:p-8 text-center shadow-[0_0_50px_rgba(229,9,20,0.3)] transform scale-95 transition-transform duration-500 flex flex-col items-center relative overflow-hidden">
+            <div class="absolute -top-12 -right-12 w-32 h-32 bg-popcorn-butter/10 rounded-full blur-xl pointer-events-none"></div>
+
+            <div class="w-20 h-20 rounded-2xl bg-popcorn-red/20 border border-popcorn-red flex items-center justify-center mb-4 shadow-inner text-popcorn-butter text-3xl font-bold logo-levitate">
+                <svg viewBox="0 0 120 120" class="w-14 h-14 filter drop-shadow-md">
+                    <ellipse cx="60" cy="108" rx="28" ry="6" fill="#000000" opacity="0.4"/>
+                    <path d="M35 45 L42 102 C42 105 45 107 48 107 L72 107 C75 107 78 105 78 102 L85 45 Z" fill="#E50914"/>
+                    <ellipse cx="60" cy="45" rx="25" ry="4" fill="#B20710"/>
+                    <circle cx="60" cy="32" r="11" fill="#FFC107"/>
+                </svg>
+            </div>
+
+            <span class="text-[10px] uppercase font-extrabold tracking-widest px-3.5 py-1 rounded-full bg-popcorn-red/25 text-popcorn-butter border border-popcorn-red/40 mb-3">
+                Edición Máster Profesional
+            </span>
+
+            <h2 class="font-display text-2xl sm:text-3xl font-extrabold text-white mb-3">
+                ¡Bienvenidos a <span class="text-popcorn-red">Popcorn</span>!
+            </h2>
+
+            <p class="text-xs sm:text-sm text-gray-200 leading-relaxed font-medium mb-6 px-2 text-justify sm:text-center">
+                Disfruta de esta experiencia profesional de audio y masterización. Sumérgete en nuestro sistema profesional de AirPods, ecualización digital avanzada y procesamiento inmersivo de última generación diseñado para verdaderos melómanos.
+            </p>
+
+            <button id="btn-enter-app" class="w-full bg-gradient-to-r from-popcorn-red to-popcorn-redDark hover:from-popcorn-redDark hover:to-popcorn-red text-white font-bold py-3.5 rounded-2xl text-sm shadow-xl btn-anim flex items-center justify-center gap-2 border border-popcorn-red/50">
+                <i class="fa-solid fa-headphones text-popcorn-butter"></i> Continuar
+            </button>
+        </div>
+    </div>
 
     <!-- Header -->
     <header class="w-full px-5 py-4 bg-[#12141C] border-b border-gray-800/80 sticky top-0 z-40 flex items-center justify-between">
@@ -181,12 +265,8 @@
 
     <!-- Main Content -->
     <main class="container mx-auto max-w-6xl px-4 py-6 flex-1 grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
-
-        <!-- Main Player Container -->
         <div class="lg:col-span-7 flex flex-col items-center">
             <div class="w-full card-3d rounded-3xl p-6 sm:p-8 flex flex-col items-center relative overflow-hidden">
-                
-                <!-- Status & Badge Bar -->
                 <div class="w-full flex justify-between items-center mb-2">
                     <span id="playing-status" class="text-xs font-semibold uppercase tracking-wider text-popcorn-butter bg-popcorn-subCard px-3 py-1 rounded-full border border-gray-800 flex items-center gap-2">
                         <span id="status-dot" class="w-2 h-2 rounded-full bg-gray-500"></span>
@@ -200,21 +280,13 @@
                     </div>
                 </div>
 
-                <!-- 3D Mascot Stage -->
                 <div class="my-4 flex items-center justify-center relative w-full">
                     <div id="mascot-box" class="w-64 h-64 sm:w-72 sm:h-72 rounded-3xl bg-[#12141C] border border-gray-800/80 p-4 flex flex-col items-center justify-center shadow-inner relative overflow-hidden cursor-pointer">
-                        
                         <canvas id="particles-stage" class="absolute inset-0 w-full h-full pointer-events-none z-10"></canvas>
-
-                        <!-- Dynamic Mascot Container -->
                         <div id="mascot-anim-wrapper" class="relative z-0 transition-transform duration-75 origin-bottom">
-                            
-                            <!-- Crown Overlay for Gamification -->
                             <div id="mascot-crown" class="absolute -top-6 left-1/2 -translate-x-1/2 z-20 text-xs px-2 py-0.5 bg-popcorn-butter text-black font-bold rounded-full hidden filter drop-shadow-md animate-bounce">
                                 VIP
                             </div>
-
-                            <!-- PERSONAJE 1: COTUFA -->
                             <svg id="mascot-1" viewBox="0 0 120 120" class="w-48 h-48 sm:w-56 sm:h-56 filter drop-shadow-xl">
                                 <ellipse cx="60" cy="110" rx="32" ry="7" fill="#000000" opacity="0.5"/>
                                 <path d="M35 45 L42 102 C42 105 45 107 48 107 L72 107 C75 107 78 105 78 102 L85 45 Z" fill="#E50914"/>
@@ -240,8 +312,6 @@
                                 <circle cx="69" cy="70" r="3" fill="#161820"/>
                                 <path d="M56 77 Q60 82 64 77" stroke="#161820" stroke-width="2.5" stroke-linecap="round" fill="none"/>
                             </svg>
-
-                            <!-- PERSONAJE 2: DONA -->
                             <svg id="mascot-2" viewBox="0 0 120 120" class="w-48 h-48 sm:w-56 sm:h-56 filter drop-shadow-xl hidden">
                                 <ellipse cx="60" cy="110" rx="30" ry="6" fill="#000000" opacity="0.5"/>
                                 <path d="M28 65 C 20 10, 100 10, 92 65" stroke="#E50914" stroke-width="6" stroke-linecap="round" fill="none"/>
@@ -255,12 +325,9 @@
                                 <path d="M72 95 L 78 108" stroke="#C71585" stroke-width="5" stroke-linecap="round"/>
                                 <rect x="20" y="55" width="12" height="20" rx="6" fill="#161820" stroke="#FFD700" stroke-width="2"/>
                                 <rect x="88" y="55" width="12" height="20" rx="6" fill="#161820" stroke="#FFD700" stroke-width="2"/>
-                                <circle cx="53" cy="63" r="3" fill="#161820"/>
-                                <circle cx="67" cy="63" r="3" fill="#161820"/>
+                                <circle cx="53" cy="63" r="3" fill="#161820"/><circle cx="67" cy="63" r="3" fill="#161820"/>
                                 <path d="M57 70 Q 60 74 63 70" stroke="#161820" stroke-width="2.5" stroke-linecap="round" fill="none"/>
                             </svg>
-
-                            <!-- PERSONAJE 3: CHOCOLATE -->
                             <svg id="mascot-3" viewBox="0 0 120 120" class="w-48 h-48 sm:w-56 sm:h-56 filter drop-shadow-xl hidden">
                                 <ellipse cx="60" cy="110" rx="28" ry="6" fill="#000000" opacity="0.5"/>
                                 <rect x="36" y="30" width="48" height="68" rx="8" fill="#5C2C16" stroke="#3B1A0A" stroke-width="3"/>
@@ -271,12 +338,9 @@
                                 <path d="M84 60 Q 96 55 92 45" stroke="#5C2C16" stroke-width="5" stroke-linecap="round" fill="none"/>
                                 <path d="M46 98 L 42 108" stroke="#3B1A0A" stroke-width="5" stroke-linecap="round"/>
                                 <path d="M74 98 L 78 108" stroke="#3B1A0A" stroke-width="5" stroke-linecap="round"/>
-                                <circle cx="51" cy="60" r="3" fill="#FFF8E7"/>
-                                <circle cx="69" cy="60" r="3" fill="#FFF8E7"/>
+                                <circle cx="51" cy="60" r="3" fill="#FFF8E7"/><circle cx="69" cy="60" r="3" fill="#FFF8E7"/>
                                 <path d="M56 68 Q 60 73 64 68" stroke="#FFF8E7" stroke-width="2.5" stroke-linecap="round" fill="none"/>
                             </svg>
-
-                            <!-- PERSONAJE 4: NUTELLA -->
                             <svg id="mascot-4" viewBox="0 0 120 120" class="w-48 h-48 sm:w-56 sm:h-56 filter drop-shadow-xl hidden">
                                 <ellipse cx="60" cy="110" rx="30" ry="6" fill="#000000" opacity="0.5"/>
                                 <ellipse cx="60" cy="26" rx="20" ry="6" fill="#FFFFFF" stroke="#CCCCCC" stroke-width="2"/>
@@ -288,51 +352,38 @@
                                 <path d="M83 65 Q 94 60 90 50" stroke="#5C2C16" stroke-width="5" stroke-linecap="round" fill="none"/>
                                 <path d="M48 98 L 44 108" stroke="#1A0C01" stroke-width="5" stroke-linecap="round"/>
                                 <path d="M72 98 L 76 108" stroke="#1A0C01" stroke-width="5" stroke-linecap="round"/>
-                                <circle cx="53" cy="62" r="2.5" fill="#1A0C01"/>
-                                <circle cx="67" cy="62" r="2.5" fill="#1A0C01"/>
+                                <circle cx="53" cy="62" r="2.5" fill="#1A0C01"/><circle cx="67" cy="62" r="2.5" fill="#1A0C01"/>
                                 <path d="M58 68 Q 60 71 62 68" stroke="#1A0C01" stroke-width="2" stroke-linecap="round" fill="none"/>
                             </svg>
-
-                            <!-- PERSONAJE 5: CONO 3D -->
                             <svg id="mascot-5" viewBox="0 0 120 120" class="w-48 h-48 sm:w-56 sm:h-56 filter drop-shadow-xl hidden">
                                 <ellipse cx="60" cy="112" rx="24" ry="5" fill="#000000" opacity="0.4"/>
                                 <path d="M42 55 L 60 108 L 78 55 Z" fill="#E89A3E" stroke="#B86D1B" stroke-width="3"/>
                                 <path d="M45 60 L 75 60 M48 70 L 72 70 M51 80 L 69 80 M54 90 L 66 90" stroke="#C27A23" stroke-width="2"/>
                                 <path d="M38 58 Q 35 40 60 36 Q 85 40 82 58 Z" fill="#FF8DA1"/>
                                 <path d="M42 45 Q 60 22 78 45 Q 84 52 76 54 Q 68 48 60 52 Q 52 48 44 54 Z" fill="#4A2511"/>
-                                <circle cx="60" cy="22" r="7" fill="#E50914"/>
-                                <circle cx="52" cy="46" r="2.5" fill="#FFF"/>
-                                <circle cx="68" cy="46" r="2.5" fill="#FFF"/>
+                                <circle cx="60" cy="22" r="7" fill="#E50914"/><circle cx="52" cy="46" r="2.5" fill="#FFF"/><circle cx="68" cy="46" r="2.5" fill="#FFF"/>
                                 <path d="M57 50 Q 60 53 63 50" stroke="#FFF" stroke-width="2" stroke-linecap="round" fill="none"/>
                             </svg>
-
-                            <!-- PERSONAJE 6: COPA CHIPS -->
                             <svg id="mascot-6" viewBox="0 0 120 120" class="w-48 h-48 sm:w-56 sm:h-56 filter drop-shadow-xl hidden">
                                 <ellipse cx="60" cy="110" rx="30" ry="6" fill="#000000" opacity="0.4"/>
                                 <path d="M34 60 L 38 102 C 38 105 42 107 46 107 L 74 107 C 78 107 82 105 82 102 L 86 60 Z" fill="#FFC0CB" stroke="#E50914" stroke-width="2.5"/>
                                 <path d="M32 62 C 28 42, 92 42, 88 62 Z" fill="#FFEAA7"/>
                                 <rect x="26" y="28" width="22" height="28" rx="3" fill="#3B1A0A" transform="rotate(-20 26 28)"/>
-                                <circle cx="50" cy="62" r="2.5" fill="#3B1A0A"/>
-                                <circle cx="66" cy="62" r="2.5" fill="#3B1A0A"/>
+                                <circle cx="50" cy="62" r="2.5" fill="#3B1A0A"/><circle cx="66" cy="62" r="2.5" fill="#3B1A0A"/>
                                 <path d="M55 67 Q 58 70 61 67" stroke="#3B1A0A" stroke-width="2" stroke-linecap="round" fill="none"/>
                             </svg>
-
-                            <!-- PERSONAJE 7: COPA CHOCO -->
                             <svg id="mascot-7" viewBox="0 0 120 120" class="w-48 h-48 sm:w-56 sm:h-56 filter drop-shadow-xl hidden">
                                 <ellipse cx="60" cy="110" rx="30" ry="6" fill="#000000" opacity="0.4"/>
                                 <path d="M34 60 L 38 102 C 38 105 42 107 46 107 L 74 107 C 78 107 82 105 82 102 L 86 60 Z" fill="#FFF3BF" stroke="#D97706" stroke-width="2.5"/>
                                 <path d="M32 62 C 28 38, 92 38, 88 62 Z" fill="#FF8DA1"/>
                                 <path d="M32 54 C 36 32, 84 32, 88 54 C 88 68, 78 72, 70 65 C 64 60, 56 75, 48 66 Z" fill="#3B1A0A"/>
-                                <circle cx="50" cy="52" r="2.5" fill="#FFF"/>
-                                <circle cx="66" cy="52" r="2.5" fill="#FFF"/>
+                                <circle cx="50" cy="52" r="2.5" fill="#FFF"/><circle cx="66" cy="52" r="2.5" fill="#FFF"/>
                                 <path d="M55 57 Q 58 60 61 57" stroke="#FFF" stroke-width="2" stroke-linecap="round" fill="none"/>
                             </svg>
-
                         </div>
                     </div>
                 </div>
 
-                <!-- Selector de Personajes 3D -->
                 <div class="w-full mt-2 mb-3 bg-[#12141C] p-2 rounded-2xl border border-gray-800 flex items-center justify-start gap-2 overflow-x-auto">
                     <button class="character-btn flex-shrink-0 py-1.5 px-3 rounded-xl text-xs font-bold bg-popcorn-subCard text-popcorn-butter border border-popcorn-red btn-anim flex items-center gap-1.5" data-char="1">Cotufa</button>
                     <button class="character-btn flex-shrink-0 py-1.5 px-3 rounded-xl text-xs font-semibold bg-[#161820] text-gray-400 border border-gray-800 hover:text-white btn-anim flex items-center gap-1.5" data-char="2">Dona <span class="text-[9px] bg-popcorn-red text-white px-1 rounded">VIP</span></button>
@@ -343,22 +394,18 @@
                     <button class="character-btn flex-shrink-0 py-1.5 px-3 rounded-xl text-xs font-semibold bg-[#161820] text-gray-400 border border-gray-800 hover:text-white btn-anim flex items-center gap-1.5" data-char="7">Copa Choco 3D <span class="text-[9px] bg-popcorn-red text-white px-1 rounded">VIP</span></button>
                 </div>
 
-                <!-- Track Details & Live Karaoke Lyrics Box -->
                 <div class="text-center mt-1 mb-2 w-full px-4">
                     <h2 id="song-title" class="font-display text-2xl sm:text-3xl font-bold truncate text-white">Popcorn Player</h2>
                     <p id="song-artist" class="text-gray-400 font-medium text-sm truncate mt-1">Busca tu artista favorito o canción online</p>
-                    
                     <div id="karaoke-lyrics" class="mt-2 text-xs text-popcorn-butter font-semibold bg-[#12141C]/80 py-1.5 px-4 rounded-xl border border-gray-800/80 truncate h-8 flex items-center justify-center">
                         Sincronizando Letra (Karaoke)...
                     </div>
                 </div>
 
-                <!-- Clean Audio Visualizer -->
                 <div class="w-full h-12 my-1 bg-[#10121A] rounded-2xl p-2 border border-gray-800 flex items-center justify-center">
                     <canvas id="visualizer-canvas" class="w-full h-full rounded-lg"></canvas>
                 </div>
 
-                <!-- Progress & Seekbar -->
                 <div class="w-full mt-3">
                     <div class="flex justify-between text-xs text-gray-400 font-mono mb-1 font-semibold">
                         <span id="current-time">0:00</span>
@@ -367,28 +414,25 @@
                     <input type="range" id="progress-bar" min="0" max="100" value="0" class="w-full cursor-pointer">
                 </div>
 
-                <!-- Player Controls -->
-                <div class="w-full flex items-center justify-between mt-5 px-2 sm:px-6">
-                    <button id="btn-shuffle" class="w-10 h-10 rounded-xl bg-popcorn-subCard border border-gray-800 text-gray-400 hover:text-white flex items-center justify-center btn-anim"><i class="fa-solid fa-shuffle text-sm"></i></button>
-                    <button id="btn-prev" class="w-12 h-12 rounded-xl bg-popcorn-subCard border border-gray-800 text-white hover:text-popcorn-butter flex items-center justify-center btn-anim text-lg"><i class="fa-solid fa-backward-step"></i></button>
-                    <button id="btn-play" class="w-16 h-16 rounded-2xl bg-popcorn-red text-white text-2xl flex items-center justify-center shadow-lg hover:bg-popcorn-redDark btn-anim"><i id="play-icon" class="fa-solid fa-play ml-1"></i></button>
-                    <button id="btn-next" class="w-12 h-12 rounded-xl bg-popcorn-subCard border border-gray-800 text-white hover:text-popcorn-butter flex items-center justify-center btn-anim text-lg"><i class="fa-solid fa-forward-step"></i></button>
-                    <button id="btn-repeat" class="w-10 h-10 rounded-xl bg-popcorn-subCard border border-gray-800 text-gray-400 hover:text-white flex items-center justify-center btn-anim"><i class="fa-solid fa-repeat text-sm"></i></button>
+                <div class="w-full flex items-center justify-between mt-5 px-1 sm:px-4">
+                    <button id="btn-shuffle" class="w-10 h-10 rounded-xl bg-popcorn-subCard border border-gray-800 text-gray-400 hover:text-white flex items-center justify-center btn-anim" title="Aleatorio"><i class="fa-solid fa-shuffle text-sm"></i></button>
+                    
+                    <button id="btn-speed" class="w-12 h-10 rounded-xl bg-popcorn-subCard border border-popcorn-red/80 text-popcorn-butter hover:text-white flex items-center justify-center btn-anim text-xs font-bold font-mono shadow-md transition-all" title="Velocidad de Reproducción Manual">1.0x</button>
+                    
+                    <button id="btn-prev" class="w-11 h-11 rounded-xl bg-popcorn-subCard border border-gray-800 text-white hover:text-popcorn-butter flex items-center justify-center btn-anim text-base"><i class="fa-solid fa-backward-step"></i></button>
+                    <button id="btn-play" class="w-14 h-14 rounded-2xl bg-popcorn-red text-white text-xl flex items-center justify-center shadow-lg hover:bg-popcorn-redDark btn-anim"><i id="play-icon" class="fa-solid fa-play ml-1"></i></button>
+                    <button id="btn-next" class="w-11 h-11 rounded-xl bg-popcorn-subCard border border-gray-800 text-white hover:text-popcorn-butter flex items-center justify-center btn-anim text-base"><i class="fa-solid fa-forward-step"></i></button>
+                    <button id="btn-repeat" class="w-10 h-10 rounded-xl bg-popcorn-subCard border border-gray-800 text-gray-400 hover:text-white flex items-center justify-center btn-anim" title="Repetir"><i class="fa-solid fa-repeat text-sm"></i></button>
                 </div>
 
-                <!-- Volume Bar -->
                 <div class="w-full flex items-center justify-end gap-3 mt-5 pt-3 border-t border-gray-800/80 px-2">
                     <button id="btn-mute" class="text-gray-400 hover:text-white text-sm btn-anim p-1"><i id="volume-icon" class="fa-solid fa-volume-high"></i></button>
                     <input type="range" id="volume-bar" min="0" max="1" step="0.01" value="0.85" class="w-28 sm:w-36">
                 </div>
-
             </div>
         </div>
 
-        <!-- Right Sidebar -->
         <div class="lg:col-span-5 w-full space-y-6">
-
-            <!-- Universal Artist & Song Search Bar -->
             <div class="card-3d rounded-3xl p-5 border border-gray-800">
                 <div class="flex items-center justify-between pb-3 border-b border-gray-800">
                     <div class="flex items-center gap-2">
@@ -396,16 +440,12 @@
                         <h3 class="font-bold text-sm text-white">Buscador de Artistas y Canciones</h3>
                     </div>
                 </div>
-
                 <div class="mt-3 flex gap-2">
                     <input type="text" id="global-search-input" placeholder="Ej. Feid, Bad Bunny, Coldplay..." class="flex-1 bg-popcorn-subCard text-xs text-white border border-gray-700 rounded-xl px-3.5 py-2.5 outline-none focus:border-popcorn-red transition">
-                    <button id="btn-global-search" class="bg-popcorn-red hover:bg-popcorn-redDark text-white px-4 py-2.5 rounded-xl text-xs font-bold btn-anim shadow-md">
-                        <i class="fa-solid fa-search"></i>
-                    </button>
+                    <button id="btn-global-search" class="bg-popcorn-red hover:bg-popcorn-redDark text-white px-4 py-2.5 rounded-xl text-xs font-bold btn-anim shadow-md"><i class="fa-solid fa-search"></i></button>
                 </div>
             </div>
 
-            <!-- Library & Search Results Tabs -->
             <div class="card-3d rounded-3xl p-5 flex flex-col h-[400px]">
                 <div class="flex items-center justify-between pb-3 border-b border-gray-800">
                     <div class="flex gap-2">
@@ -415,24 +455,19 @@
                     </div>
                     <span id="library-count" class="text-xs text-gray-400 bg-popcorn-subCard px-2 py-1 rounded-full font-semibold">0 Canciones</span>
                 </div>
-
                 <div id="playlist-container" class="flex-1 overflow-y-auto mt-3 pr-1 space-y-2"></div>
-
                 <div id="empty-playlist" class="flex-1 flex flex-col items-center justify-center text-gray-500 text-xs hidden">
                     <i class="fa-solid fa-music text-3xl mb-2 text-gray-600"></i>
                     <span id="empty-msg">Escribe un artista arriba para ver sus canciones</span>
                 </div>
             </div>
-
         </div>
-
     </main>
 
-    <!-- Professional 10-Band Equalizer & Spatial Audio Drawer (MODIFICADO CON TECNOLOGÍA AIRPODS) -->
+    <!-- Professional 10-Band Equalizer & Spatial Audio Drawer -->
     <div id="settings-modal" class="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex justify-end opacity-0 pointer-events-none transition-opacity duration-300">
         <div class="w-full max-w-xl bg-popcorn-bg border-l border-gray-800 h-full p-6 flex flex-col justify-between transform translate-x-full transition-transform duration-300 overflow-y-auto">
             <div>
-                <!-- Header with Logo and Title -->
                 <div class="flex items-center justify-between pb-4 border-b border-gray-800">
                     <div class="flex items-center gap-3">
                         <div class="w-9 h-9 flex items-center justify-center">
@@ -449,7 +484,6 @@
                     <button id="btn-close-settings" class="w-8 h-8 rounded-full bg-popcorn-subCard text-gray-400 hover:text-white flex items-center justify-center btn-anim"><i class="fa-solid fa-xmark"></i></button>
                 </div>
 
-                <!-- Opciones de Calidad de Audio -->
                 <div class="mt-6">
                     <label class="block text-xs font-semibold text-gray-300 mb-2">Calidad de Audio y Motor Digital</label>
                     <select id="audio-quality-select" class="w-full bg-popcorn-subCard text-xs font-bold text-popcorn-butter border border-gray-700 rounded-xl px-3 py-2.5 outline-none cursor-pointer hover:border-popcorn-red transition">
@@ -461,7 +495,6 @@
                     </select>
                 </div>
 
-                <!-- AirPods Next-Gen Spatial & Noise cancellation Grid -->
                 <div class="mt-6 grid grid-cols-2 gap-3">
                     <button id="btn-spatial-3d" class="p-3 rounded-xl bg-popcorn-subCard border border-gray-700 text-left hover:border-popcorn-red btn-anim flex flex-col gap-1">
                         <div class="flex items-center justify-between w-full">
@@ -470,7 +503,6 @@
                         </div>
                         <span class="text-[10px] text-gray-400">Envolvente Tridimensional</span>
                     </button>
-
                     <button id="btn-noise-cancel" class="p-3 rounded-xl bg-popcorn-subCard border border-gray-700 text-left hover:border-popcorn-red btn-anim flex flex-col gap-1">
                         <div class="flex items-center justify-between w-full">
                             <span class="text-xs font-bold text-white">Cancelación de Ruido</span>
@@ -480,14 +512,11 @@
                     </button>
                 </div>
 
-                <!-- NUEVAS OPCIONES DE AIRPODS DE ÚLTIMA GENERACIÓN -->
                 <div class="mt-4 pt-4 border-t border-gray-800/80">
                     <h4 class="text-xs font-bold text-popcorn-butter uppercase tracking-wider mb-3 flex items-center gap-2">
                         <i class="fa-solid fa-headphones text-popcorn-red"></i> Funciones AirPods Inteligentes
                     </h4>
-
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                        <!-- Detección de Conversación -->
                         <button id="btn-conv-detect" class="p-3 rounded-xl bg-popcorn-subCard border border-gray-700 text-left hover:border-popcorn-red btn-anim flex flex-col gap-1">
                             <div class="flex items-center justify-between w-full">
                                 <span class="text-xs font-bold text-white flex items-center gap-1.5"><i class="fa-solid fa-comments text-popcorn-butter text-[10px]"></i> Detección de Conversación</span>
@@ -495,8 +524,6 @@
                             </div>
                             <span class="text-[10px] text-gray-400">Baja volumen al hablar mediante micrófono</span>
                         </button>
-
-                        <!-- Ecualización Adaptativa y Normalización -->
                         <button id="btn-adaptive-eq" class="p-3 rounded-xl bg-popcorn-subCard border border-gray-700 text-left hover:border-popcorn-red btn-anim flex flex-col gap-1">
                             <div class="flex items-center justify-between w-full">
                                 <span class="text-xs font-bold text-white flex items-center gap-1.5"><i class="fa-solid fa-wand-magic-sparkles text-popcorn-butter text-[10px]"></i> EQ Adaptativa & LUFS</span>
@@ -504,8 +531,6 @@
                             </div>
                             <span class="text-[10px] text-gray-400">Auto-ajuste de graves/agudos y nivelador</span>
                         </button>
-
-                        <!-- Seguimiento Dinámico de Cabeza -->
                         <button id="btn-head-tracking" class="p-3 rounded-xl bg-popcorn-subCard border border-gray-700 text-left hover:border-popcorn-red btn-anim flex flex-col gap-1">
                             <div class="flex items-center justify-between w-full">
                                 <span class="text-xs font-bold text-white flex items-center gap-1.5"><i class="fa-solid fa-compass text-popcorn-butter text-[10px]"></i> Seguimiento Cabeza</span>
@@ -513,8 +538,6 @@
                             </div>
                             <span class="text-[10px] text-gray-400">Orienta el sonido 360° según giroscopio</span>
                         </button>
-
-                        <!-- Protección Auditiva / Aislamiento -->
                         <button id="btn-hearing-protect" class="p-3 rounded-xl bg-popcorn-subCard border border-gray-700 text-left hover:border-popcorn-red btn-anim flex flex-col gap-1">
                             <div class="flex items-center justify-between w-full">
                                 <span class="text-xs font-bold text-white flex items-center gap-1.5"><i class="fa-solid fa-shield-heart text-popcorn-butter text-[10px]"></i> Salud Auditiva OMS</span>
@@ -525,7 +548,6 @@
                     </div>
                 </div>
 
-                <!-- Modos de Transparencia y Audio Adaptativo Manual -->
                 <div class="mt-4">
                     <label class="block text-xs font-semibold text-gray-300 mb-2">Modo de Control de Ruido Personalizado</label>
                     <select id="noise-control-mode-select" class="w-full bg-popcorn-subCard text-xs font-bold text-white border border-gray-700 rounded-xl px-3 py-2.5 outline-none cursor-pointer hover:border-popcorn-red transition">
@@ -536,7 +558,6 @@
                     </select>
                 </div>
 
-                <!-- Reverb / Spatial Acoustics Mode -->
                 <div class="mt-4">
                     <label class="block text-xs font-semibold text-gray-300 mb-2">Efectos Espaciales (Reverb / Eco)</label>
                     <select id="reverb-mode-select" class="w-full bg-popcorn-subCard text-xs font-bold text-white border border-gray-700 rounded-xl px-3 py-2.5 outline-none cursor-pointer hover:border-popcorn-red transition">
@@ -548,7 +569,6 @@
                     </select>
                 </div>
 
-                <!-- 10-Band Equalizer -->
                 <div class="mt-6 pt-4 border-t border-gray-800">
                     <h4 class="text-xs font-bold text-gray-300 mb-4">Ecualizador de 10 Bandas</h4>
                     <div class="grid grid-cols-5 sm:grid-cols-10 gap-2 text-center">
@@ -586,7 +606,6 @@
                 </div>
                 <button id="btn-close-auth" class="w-8 h-8 rounded-full bg-popcorn-subCard text-gray-400 hover:text-white flex items-center justify-center btn-anim"><i class="fa-solid fa-xmark"></i></button>
             </div>
-
             <form id="auth-form" class="space-y-4">
                 <div>
                     <label class="block text-xs font-semibold text-gray-300 mb-1.5">Nombre de Usuario</label>
@@ -613,10 +632,34 @@
         </div>
     </div>
 
-    <!-- CORS crossOrigin set explicitly -->
     <audio id="main-audio" crossorigin="anonymous"></audio>
 
     <script>
+        // LÓGICA DE INTRO DE 7 SEGUNDOS Y ALERTA DE BIENVENIDA GRANDE
+        window.addEventListener('DOMContentLoaded', () => {
+            const splash = document.getElementById('splash-screen');
+            const proModal = document.getElementById('pro-welcome-modal');
+            const btnEnter = document.getElementById('btn-enter-app');
+
+            // Duración exacta de 7 segundos para la pantalla de carga animada
+            setTimeout(() => {
+                splash.classList.add('opacity-0', 'pointer-events-none');
+                setTimeout(() => {
+                    splash.style.display = 'none';
+                    proModal.classList.remove('opacity-0', 'pointer-events-none');
+                    proModal.children[0].classList.remove('scale-95');
+                    proModal.children[0].classList.add('scale-100');
+                }, 700);
+            }, 7000);
+
+            // Botón Continuar de la alerta grande
+            btnEnter.onclick = () => {
+                proModal.classList.add('opacity-0', 'pointer-events-none');
+                proModal.children[0].classList.remove('scale-100');
+                proModal.children[0].classList.add('scale-95');
+            };
+        });
+
         function sanitizeInput(str) {
             const temp = document.createElement('div');
             temp.textContent = str;
@@ -629,6 +672,7 @@
         const playIcon = document.getElementById('play-icon');
         const btnNext = document.getElementById('btn-next');
         const btnPrev = document.getElementById('btn-prev');
+        const btnSpeed = document.getElementById('btn-speed');
         const progressBar = document.getElementById('progress-bar');
         const currentTimeElem = document.getElementById('current-time');
         const totalDurationElem = document.getElementById('total-duration');
@@ -647,7 +691,6 @@
         const trackBadge = document.getElementById('track-number-badge');
         const mascotWrapper = document.getElementById('mascot-anim-wrapper');
         
-        // Elementos de Menú y Sonido AirPods
         const audioQualitySelect = document.getElementById('audio-quality-select');
         const reverbModeSelect = document.getElementById('reverb-mode-select');
         const noiseControlModeSelect = document.getElementById('noise-control-mode-select');
@@ -656,7 +699,6 @@
         const btnNoiseCancel = document.getElementById('btn-noise-cancel');
         const noiseIndicator = document.getElementById('noise-indicator');
         
-        // Botones de AirPods Tech Nuevos
         const btnConvDetect = document.getElementById('btn-conv-detect');
         const convIndicator = document.getElementById('conv-indicator');
         const btnAdaptiveEq = document.getElementById('btn-adaptive-eq');
@@ -691,13 +733,15 @@
         let currentCharacter = 1;
         let isRegistered = false;
         
-        // Banderas de estado AirPods Tech
         let spatial3DActive = false;
         let noiseCancelActive = false;
         let convDetectActive = false;
         let adaptiveEqActive = false;
         let headTrackingActive = false;
         let hearingProtectActive = false;
+
+        const availableSpeeds = [1.0, 1.25, 1.5, 2.0, 0.75];
+        let speedIndex = 0;
 
         let micStream = null;
         let micAudioCtx = null;
@@ -872,7 +916,6 @@
             return '#FFF8E7';
         }
 
-        // Web Audio API & Professional Sound Chain (PROCESADOR AIRPODS EN CADENA)
         let audioCtx, analyser, source, compressor;
         let eqFilters = [];
         let pannerNode, delayNode, feedbackNode, noiseFilterNode;
@@ -904,7 +947,6 @@
                 });
 
                 pannerNode = audioCtx.createStereoPanner ? audioCtx.createStereoPanner() : null;
-
                 delayNode = audioCtx.createDelay();
                 feedbackNode = audioCtx.createGain();
 
@@ -982,7 +1024,6 @@
             }
         };
 
-        // Selector Manual de Transparencia y Ruido AirPods
         noiseControlModeSelect.onchange = (e) => {
             const val = e.target.value;
             if (!audioCtx) return;
@@ -1005,9 +1046,6 @@
             }
         };
 
-        // --- SISTEMA DE AIRPODS DE ÚLTIMA GENERACIÓN EN CÓDIGO ---
-
-        // 1. Detección de Conversación (Uso de Micrófono Inteligente)
         async function initMicrophoneListening() {
             if (micStream) return;
             try {
@@ -1037,11 +1075,10 @@
             for (let i = 0; i < micData.length; i++) sum += micData[i];
             const avgVolume = sum / micData.length;
 
-            // Detección inteligente de rango de voz humana
             if (convDetectActive && avgVolume > 35) {
                 if (!isSpeakingDucked) {
                     isSpeakingDucked = true;
-                    audio.volume = 0.15; // Baja el volumen al hablar
+                    audio.volume = 0.15;
                     statusText.textContent = 'Hablando (Volumen bajo)';
                     karaokeLyrics.textContent = '🗣️ Detección de Conversación Activada';
                 }
@@ -1062,13 +1099,11 @@
             if (convDetectActive) initMicrophoneListening();
         };
 
-        // 2. Ecualización Adaptativa y Normalización de Volumen LUFS
         btnAdaptiveEq.onclick = () => {
             adaptiveEqActive = !adaptiveEqActive;
             adaptiveEqIndicator.className = `w-2 h-2 rounded-full ${adaptiveEqActive ? 'bg-green-500' : 'bg-gray-500'}`;
         };
 
-        // 3. Seguimiento Dinámico de la Cabeza 360° (Gyroscope + Spatial)
         btnHeadTracking.onclick = () => {
             headTrackingActive = !headTrackingActive;
             headTrackingIndicator.className = `w-2 h-2 rounded-full ${headTrackingActive ? 'bg-green-500 animate-pulse' : 'bg-gray-500'}`;
@@ -1077,7 +1112,7 @@
                 if (window.DeviceOrientationEvent) {
                     window.addEventListener('deviceorientation', handleHeadOrientation);
                 } else {
-                    alert('Sensor de giroscopio no disponible en este dispositivo. Usando simulación dinámica.');
+                    alert('Sensor de giroscopio no disponible en este dispositivo.');
                 }
             } else {
                 window.removeEventListener('deviceorientation', handleHeadOrientation);
@@ -1087,14 +1122,13 @@
 
         function handleHeadOrientation(event) {
             if (!headTrackingActive || !pannerNode) return;
-            const gamma = event.gamma; // -90 a 90 (Inclinación de cabeza)
+            const gamma = event.gamma;
             if (gamma) {
                 const panVal = Math.max(-1, Math.min(1, gamma / 45));
                 pannerNode.pan.value = panVal;
             }
         }
 
-        // 4. Protección Auditiva Saludable OMS
         btnHearingProtect.onclick = () => {
             hearingProtectActive = !hearingProtectActive;
             hearingIndicator.className = `w-2 h-2 rounded-full ${hearingProtectActive ? 'bg-green-500' : 'bg-gray-500'}`;
@@ -1131,6 +1165,15 @@
             }
         };
 
+        btnSpeed.onclick = () => {
+            speedIndex = (speedIndex + 1) % availableSpeeds.length;
+            const currentSpeed = availableSpeeds[speedIndex];
+            audio.playbackRate = currentSpeed;
+            btnSpeed.textContent = `${currentSpeed}x`;
+            statusText.textContent = `Velocidad: ${currentSpeed}x`;
+            setTimeout(() => { statusText.textContent = isPlaying ? "Reproduciendo" : "Listo"; }, 2000);
+        };
+
         eqSliders.forEach((slider, idx) => {
             slider.oninput = () => {
                 const val = parseFloat(slider.value);
@@ -1159,22 +1202,19 @@
             const barWidth = (visualizerCanvas.width / bufferLength) * 2;
             let x = 0;
             let bassSum = 0;
-            let trebleSum = 0;
 
             for (let i = 0; i < bufferLength; i++) {
                 if (i < 4) bassSum += dataArray[i];
-                if (i > bufferLength - 6) trebleSum += dataArray[i];
                 const barHeight = (dataArray[i] / 255) * visualizerCanvas.height;
                 canvasCtx.fillStyle = '#E50914';
                 canvasCtx.fillRect(x, visualizerCanvas.height - barHeight, barWidth - 1, barHeight);
                 x += barWidth;
             }
 
-            // Lógica de EQ Adaptativa y Normalización LUFS en tiempo real
             if (adaptiveEqActive && isPlaying && eqFilters.length >= 10) {
                 const bassAvg = bassSum / 4;
                 if (bassAvg < 100) {
-                    eqFilters[0].gain.value = 4; // Refuerza graves
+                    eqFilters[0].gain.value = 4;
                     eqFilters[1].gain.value = 3;
                 } else {
                     eqFilters[0].gain.value = 0;
@@ -1326,6 +1366,7 @@
 
         function playTrack() {
             initAudioContext();
+            audio.playbackRate = availableSpeeds[speedIndex];
             audio.play().then(() => {
                 isPlaying = true;
                 playIcon.className = 'fa-solid fa-pause';
