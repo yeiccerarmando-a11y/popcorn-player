@@ -1,4 +1,3 @@
-```html
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -109,6 +108,15 @@
             border: 1px solid rgba(255, 255, 255, 0.07);
             box-shadow: 0 12px 32px rgba(0, 0, 0, 0.5);
         }
+
+        @keyframes dance {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            25% { transform: translateY(-8px) rotate(-3deg); }
+            75% { transform: translateY(-4px) rotate(3deg); }
+        }
+        .dancing {
+            animation: dance 0.6s infinite ease-in-out;
+        }
     </style>
 </head>
 <body class="min-h-screen flex flex-col justify-between select-none">
@@ -147,6 +155,11 @@
         </div>
 
         <div class="flex items-center gap-3">
+            <button id="btn-open-auth" class="bg-popcorn-subCard border border-gray-700/60 hover:border-popcorn-red text-white px-3.5 py-2 rounded-xl font-semibold text-xs sm:text-sm btn-anim flex items-center gap-2">
+                <i class="fa-solid fa-user text-popcorn-butter"></i>
+                <span id="auth-btn-label">Iniciar Sesión</span>
+            </button>
+
             <label for="audio-file-input" class="cursor-pointer bg-popcorn-red hover:bg-popcorn-redDark text-white px-4 py-2 rounded-xl font-semibold text-xs sm:text-sm btn-anim flex items-center gap-2 shadow-md">
                 <i class="fa-solid fa-folder-plus text-popcorn-butter"></i>
                 <span class="hidden sm:inline">Subir Música</span>
@@ -177,25 +190,25 @@
                     </span>
                 </div>
 
-                <!-- 3D Mascot Stage with Popping Particles Canvas -->
+                <!-- 3D Mascot Stage with Particles Canvas -->
                 <div class="my-4 flex items-center justify-center relative">
                     <div id="mascot-box" class="w-60 h-60 sm:w-64 sm:h-64 rounded-3xl bg-[#12141C] border border-gray-800/80 p-4 flex flex-col items-center justify-center shadow-inner relative overflow-hidden">
                         
-                        <!-- Canvas for Floating 3D Popcorn Particles -->
+                        <!-- Canvas for Floating Particles / Sprinkles / Chocolate / Popcorn -->
                         <canvas id="particles-canvas" class="absolute inset-0 w-full h-full pointer-events-none z-10"></canvas>
 
                         <!-- Dynamic Dance Mascot Container -->
                         <div id="mascot-anim-wrapper" class="relative z-0 transition-transform duration-75">
-                            <svg id="main-popcorn-svg" viewBox="0 0 120 120" class="w-44 h-44 sm:w-52 sm:h-52">
+                            
+                            <!-- PERSONAJE 1: COTUFA (PALOMITA) -->
+                            <svg id="mascot-1" viewBox="0 0 120 120" class="w-44 h-44 sm:w-52 sm:h-52">
                                 <ellipse cx="60" cy="110" rx="32" ry="7" fill="#000000" opacity="0.5"/>
                                 <path d="M35 45 L42 102 C42 105 45 107 48 107 L72 107 C75 107 78 105 78 102 L85 45 Z" fill="#E50914"/>
                                 <path d="M44 45 L48 107 L54 107 L51 45 Z" fill="#FFFFFF"/>
                                 <path d="M60 45 L60 107 L66 107 L66 45 Z" fill="#FFFFFF"/>
                                 <path d="M72 45 L72 107 L78 107 L75 45 Z" fill="#FFFFFF"/>
-                                
                                 <ellipse cx="60" cy="45" rx="25" ry="4" fill="#B20710"/>
                                 <ellipse cx="60" cy="43" rx="25" ry="4" fill="#E50914"/>
-                                
                                 <circle cx="43" cy="38" r="9.5" fill="#FFC107"/>
                                 <circle cx="43" cy="36" r="8.5" fill="#FFF8E7"/>
                                 <circle cx="60" cy="31" r="11.5" fill="#FFC107"/>
@@ -205,25 +218,108 @@
                                 <circle cx="50" cy="25" r="8.5" fill="#FFF8E7"/>
                                 <circle cx="70" cy="26" r="8.5" fill="#FFF8E7"/>
                                 <circle cx="60" cy="22" r="7" fill="#FFF8E7"/>
-
                                 <path d="M22 58 C 18 16, 102 16, 98 58" stroke="#1E202B" stroke-width="8" stroke-linecap="round" fill="none"/>
                                 <path d="M22 58 C 18 16, 102 16, 98 58" stroke="#E50914" stroke-width="5" stroke-linecap="round" fill="none"/>
                                 <rect x="14" y="48" width="14" height="26" rx="6" fill="#161820" stroke="#E50914" stroke-width="2.5"/>
                                 <rect x="92" y="48" width="14" height="26" rx="6" fill="#161820" stroke="#E50914" stroke-width="2.5"/>
-                                
-                                <circle id="eye-left" cx="51" cy="70" r="3" fill="#161820"/>
-                                <circle id="eye-right" cx="69" cy="70" r="3" fill="#161820"/>
+                                <circle cx="51" cy="70" r="3" fill="#161820"/>
+                                <circle cx="69" cy="70" r="3" fill="#161820"/>
                                 <circle cx="45" cy="74" r="2.5" fill="#E50914" opacity="0.6"/>
                                 <circle cx="75" cy="74" r="2.5" fill="#E50914" opacity="0.6"/>
-                                <path id="mouth-path" d="M56 77 Q60 82 64 77" stroke="#161820" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+                                <path d="M56 77 Q60 82 64 77" stroke="#161820" stroke-width="2.5" stroke-linecap="round" fill="none"/>
                             </svg>
+
+                            <!-- PERSONAJE 2: DONA ANIMADA 3D CON AUDÍFONOS -->
+                            <svg id="mascot-2" viewBox="0 0 120 120" class="w-44 h-44 sm:w-52 sm:h-52 hidden">
+                                <ellipse cx="60" cy="110" rx="30" ry="6" fill="#000000" opacity="0.5"/>
+                                <!-- Audífono arco -->
+                                <path d="M28 65 C 20 10, 100 10, 92 65" stroke="#E50914" stroke-width="6" stroke-linecap="round" fill="none"/>
+                                <!-- Dona Base (Rosa/Fucsia) -->
+                                <circle cx="60" cy="65" r="32" fill="#FF69B4" stroke="#C71585" stroke-width="3"/>
+                                <circle cx="60" cy="65" r="12" fill="#12141C"/>
+                                <!-- Glaseado y chispas detalladas -->
+                                <path d="M35 55 Q 60 35 85 55 Q 95 75 75 85 Q 60 95 45 85 Q 25 75 35 55 Z" fill="#FF1493" opacity="0.9"/>
+                                <circle cx="42" cy="48" r="2.5" fill="#FFD700"/><circle cx="52" cy="42" r="2.5" fill="#00FFFF"/><circle cx="70" cy="45" r="2.5" fill="#ADFF2F"/><circle cx="78" cy="58" r="2.5" fill="#FFFFFF"/><circle cx="45" cy="78" r="2.5" fill="#FFA500"/>
+                                <!-- Bracitos y Patitas -->
+                                <path d="M28 65 Q 18 60 22 52" stroke="#FF69B4" stroke-width="5" stroke-linecap="round" fill="none"/>
+                                <path d="M92 65 Q 102 60 98 52" stroke="#FF69B4" stroke-width="5" stroke-linecap="round" fill="none"/>
+                                <path d="M48 95 L 42 108" stroke="#C71585" stroke-width="5" stroke-linecap="round"/>
+                                <path d="M72 95 L 78 108" stroke="#C71585" stroke-width="5" stroke-linecap="round"/>
+                                <!-- Audífonos orejeras -->
+                                <rect x="20" y="55" width="12" height="20" rx="6" fill="#161820" stroke="#FFD700" stroke-width="2"/>
+                                <rect x="88" y="55" width="12" height="20" rx="6" fill="#161820" stroke="#FFD700" stroke-width="2"/>
+                                <!-- Carita -->
+                                <circle cx="53" cy="63" r="3" fill="#161820"/>
+                                <circle cx="67" cy="63" r="3" fill="#161820"/>
+                                <path d="M57 70 Q 60 74 63 70" stroke="#161820" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+                            </svg>
+
+                            <!-- PERSONAJE 3: BARRA DE CHOCOLATE 3D -->
+                            <svg id="mascot-3" viewBox="0 0 120 120" class="w-44 h-44 sm:w-52 sm:h-52 hidden">
+                                <ellipse cx="60" cy="110" rx="28" ry="6" fill="#000000" opacity="0.5"/>
+                                <!-- Cuerpo Chocolate -->
+                                <rect x="36" y="30" width="48" height="68" rx="8" fill="#5C2C16" stroke="#3B1A0A" stroke-width="3"/>
+                                <!-- Cuadritos de la barra -->
+                                <line x1="36" y1="53" x2="84" y2="53" stroke="#3B1A0A" stroke-width="2"/>
+                                <line x1="36" y1="76" x2="84" y2="76" stroke="#3B1A0A" stroke-width="2"/>
+                                <line x1="60" y1="30" x2="60" y2="98" stroke="#3B1A0A" stroke-width="2"/>
+                                <!-- Manitos y Patitas -->
+                                <path d="M36 60 Q 24 55 28 45" stroke="#5C2C16" stroke-width="5" stroke-linecap="round" fill="none"/>
+                                <path d="M84 60 Q 96 55 92 45" stroke="#5C2C16" stroke-width="5" stroke-linecap="round" fill="none"/>
+                                <path d="M46 98 L 42 108" stroke="#3B1A0A" stroke-width="5" stroke-linecap="round"/>
+                                <path d="M74 98 L 78 108" stroke="#3B1A0A" stroke-width="5" stroke-linecap="round"/>
+                                <!-- Carita -->
+                                <circle cx="51" cy="60" r="3" fill="#FFF8E7"/>
+                                <circle cx="69" cy="60" r="3" fill="#FFF8E7"/>
+                                <path d="M56 68 Q 60 73 64 68" stroke="#FFF8E7" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+                            </svg>
+
+                            <!-- PERSONAJE 4: POTE DE NUTELLA 3D -->
+                            <svg id="mascot-4" viewBox="0 0 120 120" class="w-44 h-44 sm:w-52 sm:h-52 hidden">
+                                <ellipse cx="60" cy="110" rx="30" ry="6" fill="#000000" opacity="0.5"/>
+                                <!-- Tapa blanca destapada arriba -->
+                                <ellipse cx="60" cy="26" rx="20" ry="6" fill="#FFFFFF" stroke="#CCCCCC" stroke-width="2"/>
+                                <!-- Pote de vidrio/cuerpo -->
+                                <path d="M40 32 L 35 92 C 35 96 40 98 44 98 L 76 98 C 80 98 85 96 85 92 L 80 32 Z" fill="#2E1503" stroke="#1A0C01" stroke-width="3"/>
+                                <!-- Etiqueta central -->
+                                <rect x="42" y="48" width="36" height="32" rx="4" fill="#FFFFFF" stroke="#E50914" stroke-width="1.5"/>
+                                <text x="60" y="68" font-family="Outfit" font-size="11" font-weight="bold" fill="#E50914" text-anchor="middle">NUTE</text>
+                                <!-- Chocolate derramandose -->
+                                <path d="M50 32 Q 55 40 53 48 Q 65 42 70 32 Z" fill="#5C2C16"/>
+                                <!-- Manitos y Patitas -->
+                                <path d="M37 65 Q 26 60 30 50" stroke="#5C2C16" stroke-width="5" stroke-linecap="round" fill="none"/>
+                                <path d="M83 65 Q 94 60 90 50" stroke="#5C2C16" stroke-width="5" stroke-linecap="round" fill="none"/>
+                                <path d="M48 98 L 44 108" stroke="#1A0C01" stroke-width="5" stroke-linecap="round"/>
+                                <path d="M72 98 L 76 108" stroke="#1A0C01" stroke-width="5" stroke-linecap="round"/>
+                                <!-- Carita en la etiqueta -->
+                                <circle cx="53" cy="62" r="2.5" fill="#1A0C01"/>
+                                <circle cx="67" cy="62" r="2.5" fill="#1A0C01"/>
+                                <path d="M58 68 Q 60 71 62 68" stroke="#1A0C01" stroke-width="2" stroke-linecap="round" fill="none"/>
+                            </svg>
+
                         </div>
 
                     </div>
                 </div>
 
+                <!-- Selector de Personajes -->
+                <div class="w-full mt-2 mb-3 bg-[#12141C] p-2.5 rounded-2xl border border-gray-800 flex items-center justify-between gap-1 overflow-x-auto">
+                    <button class="character-btn flex-1 py-1.5 px-2 rounded-xl text-xs font-bold bg-popcorn-subCard text-popcorn-butter border border-popcorn-red btn-anim flex items-center justify-center gap-1.5" data-char="1">
+                        <i class="fa-solid fa-cookie"></i> Cotufa
+                    </button>
+                    <button class="character-btn flex-1 py-1.5 px-2 rounded-xl text-xs font-semibold bg-[#161820] text-gray-400 border border-gray-800 hover:text-white btn-anim flex items-center justify-center gap-1.5" data-char="2">
+                        <i class="fa-solid fa-circle-notch"></i> Dona <span class="text-[9px] bg-popcorn-red text-white px-1 rounded">VIP</span>
+                    </button>
+                    <button class="character-btn flex-1 py-1.5 px-2 rounded-xl text-xs font-semibold bg-[#161820] text-gray-400 border border-gray-800 hover:text-white btn-anim flex items-center justify-center gap-1.5" data-char="3">
+                        <i class="fa-solid fa-cube"></i> Choco <span class="text-[9px] bg-popcorn-red text-white px-1 rounded">VIP</span>
+                    </button>
+                    <button class="character-btn flex-1 py-1.5 px-2 rounded-xl text-xs font-semibold bg-[#161820] text-gray-400 border border-gray-800 hover:text-white btn-anim flex items-center justify-center gap-1.5" data-char="4">
+                        <i class="fa-solid fa-jar"></i> Nutella <span class="text-[9px] bg-popcorn-red text-white px-1 rounded">VIP</span>
+                    </button>
+                </div>
+
                 <!-- Track Details -->
-                <div class="text-center mt-2 mb-4 w-full px-4">
+                <div class="text-center mt-1 mb-3 w-full px-4">
                     <h2 id="song-title" class="font-display text-2xl sm:text-3xl font-bold truncate text-white">
                         Popcorn Player
                     </h2>
@@ -364,650 +460,484 @@
                     </button>
                 </div>
 
-                <!-- 10 Band Sliders Grid -->
-                <div class="grid grid-cols-5 sm:grid-cols-10 gap-2 my-8 text-center">
-                    <div class="flex flex-col items-center gap-1">
-                        <span id="eq-val-0" class="text-[9px] font-mono text-gray-400">0dB</span>
-                        <input type="range" id="eq-band-0" min="-12" max="12" value="0" step="1" class="eq-slider accent-popcorn-red">
-                        <span class="text-[9px] font-bold text-gray-400 mt-1">31Hz</span>
-                    </div>
-                    <div class="flex flex-col items-center gap-1">
-                        <span id="eq-val-1" class="text-[9px] font-mono text-gray-400">0dB</span>
-                        <input type="range" id="eq-band-1" min="-12" max="12" value="0" step="1" class="eq-slider accent-popcorn-red">
-                        <span class="text-[9px] font-bold text-gray-400 mt-1">63Hz</span>
-                    </div>
-                    <div class="flex flex-col items-center gap-1">
-                        <span id="eq-val-2" class="text-[9px] font-mono text-gray-400">0dB</span>
-                        <input type="range" id="eq-band-2" min="-12" max="12" value="0" step="1" class="eq-slider accent-popcorn-red">
-                        <span class="text-[9px] font-bold text-gray-400 mt-1">125Hz</span>
-                    </div>
-                    <div class="flex flex-col items-center gap-1">
-                        <span id="eq-val-3" class="text-[9px] font-mono text-gray-400">0dB</span>
-                        <input type="range" id="eq-band-3" min="-12" max="12" value="0" step="1" class="eq-slider accent-popcorn-red">
-                        <span class="text-[9px] font-bold text-gray-400 mt-1">250Hz</span>
-                    </div>
-                    <div class="flex flex-col items-center gap-1">
-                        <span id="eq-val-4" class="text-[9px] font-mono text-gray-400">0dB</span>
-                        <input type="range" id="eq-band-4" min="-12" max="12" value="0" step="1" class="eq-slider accent-popcorn-red">
-                        <span class="text-[9px] font-bold text-gray-400 mt-1">500Hz</span>
-                    </div>
-                    <div class="flex flex-col items-center gap-1">
-                        <span id="eq-val-5" class="text-[9px] font-mono text-gray-400">0dB</span>
-                        <input type="range" id="eq-band-5" min="-12" max="12" value="0" step="1" class="eq-slider accent-popcorn-red">
-                        <span class="text-[9px] font-bold text-gray-400 mt-1">1kHz</span>
-                    </div>
-                    <div class="flex flex-col items-center gap-1">
-                        <span id="eq-val-6" class="text-[9px] font-mono text-gray-400">0dB</span>
-                        <input type="range" id="eq-band-6" min="-12" max="12" value="0" step="1" class="eq-slider accent-popcorn-red">
-                        <span class="text-[9px] font-bold text-gray-400 mt-1">2kHz</span>
-                    </div>
-                    <div class="flex flex-col items-center gap-1">
-                        <span id="eq-val-7" class="text-[9px] font-mono text-gray-400">0dB</span>
-                        <input type="range" id="eq-band-7" min="-12" max="12" value="0" step="1" class="eq-slider accent-popcorn-red">
-                        <span class="text-[9px] font-bold text-gray-400 mt-1">4kHz</span>
-                    </div>
-                    <div class="flex flex-col items-center gap-1">
-                        <span id="eq-val-8" class="text-[9px] font-mono text-gray-400">0dB</span>
-                        <input type="range" id="eq-band-8" min="-12" max="12" value="0" step="1" class="eq-slider accent-popcorn-red">
-                        <span class="text-[9px] font-bold text-gray-400 mt-1">8kHz</span>
-                    </div>
-                    <div class="flex flex-col items-center gap-1">
-                        <span id="eq-val-9" class="text-[9px] font-mono text-gray-400">0dB</span>
-                        <input type="range" id="eq-band-9" min="-12" max="12" value="0" step="1" class="eq-slider accent-popcorn-red">
-                        <span class="text-[9px] font-bold text-gray-400 mt-1">16kHz</span>
-                    </div>
-                </div>
-
-                <div class="space-y-4 pt-4 border-t border-gray-800">
-                    <button id="btn-reset-eq" class="w-full py-3 rounded-xl bg-popcorn-subCard hover:bg-gray-800 border border-gray-700 text-popcorn-butter font-semibold text-xs btn-anim flex items-center justify-center gap-2">
-                        <i class="fa-solid fa-rotate-left"></i>
-                        Restablecer Filtros
-                    </button>
+                <!-- Sliders Grid -->
+                <div class="grid grid-cols-5 sm:grid-cols-10 gap-2 mt-6 text-center">
+                    <div class="flex flex-col items-center gap-2"><span class="text-[10px] text-gray-400">32Hz</span><input type="range" class="eq-band eq-slider" data-freq="32" min="-12" max="12" value="0"></div>
+                    <div class="flex flex-col items-center gap-2"><span class="text-[10px] text-gray-400">64Hz</span><input type="range" class="eq-band eq-slider" data-freq="64" min="-12" max="12" value="0"></div>
+                    <div class="flex flex-col items-center gap-2"><span class="text-[10px] text-gray-400">125Hz</span><input type="range" class="eq-band eq-slider" data-freq="125" min="-12" max="12" value="0"></div>
+                    <div class="flex flex-col items-center gap-2"><span class="text-[10px] text-gray-400">250Hz</span><input type="range" class="eq-band eq-slider" data-freq="250" min="-12" max="12" value="0"></div>
+                    <div class="flex flex-col items-center gap-2"><span class="text-[10px] text-gray-400">500Hz</span><input type="range" class="eq-band eq-slider" data-freq="500" min="-12" max="12" value="0"></div>
+                    <div class="flex flex-col items-center gap-2"><span class="text-[10px] text-gray-400">1kHz</span><input type="range" class="eq-band eq-slider" data-freq="1000" min="-12" max="12" value="0"></div>
+                    <div class="flex flex-col items-center gap-2"><span class="text-[10px] text-gray-400">2kHz</span><input type="range" class="eq-band eq-slider" data-freq="2000" min="-12" max="12" value="0"></div>
+                    <div class="flex flex-col items-center gap-2"><span class="text-[10px] text-gray-400">4kHz</span><input type="range" class="eq-band eq-slider" data-freq="4000" min="-12" max="12" value="0"></div>
+                    <div class="flex flex-col items-center gap-2"><span class="text-[10px] text-gray-400">8kHz</span><input type="range" class="eq-band eq-slider" data-freq="8000" min="-12" max="12" value="0"></div>
+                    <div class="flex flex-col items-center gap-2"><span class="text-[10px] text-gray-400">16kHz</span><input type="range" class="eq-band eq-slider" data-freq="16000" min="-12" max="12" value="0"></div>
                 </div>
             </div>
 
-            <div class="text-center text-xs text-gray-500 pt-4 border-t border-gray-800">
-                Popcorn Audio Engine • Filtros Anti-Ruido Integrados
+            <div class="pt-4 border-t border-gray-800 flex justify-between items-center">
+                <button id="btn-reset-eq" class="text-xs text-gray-400 hover:text-popcorn-red flex items-center gap-1 font-semibold">
+                    <i class="fa-solid fa-rotate-left"></i> Restablecer
+                </button>
+                <button id="btn-done-eq" class="bg-popcorn-red text-white text-xs font-bold px-4 py-2 rounded-xl hover:bg-popcorn-redDark btn-anim">
+                    Guardar
+                </button>
             </div>
         </div>
     </div>
 
-    <!-- Hidden Native HTML Audio Element -->
-    <audio id="audio-player" crossorigin="anonymous"></audio>
+    <!-- Login / Register Modal -->
+    <div id="auth-modal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 opacity-0 pointer-events-none transition-opacity duration-300">
+        <div class="w-full max-w-md bg-popcorn-card border border-gray-800 rounded-3xl p-6 sm:p-8 flex flex-col shadow-2xl transform scale-95 transition-transform duration-300" id="auth-modal-content">
+            
+            <div class="flex items-center justify-between pb-4 border-b border-gray-800 mb-6">
+                <div class="flex items-center gap-3">
+                    <div class="w-9 h-9 rounded-xl bg-popcorn-red flex items-center justify-center text-white shadow-md">
+                        <i class="fa-solid fa-user-lock"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-bold text-white font-display">Acceso VIP de Personajes</h3>
+                        <p class="text-xs text-gray-400">Desbloquea todos los avatares bailando</p>
+                    </div>
+                </div>
+                <button id="btn-close-auth" class="w-8 h-8 rounded-full bg-popcorn-subCard text-gray-400 hover:text-white flex items-center justify-center btn-anim">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
+            <form id="auth-form" class="space-y-4">
+                <div>
+                    <label class="block text-xs font-semibold text-gray-300 mb-1.5">Nombre de Usuario</label>
+                    <input type="text" id="auth-user" required placeholder="Ej. Francisco" class="w-full bg-[#12141C] border border-gray-700 rounded-xl px-4 py-3 text-sm text-white focus:border-popcorn-red outline-none transition">
+                </div>
+
+                <div>
+                    <label class="block text-xs font-semibold text-gray-300 mb-1.5">Contraseña (Mínimo 5 caracteres)</label>
+                    <input type="password" id="auth-pass" required minlength="5" placeholder="••••••••" class="w-full bg-[#12141C] border border-gray-700 rounded-xl px-4 py-3 text-sm text-white focus:border-popcorn-red outline-none transition">
+                </div>
+
+                <div class="pt-2">
+                    <button type="submit" class="w-full bg-popcorn-red hover:bg-popcorn-redDark text-white font-bold py-3.5 rounded-xl text-sm shadow-lg btn-anim flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-right-to-bracket"></i> Iniciar Sesión / Registrarse
+                    </button>
+                </div>
+            </form>
+            <p class="text-[11px] text-gray-400 text-center mt-4">El reproductor funciona libremente sin cuenta, pero el registro desbloquea todos los personajes.</p>
+        </div>
+    </div>
+
+    <!-- Welcome Notification Overlay -->
+    <div id="welcome-notification" class="fixed inset-0 bg-black/85 backdrop-blur-md z-50 flex items-center justify-center p-4 opacity-0 pointer-events-none transition-opacity duration-300">
+        <div class="bg-popcorn-card border border-popcorn-red/50 rounded-3xl p-8 max-w-sm w-full text-center shadow-2xl transform scale-90 transition-transform duration-300 flex flex-col items-center">
+            
+            <div class="w-20 h-20 rounded-2xl bg-popcorn-red/20 border border-popcorn-red flex items-center justify-center mb-5 shadow-inner">
+                <svg viewBox="0 0 120 120" class="w-14 h-14 filter drop-shadow-md">
+                    <ellipse cx="60" cy="108" rx="28" ry="6" fill="#000000" opacity="0.4"/>
+                    <path d="M35 45 L42 102 C42 105 45 107 48 107 L72 107 C75 107 78 105 78 102 L85 45 Z" fill="#E50914"/>
+                    <path d="M44 45 L48 107 L54 107 L51 45 Z" fill="#FFFFFF"/>
+                    <path d="M60 45 L60 107 L66 107 L66 45 Z" fill="#FFFFFF"/>
+                    <path d="M72 45 L72 107 L78 107 L75 45 Z" fill="#FFFFFF"/>
+                    <ellipse cx="60" cy="45" rx="25" ry="4" fill="#B20710"/>
+                    <ellipse cx="60" cy="43" rx="25" ry="4" fill="#E50914"/>
+                    <circle cx="43" cy="38" r="9" fill="#FFC107"/>
+                    <circle cx="43" cy="37" r="8" fill="#FFF8E7"/>
+                    <circle cx="60" cy="32" r="11" fill="#FFC107"/>
+                    <circle cx="60" cy="30" r="10" fill="#FFF8E7"/>
+                    <circle cx="77" cy="38" r="9" fill="#FFC107"/>
+                    <circle cx="77" cy="37" r="8" fill="#FFF8E7"/>
+                </svg>
+            </div>
+
+            <h2 class="font-display text-2xl font-bold text-white mb-2">Popcorn</h2>
+            <p id="welcome-msg-text" class="text-sm text-gray-300 mb-6 leading-relaxed font-medium">
+                ¡Gracias por haberte registrado! Ahora puedes probar todas las funciones de la página.
+            </p>
+
+            <button id="btn-close-welcome" class="w-full bg-popcorn-red hover:bg-popcorn-redDark text-white font-bold py-3 rounded-xl text-sm shadow-lg btn-anim">
+                ¡Genial, a bailar!
+            </button>
+        </div>
+    </div>
+
+    <!-- Hidden Audio Element & Scripting -->
+    <audio id="main-audio"></audio>
 
     <script>
-        // Tracks Demo
-        const defaultTracks = [
-            {
-                id: 1,
-                title: "Popcorn Funk Beat",
-                artist: "Estudio Popcorn",
-                src: "https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3?filename=synthwave-80s-110045.mp3"
-            }
-        ];
-
-        // State
-        let playlist = [...defaultTracks];
-        let currentTrackIndex = 0;
-        let isPlaying = false;
-        let isShuffle = false;
-        let isRepeat = false;
-
-        // DOM Nodes
-        const audio = document.getElementById('audio-player');
-        const playBtn = document.getElementById('btn-play');
+        // Core Player Elements
+        const audio = document.getElementById('main-audio');
+        const fileInput = document.getElementById('audio-file-input');
+        const btnPlay = document.getElementById('btn-play');
         const playIcon = document.getElementById('play-icon');
-        const prevBtn = document.getElementById('btn-prev');
-        const nextBtn = document.getElementById('btn-next');
-        const shuffleBtn = document.getElementById('btn-shuffle');
-        const repeatBtn = document.getElementById('btn-repeat');
+        const btnNext = document.getElementById('btn-next');
+        const btnPrev = document.getElementById('btn-prev');
         const progressBar = document.getElementById('progress-bar');
+        const currentTimeElem = document.getElementById('current-time');
+        const totalDurationElem = document.getElementById('total-duration');
         const volumeBar = document.getElementById('volume-bar');
-        const muteBtn = document.getElementById('btn-mute');
+        const btnMute = document.getElementById('btn-mute');
         const volumeIcon = document.getElementById('volume-icon');
-        const currentTimeEl = document.getElementById('current-time');
-        const totalDurationEl = document.getElementById('total-duration');
         const songTitle = document.getElementById('song-title');
         const songArtist = document.getElementById('song-artist');
         const playlistContainer = document.getElementById('playlist-container');
+        const emptyPlaylist = document.getElementById('empty-playlist');
         const playlistCount = document.getElementById('playlist-count');
-        const fileInput = document.getElementById('audio-file-input');
-        const statusDot = document.getElementById('status-dot');
         const statusText = document.getElementById('status-text');
+        const statusDot = document.getElementById('status-dot');
         const trackBadge = document.getElementById('track-number-badge');
-        const mascotAnimWrapper = document.getElementById('mascot-anim-wrapper');
-        const eyeLeft = document.getElementById('eye-left');
-        const eyeRight = document.getElementById('eye-right');
+        const mascotWrapper = document.getElementById('mascot-anim-wrapper');
 
-        // Drawer
+        // Character Elements
+        const characterBtns = document.querySelectorAll('.character-btn');
+        const mascot1 = document.getElementById('mascot-1');
+        const mascot2 = document.getElementById('mascot-2');
+        const mascot3 = document.getElementById('mascot-3');
+        const mascot4 = document.getElementById('mascot-4');
+
+        // Auth & Modals Elements
         const settingsModal = document.getElementById('settings-modal');
         const btnOpenSettings = document.getElementById('btn-open-settings');
         const btnCloseSettings = document.getElementById('btn-close-settings');
-        const settingsContent = document.querySelector('.id-settings-content');
+        const btnDoneEq = document.getElementById('btn-done-eq');
 
-        // Web Audio API Pipeline (10 Band Equalizer)
-        let audioContext;
-        let analyser;
-        let dataArray;
-        let sourceNode;
-        let highpassFilter;
-        let compressorNode;
-        let bassFilterNode;
-        let pannerNode;
-        let eqFilters = [];
-        const eqFrequencies = [31, 63, 125, 250, 500, 1000, 2000, 4000, 8000, 16000];
+        const authModal = document.getElementById('auth-modal');
+        const btnOpenAuth = document.getElementById('btn-open-auth');
+        const btnCloseAuth = document.getElementById('btn-close-auth');
+        const authForm = document.getElementById('auth-form');
+        const authBtnLabel = document.getElementById('auth-btn-label');
 
-        // Visualizer Canvas
-        const vizCanvas = document.getElementById('visualizer-canvas');
-        const vizCtx = vizCanvas.getContext('2d');
+        const welcomeNotification = document.getElementById('welcome-notification');
+        const btnCloseWelcome = document.getElementById('btn-close-welcome');
 
-        // 3D Particles Popping Canvas
-        const partCanvas = document.getElementById('particles-canvas');
-        const partCtx = partCanvas.getContext('2d');
+        // State Variables
+        let playlist = [];
+        let currentIndex = 0;
+        let isPlaying = false;
+        let isShuffle = false;
+        let isRepeat = false;
+        let currentCharacter = 1;
+        let isRegistered = false;
+
+        // Particles Canvas for each character
+        const particlesCanvas = document.getElementById('particles-canvas');
+        const pCtx = particlesCanvas.getContext('2d');
         let particles = [];
 
-        window.addEventListener('DOMContentLoaded', () => {
-            renderPlaylist();
-            loadTrack(currentTrackIndex, false);
-            resizeCanvases();
-            window.addEventListener('resize', resizeCanvases);
-        });
-
-        function resizeCanvases() {
-            vizCanvas.width = vizCanvas.parentElement.clientWidth;
-            vizCanvas.height = vizCanvas.parentElement.clientHeight;
-            partCanvas.width = partCanvas.parentElement.clientWidth;
-            partCanvas.height = partCanvas.parentElement.clientHeight;
+        function resizeCanvas() {
+            particlesCanvas.width = particlesCanvas.offsetWidth;
+            particlesCanvas.height = particlesCanvas.offsetHeight;
         }
+        window.onresize = resizeCanvas;
+        setTimeout(resizeCanvas, 100);
 
-        // Initialize Web Audio Engine
-        function initAudioEngine() {
-            if (!audioContext) {
-                const AudioCtx = window.AudioContext || window.webkitAudioContext;
-                audioContext = new AudioCtx();
-                analyser = audioContext.createAnalyser();
-                analyser.fftSize = 64;
-                analyser.smoothingTimeConstant = 0.8;
+        function updateParticles() {
+            pCtx.clearRect(0, 0, particlesCanvas.width, particlesCanvas.height);
+            if (!isPlaying) return;
 
-                try {
-                    sourceNode = audioContext.createMediaElementSource(audio);
-
-                    // Highpass Filter (Prevents noise/rumble below 20Hz)
-                    highpassFilter = audioContext.createBiquadFilter();
-                    highpassFilter.type = 'highpass';
-                    highpassFilter.frequency.value = 20;
-
-                    // Dynamics Compressor (Eliminates clipping & harsh distortion)
-                    compressorNode = audioContext.createDynamicsCompressor();
-                    compressorNode.threshold.value = -12;
-                    compressorNode.knee.value = 30;
-                    compressorNode.ratio.value = 12;
-                    compressorNode.attack.value = 0.003;
-                    compressorNode.release.value = 0.25;
-
-                    // Bass Boost Node
-                    bassFilterNode = audioContext.createBiquadFilter();
-                    bassFilterNode.type = 'lowshelf';
-                    bassFilterNode.frequency.value = 120;
-                    bassFilterNode.gain.value = 0;
-
-                    // Stereo Panner (3D Surround)
-                    pannerNode = audioContext.createStereoPanner ? audioContext.createStereoPanner() : null;
-
-                    sourceNode.connect(highpassFilter);
-                    let previousNode = highpassFilter;
-
-                    // 10 Band Equalizer Chain
-                    eqFrequencies.forEach((freq, idx) => {
-                        const filter = audioContext.createBiquadFilter();
-                        filter.type = idx === 0 ? 'lowshelf' : (idx === 9 ? 'highshelf' : 'peaking');
-                        filter.frequency.value = freq;
-                        filter.gain.value = 0;
-                        previousNode.connect(filter);
-                        previousNode = filter;
-                        eqFilters.push(filter);
-                    });
-
-                    previousNode.connect(bassFilterNode);
-
-                    if (pannerNode) {
-                        bassFilterNode.connect(pannerNode);
-                        pannerNode.connect(compressorNode);
-                    } else {
-                        bassFilterNode.connect(compressorNode);
-                    }
-
-                    compressorNode.connect(analyser);
-                    analyser.connect(audioContext.destination);
-
-                } catch (e) {
-                    console.log("Audio Engine Note:", e);
-                }
-
-                dataArray = new Uint8Array(analyser.frequencyBinCount);
-                requestAnimationFrame(animationLoop);
-            }
-
-            if (audioContext && audioContext.state === 'suspended') {
-                audioContext.resume();
-            }
-        }
-
-        // Particle Class for 3D Floating Popcorn Kernels
-        class PopcornParticle {
-            constructor() {
-                this.reset();
-            }
-
-            reset() {
-                this.x = partCanvas.width / 2 + (Math.random() * 40 - 20);
-                this.y = partCanvas.height / 2 - 30;
-                this.vx = (Math.random() - 0.5) * 3;
-                this.vy = -(Math.random() * 3 + 2);
-                this.size = Math.random() * 6 + 6;
-                this.alpha = 1;
-                this.rotation = Math.random() * Math.PI * 2;
-                this.vRot = (Math.random() - 0.5) * 0.1;
-            }
-
-            update() {
-                this.x += this.vx;
-                this.y += this.vy;
-                this.vy += 0.08; // Gravity
-                this.rotation += this.vRot;
-                this.alpha -= 0.015;
-            }
-
-            draw(ctx) {
-                ctx.save();
-                ctx.globalAlpha = Math.max(0, this.alpha);
-                ctx.translate(this.x, this.y);
-                ctx.rotate(this.rotation);
-                
-                // Draw 3D Buttered Popcorn Shape
-                ctx.fillStyle = '#FFC107';
-                ctx.beginPath();
-                ctx.arc(0, 0, this.size, 0, Math.PI * 2);
-                ctx.fill();
-
-                ctx.fillStyle = '#FFF8E7';
-                ctx.beginPath();
-                ctx.arc(-1, -1, this.size * 0.8, 0, Math.PI * 2);
-                ctx.fill();
-
-                ctx.restore();
-            }
-        }
-
-        // Unified Animation Loop (Visualizer, Mascot Beat Dance & Popping Particles)
-        function animationLoop() {
-            requestAnimationFrame(animationLoop);
-            if (!analyser) return;
-
-            analyser.getByteFrequencyData(dataArray);
-
-            // 1. Draw Spectrum Bar Visualizer
-            vizCtx.clearRect(0, 0, vizCanvas.width, vizCanvas.height);
-            const barWidth = (vizCanvas.width / dataArray.length) * 2.2;
-            let x = 0;
-
-            for (let i = 0; i < dataArray.length; i++) {
-                const barHeight = (dataArray[i] / 255) * vizCanvas.height;
-                vizCtx.fillStyle = '#E50914';
-                vizCtx.beginPath();
-                vizCtx.roundRect(x, vizCanvas.height - barHeight, barWidth - 3, barHeight, [3, 3, 0, 0]);
-                vizCtx.fill();
-                x += barWidth;
-            }
-
-            // 2. Real-Time Beat Detection
-            let bassEnergy = 0;
-            if (dataArray.length >= 4) {
-                bassEnergy = (dataArray[0] + dataArray[1] + dataArray[2] + dataArray[3]) / 4;
-            }
-            const normalizedBass = bassEnergy / 255;
-
-            // Clear Particle Canvas
-            partCtx.clearRect(0, 0, partCanvas.width, partCanvas.height);
-
-            if (isPlaying) {
-                // Dance Mascot Body Bounce
-                const bounceY = -normalizedBass * 20;
-                const scaleS = 1 + (normalizedBass * 0.1);
-                const tilt = (normalizedBass > 0.4) ? (Math.sin(Date.now() / 90) * 4) : 0;
-                mascotAnimWrapper.style.transform = `translateY(${bounceY}px) scale(${scaleS}) rotate(${tilt}deg)`;
-
-                // Wink or Happy Facial Animation on Beat Peak
-                if (normalizedBass > 0.65) {
-                    eyeRight.setAttribute('r', '1'); // Wink right eye
-                } else {
-                    eyeRight.setAttribute('r', '3');
-                }
-
-                // Spawn Popping Particles from Head on Beats
-                if (normalizedBass > 0.45 && Math.random() < 0.6) {
-                    if (particles.length < 25) {
-                        particles.push(new PopcornParticle());
-                    }
-                }
-            } else {
-                mascotAnimWrapper.style.transform = `translateY(0px) scale(1) rotate(0deg)`;
-                eyeRight.setAttribute('r', '3');
-            }
-
-            // Update & Render Particles
-            for (let i = particles.length - 1; i >= 0; i--) {
-                const p = particles[i];
-                p.update();
-                p.draw(partCtx);
-                if (p.alpha <= 0) {
-                    particles.splice(i, 1);
-                }
-            }
-        }
-
-        // Load Track Function
-        function loadTrack(index, autoPlay = true) {
-            if (playlist.length === 0) return;
-            currentTrackIndex = index;
-            const track = playlist[index];
-
-            audio.src = track.src;
-            songTitle.textContent = track.title;
-            songArtist.textContent = track.artist;
-            trackBadge.textContent = `${index + 1} / ${playlist.length}`;
-
-            currentTimeEl.textContent = "0:00";
-            totalDurationEl.textContent = "0:00";
-            progressBar.value = 0;
-
-            updatePlaylistHighlight();
-
-            if (autoPlay) {
-                playTrack();
-            }
-        }
-
-        function playTrack() {
-            initAudioEngine();
-            audio.play().then(() => {
-                isPlaying = true;
-                playIcon.className = "fa-solid fa-pause";
-                statusDot.className = "w-2 h-2 rounded-full bg-green-500 animate-pulse";
-                statusText.textContent = "Bailando";
-            }).catch(err => console.log("Playback notice:", err));
-        }
-
-        function pauseTrack() {
-            audio.pause();
-            isPlaying = false;
-            playIcon.className = "fa-solid fa-play ml-1";
-            statusDot.className = "w-2 h-2 rounded-full bg-gray-500";
-            statusText.textContent = "Pausado";
-            mascotAnimWrapper.style.transform = `translateY(0px) scale(1) rotate(0deg)`;
-        }
-
-        playBtn.addEventListener('click', () => {
-            if (playlist.length === 0) return;
-            if (isPlaying) {
-                pauseTrack();
-            } else {
-                playTrack();
-            }
-        });
-
-        function nextTrack() {
-            if (playlist.length === 0) return;
-            if (isShuffle) {
-                currentTrackIndex = Math.floor(Math.random() * playlist.length);
-            } else {
-                currentTrackIndex = (currentTrackIndex + 1) % playlist.length;
-            }
-            loadTrack(currentTrackIndex, true);
-        }
-
-        function prevTrack() {
-            if (playlist.length === 0) return;
-            if (audio.currentTime > 3) {
-                audio.currentTime = 0;
-                return;
-            }
-            currentTrackIndex = (currentTrackIndex - 1 + playlist.length) % playlist.length;
-            loadTrack(currentTrackIndex, true);
-        }
-
-        nextBtn.addEventListener('click', nextTrack);
-        prevBtn.addEventListener('click', prevTrack);
-
-        // Instant Seekbar
-        progressBar.addEventListener('input', () => {
-            if (audio.duration && !isNaN(audio.duration)) {
-                audio.currentTime = (progressBar.value / 100) * audio.duration;
-            }
-        });
-
-        audio.addEventListener('timeupdate', () => {
-            if (audio.duration && !isNaN(audio.duration)) {
-                progressBar.value = (audio.currentTime / audio.duration) * 100;
-                currentTimeEl.textContent = formatTime(audio.currentTime);
-                totalDurationEl.textContent = formatTime(audio.duration);
-            }
-        });
-
-        audio.addEventListener('ended', () => {
-            if (isRepeat) {
-                playTrack();
-            } else {
-                nextTrack();
-            }
-        });
-
-        // Volume Controls
-        volumeBar.addEventListener('input', (e) => {
-            audio.volume = e.target.value;
-            updateVolumeIcon(audio.volume);
-        });
-
-        muteBtn.addEventListener('click', () => {
-            if (audio.volume > 0) {
-                audio.volume = 0;
-                volumeBar.value = 0;
-            } else {
-                audio.volume = 0.85;
-                volumeBar.value = 0.85;
-            }
-            updateVolumeIcon(audio.volume);
-        });
-
-        function updateVolumeIcon(vol) {
-            if (vol === 0) {
-                volumeIcon.className = "fa-solid fa-volume-xmark text-popcorn-red";
-            } else if (vol < 0.5) {
-                volumeIcon.className = "fa-solid fa-volume-low text-gray-300";
-            } else {
-                volumeIcon.className = "fa-solid fa-volume-high text-white";
-            }
-        }
-
-        shuffleBtn.addEventListener('click', () => {
-            isShuffle = !isShuffle;
-            shuffleBtn.classList.toggle('text-popcorn-butter', isShuffle);
-            shuffleBtn.classList.toggle('border-popcorn-butter', isShuffle);
-        });
-
-        repeatBtn.addEventListener('click', () => {
-            isRepeat = !isRepeat;
-            repeatBtn.classList.toggle('text-popcorn-butter', isRepeat);
-            repeatBtn.classList.toggle('border-popcorn-butter', isRepeat);
-        });
-
-        function formatTime(seconds) {
-            const m = Math.floor(seconds / 60);
-            const s = Math.floor(seconds % 60);
-            return `${m}:${s < 10 ? '0' : ''}${s}`;
-        }
-
-        function renderPlaylist() {
-            playlistContainer.innerHTML = '';
-            playlistCount.textContent = `${playlist.length} Canciones`;
-
-            if (playlist.length === 0) {
-                document.getElementById('empty-playlist').style.display = 'flex';
-                return;
-            } else {
-                document.getElementById('empty-playlist').style.display = 'none';
-            }
-
-            playlist.forEach((track, idx) => {
-                const item = document.createElement('div');
-                const isCurrent = idx === currentTrackIndex;
-                item.className = `flex items-center justify-between p-3 rounded-2xl cursor-pointer btn-anim transition-all duration-200 ${isCurrent ? 'bg-popcorn-subCard border border-popcorn-red/50 shadow-md' : 'bg-popcorn-subCard/60 hover:bg-popcorn-subCard border border-gray-800/60'}`;
-                
-                item.innerHTML = `
-                    <div class="flex items-center gap-3 overflow-hidden">
-                        <div class="w-8 h-8 rounded-xl flex items-center justify-center font-bold text-xs ${isCurrent ? 'bg-popcorn-red text-white' : 'bg-gray-800 text-gray-400'}">
-                            ${isCurrent && isPlaying ? '<i class="fa-solid fa-compact-disc animate-spin"></i>' : (idx + 1)}
-                        </div>
-                        <div class="truncate">
-                            <h4 class="font-bold text-xs sm:text-sm text-white truncate ${isCurrent ? 'text-popcorn-butter' : ''}">${track.title}</h4>
-                            <p class="text-[11px] text-gray-400 truncate">${track.artist}</p>
-                        </div>
-                    </div>
-                    <button onclick="deleteTrack(event, ${idx})" class="text-gray-500 hover:text-red-400 p-1.5 btn-anim" title="Eliminar">
-                        <i class="fa-solid fa-trash-can text-xs"></i>
-                    </button>
-                `;
-
-                item.addEventListener('click', (e) => {
-                    if (!e.target.closest('button')) {
-                        loadTrack(idx, true);
-                    }
+            // Spawn particles based on character type
+            if (Math.random() < 0.3) {
+                particles.push({
+                    x: particlesCanvas.width / 2 + (Math.random() * 60 - 30),
+                    y: particlesCanvas.height / 2 + (Math.random() * 20 - 10),
+                    vx: Math.random() * 4 - 2,
+                    vy: -Math.random() * 3 - 2,
+                    size: Math.random() * 6 + 3,
+                    color: getParticleColor(currentCharacter),
+                    alpha: 1
                 });
+            }
 
-                playlistContainer.appendChild(item);
+            particles.forEach((p, index) => {
+                p.x += p.vx;
+                p.y += p.vy;
+                p.alpha -= 0.02;
+
+                if (p.alpha <= 0) {
+                    particles.splice(index, 1);
+                    return;
+                }
+
+                pCtx.save();
+                pCtx.globalAlpha = p.alpha;
+                pCtx.fillStyle = p.color;
+                pCtx.beginPath();
+                if (currentCharacter === 2) {
+                    // Sprinkles (rects for donut)
+                    pCtx.fillRect(p.x, p.y, p.size, p.size * 0.5);
+                } else if (currentCharacter === 3) {
+                    // Chocolate bits
+                    pCtx.fillRect(p.x, p.y, p.size, p.size);
+                } else if (currentCharacter === 4) {
+                    // Chocolate drops (Nutella)
+                    pCtx.arc(p.x, p.y, p.size * 0.7, 0, Math.PI * 2);
+                    pCtx.fill();
+                } else {
+                    // Popcorn particles
+                    pCtx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+                    pCtx.fill();
+                }
+                pCtx.restore();
             });
         }
 
-        function updatePlaylistHighlight() {
-            renderPlaylist();
+        function getParticleColor(char) {
+            if (char === 2) {
+                const colors = ['#FFD700', '#00FFFF', '#ADFF2F', '#FFFFFF', '#FFA500'];
+                return colors[Math.floor(Math.random() * colors.length)];
+            } else if (char === 3) {
+                return '#3B1A0A';
+            } else if (char === 4) {
+                return '#5C2C16';
+            }
+            return '#FFF8E7'; // Popcorn
         }
 
-        window.deleteTrack = function(e, idx) {
-            e.stopPropagation();
-            playlist.splice(idx, 1);
-            if (idx === currentTrackIndex) {
-                if (playlist.length > 0) {
-                    currentTrackIndex = currentTrackIndex % playlist.length;
-                    loadTrack(currentTrackIndex, isPlaying);
-                } else {
-                    pauseTrack();
-                    songTitle.textContent = "Popcorn Player";
-                    songArtist.textContent = "Sube tus canciones";
-                }
-            } else if (idx < currentTrackIndex) {
-                currentTrackIndex--;
-            }
-            renderPlaylist();
-        };
+        // Audio Context & Visualizer Setup
+        let audioCtx, analyser, source, bufferLength, dataArray;
+        const visualizerCanvas = document.getElementById('visualizer-canvas');
+        const canvasCtx = visualizerCanvas.getContext('2d');
 
-        // File Uploader
+        function initAudioContext() {
+            if (audioCtx) return;
+            audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            analyser = audioCtx.createAnalyser();
+            analyser.fftSize = 64;
+            source = audioCtx.createMediaElementSource(audio);
+            source.connect(analyser);
+            analyser.connect(audioCtx.destination);
+            bufferLength = analyser.frequencyBinCount;
+            dataArray = new Uint8Array(bufferLength);
+            drawVisualizer();
+        }
+
+        function drawVisualizer() {
+            requestAnimationFrame(drawVisualizer);
+            updateParticles();
+            if (!analyser) return;
+
+            analyser.getByteFrequencyData(dataArray);
+            canvasCtx.clearRect(0, 0, visualizerCanvas.width, visualizerCanvas.height);
+
+            const barWidth = (visualizerCanvas.width / bufferLength) * 2;
+            let x = 0;
+
+            for (let i = 0; i < bufferLength; i++) {
+                const barHeight = (dataArray[i] / 255) * visualizerCanvas.height;
+                canvasCtx.fillStyle = '#E50914';
+                canvasCtx.fillRect(x, visualizerCanvas.height - barHeight, barWidth - 1, barHeight);
+                x += barWidth;
+            }
+        }
+
+        // File Loading
         fileInput.addEventListener('change', (e) => {
             const files = Array.from(e.target.files);
             if (files.length === 0) return;
 
             files.forEach(file => {
-                const objectUrl = URL.createObjectURL(file);
-                playlist.push({
-                    id: Date.now() + Math.random(),
-                    title: file.name.replace(/\.[^/.]+$/, ""),
-                    artist: "Música Local",
-                    src: objectUrl
-                });
+                const url = URL.createObjectURL(file);
+                playlist.push({ name: file.name.replace(/\.[^/.]+$/, ""), url });
             });
 
-            renderPlaylist();
-
-            if (!isPlaying && playlist.length === files.length) {
-                loadTrack(0, true);
+            updatePlaylistUI();
+            if (playlist.length > 0 && !audio.src) {
+                loadTrack(0);
             }
         });
 
-        // 3D Surround & Bass Boost Toggles
-        document.getElementById('toggle-3d').addEventListener('change', (e) => {
-            initAudioEngine();
-            if (pannerNode) {
-                pannerNode.pan.value = e.target.checked ? 0.35 : 0;
+        function updatePlaylistUI() {
+            if (playlist.length > 0) {
+                emptyPlaylist.classList.add('hidden');
             }
-        });
+            playlistCount.textContent = `${playlist.length} Canciones`;
+            playlistContainer.innerHTML = '';
 
-        document.getElementById('toggle-bass').addEventListener('change', (e) => {
-            initAudioEngine();
-            if (bassFilterNode) {
-                bassFilterNode.gain.value = e.target.checked ? 8 : 0;
+            playlist.forEach((track, index) => {
+                const item = document.createElement('div');
+                item.className = `p-3 rounded-2xl border flex items-center justify-between cursor-pointer text-xs font-semibold transition ${
+                    index === currentIndex 
+                    ? 'bg-popcorn-subCard border-popcorn-red text-popcorn-butter' 
+                    : 'bg-[#12141C] border-gray-800 text-gray-300 hover:border-gray-600'
+                }`;
+                item.innerHTML = `
+                    <div class="flex items-center gap-3 truncate">
+                        <i class="fa-solid ${index === currentIndex && isPlaying ? 'fa-volume-high text-popcorn-red' : 'fa-music text-gray-500'}"></i>
+                        <span class="truncate">${track.name}</span>
+                    </div>
+                `;
+                item.onclick = () => {
+                    loadTrack(index);
+                    playTrack();
+                };
+                playlistContainer.appendChild(item);
+            });
+        }
+
+        function loadTrack(index) {
+            if (playlist.length === 0) return;
+            currentIndex = index;
+            audio.src = playlist[currentIndex].url;
+            songTitle.textContent = playlist[currentIndex].name;
+            songArtist.textContent = 'Archivo Local';
+            trackBadge.textContent = `${currentIndex + 1} / ${playlist.length}`;
+            updatePlaylistUI();
+        }
+
+        function playTrack() {
+            initAudioContext();
+            if (audioCtx.state === 'suspended') {
+                audioCtx.resume();
             }
-        });
+            audio.play();
+            isPlaying = true;
+            playIcon.className = 'fa-solid fa-pause';
+            statusText.textContent = 'Reproduciendo';
+            statusDot.className = 'w-2 h-2 rounded-full bg-green-500 animate-pulse';
+            mascotWrapper.classList.add('dancing');
+        }
 
-        // 10-Band EQ Presets
-        const presets10 = {
-            flat: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            bass: [8, 6, 4, 2, 0, 0, 1, 2, 1, 0],
-            pop: [-1, 1, 3, 4, 4, 3, 2, 1, 2, 3],
-            rock: [5, 4, 2, 0, -1, 0, 2, 3, 4, 5],
-            jazz: [3, 2, 1, 2, -1, -1, 0, 1, 2, 3],
-            vocal: [-2, -1, 0, 2, 5, 4, 3, 1, 0, -1]
+        function pauseTrack() {
+            audio.pause();
+            isPlaying = false;
+            playIcon.className = 'fa-solid fa-play ml-1';
+            statusText.textContent = 'Pausado';
+            statusDot.className = 'w-2 h-2 rounded-full bg-yellow-500';
+            mascotWrapper.classList.remove('dancing');
+        }
+
+        btnPlay.onclick = () => {
+            if (playlist.length === 0) return;
+            if (isPlaying) pauseTrack();
+            else playTrack();
         };
 
-        document.getElementById('eq-presets').addEventListener('change', (e) => {
-            initAudioEngine();
-            const selected = presets10[e.target.value] || presets10.flat;
-            selected.forEach((val, i) => {
-                const slider = document.getElementById(`eq-band-${i}`);
-                const valLabel = document.getElementById(`eq-val-${i}`);
-                if (slider) slider.value = val;
-                if (valLabel) valLabel.textContent = `${val > 0 ? '+' : ''}${val}dB`;
-                if (eqFilters[i]) {
-                    eqFilters[i].gain.value = val;
-                }
-            });
-        });
+        btnNext.onclick = () => {
+            if (playlist.length === 0) return;
+            currentIndex = (currentIndex + 1) % playlist.length;
+            loadTrack(currentIndex);
+            playTrack();
+        };
 
-        // 10-Band EQ Sliders
-        for (let i = 0; i < 10; i++) {
-            const slider = document.getElementById(`eq-band-${i}`);
-            const valLabel = document.getElementById(`eq-val-${i}`);
+        btnPrev.onclick = () => {
+            if (playlist.length === 0) return;
+            currentIndex = (currentIndex - 1 + playlist.length) % playlist.length;
+            loadTrack(currentIndex);
+            playTrack();
+        };
 
-            if (slider) {
-                slider.addEventListener('input', (e) => {
-                    initAudioEngine();
-                    const val = parseFloat(e.target.value);
-                    valLabel.textContent = `${val > 0 ? '+' : ''}${val}dB`;
-                    if (eqFilters[i]) {
-                        eqFilters[i].gain.value = val;
-                    }
-                });
+        audio.ontimeupdate = () => {
+            if (!audio.duration) return;
+            progressBar.value = (audio.currentTime / audio.duration) * 100;
+            currentTimeElem.textContent = formatTime(audio.currentTime);
+            totalDurationElem.textContent = formatTime(audio.duration);
+        };
+
+        progressBar.oninput = () => {
+            if (!audio.duration) return;
+            audio.currentTime = (progressBar.value / 100) * audio.duration;
+        };
+
+        volumeBar.oninput = () => {
+            audio.volume = volumeBar.value;
+            if (audio.volume === 0) {
+                volumeIcon.className = 'fa-solid fa-volume-xmark';
+            } else {
+                volumeIcon.className = 'fa-solid fa-volume-high';
             }
+        };
+
+        audio.onended = () => {
+            btnNext.click();
+        };
+
+        function formatTime(sec) {
+            const m = Math.floor(sec / 60);
+            const s = Math.floor(sec % 60);
+            return `${m}:${s < 10 ? '0' : ''}${s}`;
         }
 
-        btnOpenSettings.addEventListener('click', () => {
+        // Character Selection Logic
+        characterBtns.forEach(btn => {
+            btn.onclick = () => {
+                const charId = parseInt(btn.getAttribute('data-char'));
+                
+                // Check VIP status for characters 2, 3, 4
+                if (charId > 1 && !isRegistered) {
+                    openAuthModal();
+                    return;
+                }
+
+                currentCharacter = charId;
+                
+                // Update buttons visual style
+                characterBtns.forEach(b => {
+                    b.className = "character-btn flex-1 py-1.5 px-2 rounded-xl text-xs font-semibold bg-[#161820] text-gray-400 border border-gray-800 hover:text-white btn-anim flex items-center justify-center gap-1.5";
+                });
+                btn.className = "character-btn flex-1 py-1.5 px-2 rounded-xl text-xs font-bold bg-popcorn-subCard text-popcorn-butter border border-popcorn-red btn-anim flex items-center justify-center gap-1.5";
+
+                // Show/Hide SVGs
+                mascot1.classList.add('hidden');
+                mascot2.classList.add('hidden');
+                mascot3.classList.add('hidden');
+                mascot4.classList.add('hidden');
+
+                if (charId === 1) mascot1.classList.remove('hidden');
+                if (charId === 2) mascot2.classList.remove('hidden');
+                if (charId === 3) mascot3.classList.remove('hidden');
+                if (charId === 4) mascot4.classList.remove('hidden');
+            };
+        });
+
+        // Auth & Modal Handlers
+        function openSettings() {
             settingsModal.classList.remove('opacity-0', 'pointer-events-none');
-            settingsContent.classList.remove('translate-x-full');
-        });
-
-        btnCloseSettings.addEventListener('click', closeSettings);
-        settingsModal.addEventListener('click', (e) => {
-            if (e.target === settingsModal) closeSettings();
-        });
-
-        function closeSettings() {
-            settingsContent.classList.add('translate-x-full');
-            settingsModal.classList.add('opacity-0', 'pointer-events-none');
+            settingsModal.children[0].classList.remove('translate-x-full');
         }
+        function closeSettings() {
+            settingsModal.classList.add('opacity-0', 'pointer-events-none');
+            settingsModal.children[0].classList.add('translate-x-full');
+        }
+        btnOpenSettings.onclick = openSettings;
+        btnCloseSettings.onclick = closeSettings;
+        btnDoneEq.onclick = closeSettings;
 
-        document.getElementById('btn-reset-eq').addEventListener('click', () => {
-            document.getElementById('eq-presets').value = 'flat';
-            document.getElementById('eq-presets').dispatchEvent(new Event('change'));
-        });
+        function openAuthModal() {
+            authModal.classList.remove('opacity-0', 'pointer-events-none');
+            authModal.children[0].classList.remove('scale-95');
+            authModal.children[0].classList.add('scale-100');
+        }
+        function closeAuthModal() {
+            authModal.classList.add('opacity-0', 'pointer-events-none');
+            authModal.children[0].classList.remove('scale-100');
+            authModal.children[0].classList.add('scale-95');
+        }
+        btnOpenAuth.onclick = openAuthModal;
+        btnCloseAuth.onclick = closeAuthModal;
+
+        authForm.onsubmit = (e) => {
+            e.preventDefault();
+            const username = document.getElementById('auth-user').value.trim();
+            const pass = document.getElementById('auth-pass').value;
+
+            if (pass.length < 5) {
+                alert('La contraseña debe tener al menos 5 caracteres.');
+                return;
+            }
+
+            isRegistered = true;
+            authBtnLabel.textContent = username;
+            closeAuthModal();
+
+            // Show welcome notification
+            welcomeNotification.classList.remove('opacity-0', 'pointer-events-none');
+            welcomeNotification.children[0].classList.remove('scale-90');
+            welcomeNotification.children[0].classList.add('scale-100');
+        };
+
+        btnCloseWelcome.onclick = () => {
+            welcomeNotification.classList.add('opacity-0', 'pointer-events-none');
+            welcomeNotification.children[0].classList.remove('scale-100');
+            welcomeNotification.children[0].classList.add('scale-90');
+        };
     </script>
 </body>
 </html>
-```
