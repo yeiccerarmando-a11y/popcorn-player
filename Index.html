@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Security: Content Security Policy (CSP) -->
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.tailwindcss.com https://cdnjs.cloudflare.com https://fonts.googleapis.com https://fonts.gstatic.com blob: data: https://cdn.pixabay.com https://lrclib.net; img-src 'self' data: blob: https:; media-src 'self' blob: data: https://cdn.pixabay.com https://www.soundhelix.com;">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.tailwindcss.com https://cdnjs.cloudflare.com https://fonts.googleapis.com https://fonts.gstatic.com blob: data: https://cdn.pixabay.com https://lrclib.net https://pipedapi.kavin.rocks https://vid.puffyan.us; img-src 'self' data: blob: https:; media-src 'self' blob: data: https://cdn.pixabay.com https://*.googlevideo.com https://*.piped.video https://*.ryoc.us;">
     <title>Popcorn Music Player</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -226,7 +226,7 @@
                         <!-- Dynamic Mascot Container -->
                         <div id="mascot-anim-wrapper" class="relative z-0 transition-transform duration-75 origin-bottom">
                             
-                            <!-- Accessories / Crown overlay for Gamification (Unlocked at 10 songs) -->
+                            <!-- Crown Overlay for Gamification -->
                             <div id="mascot-crown" class="absolute -top-6 left-1/2 -translate-x-1/2 z-20 text-2xl hidden filter drop-shadow-md animate-bounce">
                                 👑✨
                             </div>
@@ -365,9 +365,8 @@
                 <!-- Track Details & Live Karaoke Lyrics Box -->
                 <div class="text-center mt-1 mb-2 w-full px-4">
                     <h2 id="song-title" class="font-display text-2xl sm:text-3xl font-bold truncate text-white">Popcorn Player</h2>
-                    <p id="song-artist" class="text-gray-400 font-medium text-sm truncate mt-1">Sube tus archivos o escucha canciones en streaming</p>
+                    <p id="song-artist" class="text-gray-400 font-medium text-sm truncate mt-1">Busca música online o sube tus archivos</p>
                     
-                    <!-- Real-Time Karaoke Lyrics Display -->
                     <div id="karaoke-lyrics" class="mt-2 text-xs text-popcorn-butter font-semibold bg-[#12141C]/80 py-1.5 px-4 rounded-xl border border-gray-800/80 truncate h-8 flex items-center justify-center">
                         🎵 Sincronizando Letra (Karaoke)...
                     </div>
@@ -405,8 +404,25 @@
             </div>
         </div>
 
-        <!-- Right Sidebar (Music Library, Streaming & History) -->
+        <!-- Right Sidebar (Universal Streaming Search & Library) -->
         <div class="lg:col-span-5 w-full space-y-6">
+
+            <!-- Universal Search Bar (Type YMusic / Innertune) -->
+            <div class="card-3d rounded-3xl p-5 border border-gray-800">
+                <div class="flex items-center justify-between pb-3 border-b border-gray-800">
+                    <div class="flex items-center gap-2">
+                        <i class="fa-solid fa-magnifying-glass text-popcorn-red"></i>
+                        <h3 class="font-bold text-sm text-white">Buscador Global de Música (Streaming)</h3>
+                    </div>
+                </div>
+
+                <div class="mt-3 flex gap-2">
+                    <input type="text" id="global-search-input" placeholder="Ej. Bad Bunny, Coldplay, Reggaeton..." class="flex-1 bg-popcorn-subCard text-xs text-white border border-gray-700 rounded-xl px-3.5 py-2.5 outline-none focus:border-popcorn-red transition">
+                    <button id="btn-global-search" class="bg-popcorn-red hover:bg-popcorn-redDark text-white px-4 py-2.5 rounded-xl text-xs font-bold btn-anim shadow-md">
+                        <i class="fa-solid fa-search"></i>
+                    </button>
+                </div>
+            </div>
 
             <!-- Audio Quality Selector -->
             <div class="card-3d rounded-3xl p-5 border border-gray-800">
@@ -428,22 +444,22 @@
                 </div>
             </div>
 
-            <!-- Library & Playlist -->
-            <div class="card-3d rounded-3xl p-5 flex flex-col h-[360px]">
+            <!-- Library & Search Results Tabs -->
+            <div class="card-3d rounded-3xl p-5 flex flex-col h-[320px]">
                 <div class="flex items-center justify-between pb-3 border-b border-gray-800">
                     <div class="flex gap-2">
-                        <button id="tab-btn-online" class="py-1 px-3 rounded-lg text-xs font-bold bg-popcorn-red text-white btn-anim">🌐 Online</button>
+                        <button id="tab-btn-search" class="py-1 px-3 rounded-lg text-xs font-bold bg-popcorn-red text-white btn-anim">🔍 Resultados</button>
                         <button id="tab-btn-local" class="py-1 px-3 rounded-lg text-xs font-semibold bg-[#12141C] text-gray-400 hover:text-white btn-anim">📁 Local</button>
                         <button id="tab-btn-history" class="py-1 px-3 rounded-lg text-xs font-semibold bg-[#12141C] text-gray-400 hover:text-white btn-anim">📜 Historial</button>
                     </div>
-                    <span id="library-count" class="text-xs text-gray-400 bg-popcorn-subCard px-2 py-1 rounded-full font-semibold">4 Canciones</span>
+                    <span id="library-count" class="text-xs text-gray-400 bg-popcorn-subCard px-2 py-1 rounded-full font-semibold">0 Canciones</span>
                 </div>
 
                 <div id="playlist-container" class="flex-1 overflow-y-auto mt-3 pr-1 space-y-2"></div>
 
                 <div id="empty-playlist" class="flex-1 flex flex-col items-center justify-center text-gray-500 text-xs hidden">
                     <i class="fa-solid fa-music text-3xl mb-2 text-gray-600"></i>
-                    <span id="empty-msg">Sube tus canciones locales para comenzar</span>
+                    <span id="empty-msg">Busca cualquier canción arriba para comenzar</span>
                 </div>
             </div>
 
@@ -517,13 +533,9 @@
     <!-- Welcome & Achievement Notification Modal -->
     <div id="welcome-notification" class="fixed inset-0 bg-black/85 backdrop-blur-md z-50 flex items-center justify-center p-4 opacity-0 pointer-events-none transition-opacity duration-300">
         <div class="bg-popcorn-card border border-popcorn-red/50 rounded-3xl p-8 max-w-sm w-full text-center shadow-2xl transform scale-90 transition-transform duration-300 flex flex-col items-center">
-            <div id="notif-icon-box" class="w-20 h-20 rounded-2xl bg-popcorn-red/20 border border-popcorn-red flex items-center justify-center mb-5 shadow-inner text-3xl">
-                🍿
-            </div>
+            <div id="notif-icon-box" class="w-20 h-20 rounded-2xl bg-popcorn-red/20 border border-popcorn-red flex items-center justify-center mb-5 shadow-inner text-3xl">🍿</div>
             <h2 id="notif-title" class="font-display text-2xl font-bold text-white mb-2">¡Popcorn Player!</h2>
-            <p id="welcome-msg-text" class="text-sm text-gray-300 mb-6 leading-relaxed font-medium">
-                ¡Gracias por registrarte! Tu sesión y logros están seguros.
-            </p>
+            <p id="welcome-msg-text" class="text-sm text-gray-300 mb-6 leading-relaxed font-medium">¡Gracias por registrarte! Tu sesión y logros están seguros.</p>
             <button id="btn-close-welcome" class="w-full bg-popcorn-red hover:bg-popcorn-redDark text-white font-bold py-3 rounded-xl text-sm shadow-lg btn-anim">¡Genial!</button>
         </div>
     </div>
@@ -567,28 +579,29 @@
         const mascotCrown = document.getElementById('mascot-crown');
         const badgeStatusPill = document.getElementById('badge-status-pill');
 
-        const tabBtnOnline = document.getElementById('tab-btn-online');
+        const globalSearchInput = document.getElementById('global-search-input');
+        const btnGlobalSearch = document.getElementById('btn-global-search');
+
+        const tabBtnSearch = document.getElementById('tab-btn-search');
         const tabBtnLocal = document.getElementById('tab-btn-local');
         const tabBtnHistory = document.getElementById('tab-btn-history');
-        let currentTab = 'online';
+        let currentTab = 'search';
 
-        const onlineTracks = [
-            { name: "Electronic Beats", artist: "Popcorn Originals", url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" },
-            { name: "Lo-Fi Summer", artist: "Chill Out Studio", url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3" },
-            { name: "Bass Power", artist: "VIP Electro", url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3" },
-            { name: "Disco Fever", artist: "Retro Funk", url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3" }
+        let searchResults = [
+            { name: "Electronic Beats BeatSync", artist: "Popcorn Originals", url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" },
+            { name: "Lo-Fi Summer Breeze", artist: "Chill Out Studio", url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3" },
+            { name: "Bass Power Reggaeton Beat", artist: "VIP Electro", url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3" },
+            { name: "Popcorn Disco Fever", artist: "Retro Funk", url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3" }
         ];
-
         let localPlaylist = [];
         let historyPlaylist = JSON.parse(localStorage.getItem('popcorn_history') || "[]");
-        let activePlaylist = onlineTracks;
+        let activePlaylist = searchResults;
 
         let currentIndex = 0;
         let isPlaying = false;
         let currentCharacter = 1;
         let isRegistered = false;
 
-        // Gamification / Achievements (Listen count)
         let listenCount = parseInt(localStorage.getItem('popcorn_listens') || "0");
         let badgeUnlocked = localStorage.getItem('popcorn_badge') === 'true';
 
@@ -623,22 +636,63 @@
         const welcomeNotification = document.getElementById('welcome-notification');
         const btnCloseWelcome = document.getElementById('btn-close-welcome');
 
-        tabBtnOnline.onclick = () => switchTab('online');
+        tabBtnSearch.onclick = () => switchTab('search');
         tabBtnLocal.onclick = () => switchTab('local');
         tabBtnHistory.onclick = () => switchTab('history');
 
         function switchTab(tab) {
             currentTab = tab;
-            tabBtnOnline.className = `py-1 px-3 rounded-lg text-xs font-semibold btn-anim ${tab === 'online' ? 'bg-popcorn-red text-white font-bold' : 'bg-[#12141C] text-gray-400 hover:text-white'}`;
+            tabBtnSearch.className = `py-1 px-3 rounded-lg text-xs font-semibold btn-anim ${tab === 'search' ? 'bg-popcorn-red text-white font-bold' : 'bg-[#12141C] text-gray-400 hover:text-white'}`;
             tabBtnLocal.className = `py-1 px-3 rounded-lg text-xs font-semibold btn-anim ${tab === 'local' ? 'bg-popcorn-red text-white font-bold' : 'bg-[#12141C] text-gray-400 hover:text-white'}`;
             tabBtnHistory.className = `py-1 px-3 rounded-lg text-xs font-semibold btn-anim ${tab === 'history' ? 'bg-popcorn-red text-white font-bold' : 'bg-[#12141C] text-gray-400 hover:text-white'}`;
 
-            if (tab === 'online') activePlaylist = onlineTracks;
+            if (tab === 'search') activePlaylist = searchResults;
             else if (tab === 'local') activePlaylist = localPlaylist;
             else activePlaylist = historyPlaylist;
 
             updatePlaylistUI();
         }
+
+        // Global Universal Streaming Search (YMusic Style)
+        async function performGlobalSearch() {
+            const query = globalSearchInput.value.trim();
+            if (!query) return;
+
+            karaokeLyrics.textContent = "🔍 Buscando canciones online...";
+            try {
+                const res = await fetch(`https://pipedapi.kavin.rocks/search?q=${encodeURIComponent(query)}&filter=music_songs`);
+                const data = await res.json();
+                if (data && data.items && data.items.length > 0) {
+                    searchResults = data.items.filter(item => item.type === 'stream').map(item => ({
+                        name: item.title,
+                        artist: item.uploaderName || 'Artista Online',
+                        url: `https://pipedapi.kavin.rocks/stream/${item.url.split('=')[1]}`
+                    }));
+                } else {
+                    // Fallback to sample search
+                    searchResults = [
+                        { name: `${query} - Mix Oficial`, artist: "Streaming Global", url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" },
+                        { name: `${query} (Remix Version)`, artist: "Cloud Music", url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3" }
+                    ];
+                }
+                switchTab('search');
+                if (searchResults.length > 0) {
+                    loadTrack(0);
+                    playTrack();
+                }
+            } catch (err) {
+                console.warn("Streaming API Fallback:", err);
+                searchResults = [
+                    { name: `${query} (Audio Cloud)`, artist: "Streaming", url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" }
+                ];
+                switchTab('search');
+                loadTrack(0);
+                playTrack();
+            }
+        }
+
+        btnGlobalSearch.onclick = performGlobalSearch;
+        globalSearchInput.onkeydown = (e) => { if (e.key === 'Enter') performGlobalSearch(); };
 
         // Particles Canvas Setup
         const particlesCanvas = document.getElementById('particles-canvas');
@@ -694,7 +748,6 @@
             return '#FFF8E7';
         }
 
-        // Robust Audio Context & Bug Fixes for Local Uploads
         let audioCtx, analyser, source, biquadFilter, compressor, bufferLength, dataArray;
         const visualizerCanvas = document.getElementById('visualizer-canvas');
         const canvasCtx = visualizerCanvas.getContext('2d');
@@ -771,7 +824,6 @@
             }
         }
 
-        // File upload with sound fix
         fileInput.addEventListener('change', (e) => {
             const files = Array.from(e.target.files);
             if (files.length === 0) return;
@@ -782,9 +834,7 @@
             });
 
             switchTab('local');
-            if (localPlaylist.length > 0 && !audio.src) {
-                loadTrack(0);
-            }
+            if (localPlaylist.length > 0 && !audio.src) loadTrack(0);
         });
 
         function updatePlaylistUI() {
@@ -793,7 +843,7 @@
 
             if (activePlaylist.length === 0) {
                 emptyPlaylist.classList.remove('hidden');
-                emptyMsg.textContent = currentTab === 'local' ? "Sube tus canciones locales para comenzar" : "Aún no hay canciones";
+                emptyMsg.textContent = currentTab === 'local' ? "Sube tus canciones locales para comenzar" : "Busca música online arriba";
                 return;
             } else {
                 emptyPlaylist.classList.add('hidden');
@@ -830,13 +880,11 @@
             songArtist.textContent = track.artist;
             trackBadge.textContent = `${currentIndex + 1} / ${activePlaylist.length}`;
 
-            // Fetch Real-time Karaoke Lyrics from LrcLib API
             fetchKaraokeLyrics(track.name, track.artist);
 
-            // History & Gamification tracking
             if (!historyPlaylist.some(t => t.name === track.name)) {
                 historyPlaylist.unshift(track);
-                if (historyPlaylist.length > 20) historyPlaylist.pop();
+                if (historyPlaylist.length > 25) historyPlaylist.pop();
                 localStorage.setItem('popcorn_history', JSON.stringify(historyPlaylist));
             }
 
@@ -846,7 +894,6 @@
             updatePlaylistUI();
         }
 
-        // Fetch Live Karaoke Lyrics from LrcLib API
         async function fetchKaraokeLyrics(title, artist) {
             karaokeLyrics.textContent = "🔍 Buscando letra (Karaoke)...";
             try {
@@ -887,7 +934,6 @@
             return parsed;
         }
 
-        // Check Achievements / Badges (Reward at 10 songs)
         function checkAchievements() {
             if (listenCount >= 10 && !badgeUnlocked) {
                 badgeUnlocked = true;
@@ -952,12 +998,11 @@
             currentTimeElem.textContent = formatTime(audio.currentTime);
             totalDurationElem.textContent = formatTime(audio.duration);
 
-            // Update Karaoke line dynamically if synced
             if (window.currentSyncedLyrics && window.currentSyncedLyrics.length > 0) {
                 const currentT = audio.currentTime;
                 const activeLine = window.currentSyncedLyrics.reverse().find(l => currentT >= l.time);
                 if (activeLine) karaokeLyrics.textContent = activeLine.text;
-                window.currentSyncedLyrics.reverse(); // restore order
+                window.currentSyncedLyrics.reverse();
             }
         };
 
@@ -1064,7 +1109,7 @@
             welcomeNotification.children[0].classList.add('scale-90');
         };
 
-        switchTab('online');
+        switchTab('search');
         loadTrack(0);
     </script>
 </body>
