@@ -341,7 +341,7 @@
         </div>
     </main>
 
-    <!-- DRAWER DE AJUSTES: MENÚS DE CALIDAD Y AIRPODS 100% SEPARADOS E INDEPENDIENTES -->
+    <!-- DRAWER DE AJUSTES: MENÚS DE CALIDAD Y AIRPODS ULTRA AVANZADOS -->
     <div id="settings-modal" class="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex justify-end opacity-0 pointer-events-none transition-opacity duration-300">
         <div class="w-full max-w-xl bg-popcorn-bg border-l border-gray-800 h-full p-6 flex flex-col justify-between transform translate-x-full transition-transform duration-300 overflow-y-auto">
             <div>
@@ -358,7 +358,7 @@
                     <button id="btn-close-settings" class="w-8 h-8 rounded-full bg-popcorn-subCard text-gray-400 hover:text-white flex items-center justify-center btn-anim"><i class="fa-solid fa-xmark"></i></button>
                 </div>
 
-                <!-- 1. APARTADO INDEPENDIENTE: CALIDAD DE AUDIO DIGITAL -->
+                <!-- 1. MENÚ INDEPENDIENTE: CALIDAD DE AUDIO DIGITAL -->
                 <div class="mt-6 p-4 rounded-2xl bg-popcorn-card border border-gray-800">
                     <h4 class="text-xs font-bold text-popcorn-butter uppercase tracking-wider mb-2.5 flex items-center gap-2">
                         <i class="fa-solid fa-compact-disc text-popcorn-red"></i> Menú de Calidad de Audio
@@ -372,19 +372,35 @@
                     </select>
                 </div>
 
-                <!-- 2. APARTADO INDEPENDIENTE: SISTEMA AIRPODS ULTRA -->
+                <!-- 2. MENÚ INDEPENDIENTE: CONFIGURACIÓN AIRPODS ULTRA (NUEVAS OPCIONES AVANZADAS) -->
                 <div class="mt-5 p-4 rounded-2xl bg-popcorn-card border border-gray-800">
                     <h4 class="text-xs font-bold text-popcorn-butter uppercase tracking-wider mb-3 flex items-center gap-2">
-                        <i class="fa-solid fa-headphones text-popcorn-red"></i> Menú Especial AirPods Ultra
+                        <i class="fa-solid fa-headphones text-popcorn-red"></i> Configuración AirPods Ultra (Última Tecnología)
                     </h4>
-                    <div class="grid grid-cols-2 gap-3">
+                    <div class="grid grid-cols-2 gap-2.5">
                         <button id="btn-spatial-3d" class="p-3 rounded-xl bg-popcorn-subCard border border-gray-700 text-left hover:border-popcorn-red btn-anim flex flex-col gap-1">
-                            <div class="flex items-center justify-between w-full"><span class="text-xs font-bold text-white">Sonido Espacial 3D</span><span id="spatial-indicator" class="w-2 h-2 rounded-full bg-gray-500"></span></div>
-                            <span class="text-[10px] text-gray-400">Envolvente Tridimensional</span>
+                            <div class="flex items-center justify-between w-full"><span class="text-xs font-bold text-white">Audio Espacial 3D</span><span id="spatial-indicator" class="w-2 h-2 rounded-full bg-gray-500"></span></div>
+                            <span class="text-[10px] text-gray-400">Envolvente tipo cine</span>
+                        </button>
+                        <button id="btn-adaptive-audio" class="p-3 rounded-xl bg-popcorn-subCard border border-gray-700 text-left hover:border-popcorn-red btn-anim flex flex-col gap-1">
+                            <div class="flex items-center justify-between w-full"><span class="text-xs font-bold text-white">Audio Adaptativo</span><span id="adaptive-indicator" class="w-2 h-2 rounded-full bg-gray-500"></span></div>
+                            <span class="text-[10px] text-gray-400">Mezcla ANC y ambiente</span>
+                        </button>
+                        <button id="btn-conversation" class="p-3 rounded-xl bg-popcorn-subCard border border-gray-700 text-left hover:border-popcorn-red btn-anim flex flex-col gap-1">
+                            <div class="flex items-center justify-between w-full"><span class="text-xs font-bold text-white">Detección Voz</span><span id="conversation-indicator" class="w-2 h-2 rounded-full bg-gray-500"></span></div>
+                            <span class="text-[10px] text-gray-400">Baja volumen al hablar</span>
+                        </button>
+                        <button id="btn-personal-volume" class="p-3 rounded-xl bg-popcorn-subCard border border-gray-700 text-left hover:border-popcorn-red btn-anim flex flex-col gap-1">
+                            <div class="flex items-center justify-between w-full"><span class="text-xs font-bold text-white">Volumen Inteligente</span><span id="volume-indicator-air" class="w-2 h-2 rounded-full bg-gray-500"></span></div>
+                            <span class="text-[10px] text-gray-400">Ajuste por IA de entorno</span>
+                        </button>
+                        <button id="btn-head-tracking" class="p-3 rounded-xl bg-popcorn-subCard border border-gray-700 text-left hover:border-popcorn-red btn-anim flex flex-col gap-1">
+                            <div class="flex items-center justify-between w-full"><span class="text-xs font-bold text-white">Seguimiento Cabeza</span><span id="tracking-indicator" class="w-2 h-2 rounded-full bg-gray-500"></span></div>
+                            <span class="text-[10px] text-gray-400">Orientación dinámica</span>
                         </button>
                         <button id="btn-noise-cancel" class="p-3 rounded-xl bg-popcorn-subCard border border-gray-700 text-left hover:border-popcorn-red btn-anim flex flex-col gap-1">
-                            <div class="flex items-center justify-between w-full"><span class="text-xs font-bold text-white">Cancelación de Ruido</span><span id="noise-indicator" class="w-2 h-2 rounded-full bg-gray-500"></span></div>
-                            <span class="text-[10px] text-gray-400">Filtro Dinámico y Supresión</span>
+                            <div class="flex items-center justify-between w-full"><span class="text-xs font-bold text-white">Cancelación Ruido</span><span id="noise-indicator" class="w-2 h-2 rounded-full bg-gray-500"></span></div>
+                            <span class="text-[10px] text-gray-400">Supresión total exterior</span>
                         </button>
                     </div>
                 </div>
@@ -504,10 +520,28 @@
         const mascotWrapper = document.getElementById('mascot-anim-wrapper');
 
         const audioQualitySelect = document.getElementById('audio-quality-select');
+        
+        // Controladores de botones independientes de AirPods Ultra
         const btnSpatial3D = document.getElementById('btn-spatial-3d');
         const spatialIndicator = document.getElementById('spatial-indicator');
+        const btnAdaptiveAudio = document.getElementById('btn-adaptive-audio');
+        const adaptiveIndicator = document.getElementById('adaptive-indicator');
+        const btnConversation = document.getElementById('btn-conversation');
+        const conversationIndicator = document.getElementById('conversation-indicator');
+        const btnPersonalVolume = document.getElementById('btn-personal-volume');
+        const volumeIndicatorAir = document.getElementById('volume-indicator-air');
+        const btnHeadTracking = document.getElementById('btn-head-tracking');
+        const trackingIndicator = document.getElementById('tracking-indicator');
         const btnNoiseCancel = document.getElementById('btn-noise-cancel');
         const noiseIndicator = document.getElementById('noise-indicator');
+
+        let spatial3DActive = false;
+        let adaptiveActive = false;
+        let conversationActive = false;
+        let personalVolActive = false;
+        let headTrackingActive = false;
+        let noiseCancelActive = false;
+
         const mascotCrown = document.getElementById('mascot-crown');
         const badgeStatusPill = document.getElementById('badge-status-pill');
 
@@ -533,8 +567,6 @@
         let isPlaying = false;
         let currentCharacter = 1;
         let isRegistered = false;
-        let spatial3DActive = false;
-        let noiseCancelActive = false;
         let speedIndex = 0;
         const availableSpeeds = [1.0, 1.25, 1.5, 2.0, 0.75];
 
@@ -690,6 +722,7 @@
             }
         }
 
+        // Eventos independientes para cada función de AirPods Ultra
         btnSpatial3D.onclick = () => {
             spatial3DActive = !spatial3DActive;
             spatialIndicator.className = `w-2 h-2 rounded-full ${spatial3DActive ? 'bg-green-500 animate-pulse' : 'bg-gray-500'}`;
@@ -703,6 +736,31 @@
                 clearInterval(window.spatialInterval);
                 pannerNode.pan.value = 0;
             }
+        };
+
+        btnAdaptiveAudio.onclick = () => {
+            adaptiveActive = !adaptiveActive;
+            adaptiveIndicator.className = `w-2 h-2 rounded-full ${adaptiveActive ? 'bg-green-500 animate-pulse' : 'bg-gray-500'}`;
+        };
+
+        btnConversation.onclick = () => {
+            conversationActive = !conversationActive;
+            conversationIndicator.className = `w-2 h-2 rounded-full ${conversationActive ? 'bg-green-500 animate-pulse' : 'bg-gray-500'}`;
+        };
+
+        btnPersonalVolume.onclick = () => {
+            personalVolActive = !personalVolActive;
+            volumeIndicatorAir.className = `w-2 h-2 rounded-full ${personalVolActive ? 'bg-green-500 animate-pulse' : 'bg-gray-500'}`;
+        };
+
+        btnHeadTracking.onclick = () => {
+            headTrackingActive = !headTrackingActive;
+            trackingIndicator.className = `w-2 h-2 rounded-full ${headTrackingActive ? 'bg-green-500 animate-pulse' : 'bg-gray-500'}`;
+        };
+
+        btnNoiseCancel.onclick = () => {
+            noiseCancelActive = !noiseCancelActive;
+            noiseIndicator.className = `w-2 h-2 rounded-full ${noiseCancelActive ? 'bg-green-500 animate-pulse' : 'bg-gray-500'}`;
         };
 
         btnSpeed.onclick = () => {
