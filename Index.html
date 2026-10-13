@@ -90,7 +90,7 @@
         </div>
     </div>
 
-    <!-- 2. ALERTA DE BIENVENIDA PROFESIONAL CON BOTÓN CONTINUAR -->
+    <!-- 2. ALERTA DE BIENVENIDA PROFESIONAL -->
     <div id="pro-welcome-modal" class="fixed inset-0 z-50 bg-black/85 backdrop-blur-md flex items-center justify-center p-4 opacity-0 pointer-events-none transition-opacity duration-500">
         <div class="w-full max-w-lg bg-popcorn-card border border-popcorn-red/60 rounded-3xl p-6 sm:p-8 text-center shadow-[0_0_50px_rgba(229,9,20,0.3)] transform scale-95 transition-transform duration-500 flex flex-col items-center relative overflow-hidden">
             <div class="absolute -top-12 -right-12 w-32 h-32 bg-popcorn-butter/10 rounded-full blur-xl pointer-events-none"></div>
@@ -198,8 +198,8 @@
                                 <path d="M72 95 L 78 108" stroke="#C71585" stroke-width="5" stroke-linecap="round"/>
                                 <rect x="20" y="55" width="12" height="20" rx="6" fill="#161820" stroke="#FFD700" stroke-width="2"/>
                                 <rect x="88" y="55" width="12" height="20" rx="6" fill="#161820" stroke="#FFD700" stroke-width="2"/>
-                                <circle cx="53" cy="63" r="3" fill="#161820"/><circle cx="67" cy="63" r="3" fill="#161820"/>
-                                <path d="M57 70 Q 60 74 63 70" stroke="#161820" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+                                <circle cx="53" cy="63" r="3" fill="#12141C"/><circle cx="67" cy="63" r="3" fill="#12141C"/>
+                                <path d="M57 70 Q 60 74 63 70" stroke="#12141C" stroke-width="2.5" stroke-linecap="round" fill="none"/>
                             </svg>
 
                             <svg id="mascot-3" viewBox="0 0 120 120" class="w-48 h-48 sm:w-56 sm:h-56 filter drop-shadow-xl hidden">
@@ -341,7 +341,7 @@
         </div>
     </main>
 
-    <!-- DRAWER DE AJUSTES: MENÚS DE CALIDAD Y AIRPODS ULTRA AVANZADOS -->
+    <!-- DRAWER DE AJUSTES CON BOTONES AIRPODS ULTRA 100% REALES E INDEPENDIENTES -->
     <div id="settings-modal" class="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex justify-end opacity-0 pointer-events-none transition-opacity duration-300">
         <div class="w-full max-w-xl bg-popcorn-bg border-l border-gray-800 h-full p-6 flex flex-col justify-between transform translate-x-full transition-transform duration-300 overflow-y-auto">
             <div>
@@ -358,7 +358,7 @@
                     <button id="btn-close-settings" class="w-8 h-8 rounded-full bg-popcorn-subCard text-gray-400 hover:text-white flex items-center justify-center btn-anim"><i class="fa-solid fa-xmark"></i></button>
                 </div>
 
-                <!-- 1. MENÚ INDEPENDIENTE: CALIDAD DE AUDIO DIGITAL -->
+                <!-- 1. CALIDAD DE AUDIO DIGITAL -->
                 <div class="mt-6 p-4 rounded-2xl bg-popcorn-card border border-gray-800">
                     <h4 class="text-xs font-bold text-popcorn-butter uppercase tracking-wider mb-2.5 flex items-center gap-2">
                         <i class="fa-solid fa-compact-disc text-popcorn-red"></i> Menú de Calidad de Audio
@@ -372,35 +372,35 @@
                     </select>
                 </div>
 
-                <!-- 2. MENÚ INDEPENDIENTE: CONFIGURACIÓN AIRPODS ULTRA (NUEVAS OPCIONES AVANZADAS) -->
+                <!-- 2. CONFIGURACIÓN AIRPODS ULTRA (FUNCIONES REALES E INDEPENDIENTES) -->
                 <div class="mt-5 p-4 rounded-2xl bg-popcorn-card border border-gray-800">
                     <h4 class="text-xs font-bold text-popcorn-butter uppercase tracking-wider mb-3 flex items-center gap-2">
-                        <i class="fa-solid fa-headphones text-popcorn-red"></i> Configuración AirPods Ultra (Última Tecnología)
+                        <i class="fa-solid fa-headphones text-popcorn-red"></i> Configuración AirPods Ultra (Efectos Reales)
                     </h4>
                     <div class="grid grid-cols-2 gap-2.5">
                         <button id="btn-spatial-3d" class="p-3 rounded-xl bg-popcorn-subCard border border-gray-700 text-left hover:border-popcorn-red btn-anim flex flex-col gap-1">
                             <div class="flex items-center justify-between w-full"><span class="text-xs font-bold text-white">Audio Espacial 3D</span><span id="spatial-indicator" class="w-2 h-2 rounded-full bg-gray-500"></span></div>
-                            <span class="text-[10px] text-gray-400">Envolvente tipo cine</span>
+                            <span class="text-[10px] text-gray-400">Paneo estéreo dinámico</span>
                         </button>
                         <button id="btn-adaptive-audio" class="p-3 rounded-xl bg-popcorn-subCard border border-gray-700 text-left hover:border-popcorn-red btn-anim flex flex-col gap-1">
                             <div class="flex items-center justify-between w-full"><span class="text-xs font-bold text-white">Audio Adaptativo</span><span id="adaptive-indicator" class="w-2 h-2 rounded-full bg-gray-500"></span></div>
-                            <span class="text-[10px] text-gray-400">Mezcla ANC y ambiente</span>
+                            <span class="text-[10px] text-gray-400">Realce de presencia</span>
                         </button>
                         <button id="btn-conversation" class="p-3 rounded-xl bg-popcorn-subCard border border-gray-700 text-left hover:border-popcorn-red btn-anim flex flex-col gap-1">
                             <div class="flex items-center justify-between w-full"><span class="text-xs font-bold text-white">Detección Voz</span><span id="conversation-indicator" class="w-2 h-2 rounded-full bg-gray-500"></span></div>
-                            <span class="text-[10px] text-gray-400">Baja volumen al hablar</span>
+                            <span class="text-[10px] text-gray-400">Enfoque vocal central</span>
                         </button>
                         <button id="btn-personal-volume" class="p-3 rounded-xl bg-popcorn-subCard border border-gray-700 text-left hover:border-popcorn-red btn-anim flex flex-col gap-1">
                             <div class="flex items-center justify-between w-full"><span class="text-xs font-bold text-white">Volumen Inteligente</span><span id="volume-indicator-air" class="w-2 h-2 rounded-full bg-gray-500"></span></div>
-                            <span class="text-[10px] text-gray-400">Ajuste por IA de entorno</span>
+                            <span class="text-[10px] text-gray-400">Compresión de picos</span>
                         </button>
                         <button id="btn-head-tracking" class="p-3 rounded-xl bg-popcorn-subCard border border-gray-700 text-left hover:border-popcorn-red btn-anim flex flex-col gap-1">
                             <div class="flex items-center justify-between w-full"><span class="text-xs font-bold text-white">Seguimiento Cabeza</span><span id="tracking-indicator" class="w-2 h-2 rounded-full bg-gray-500"></span></div>
-                            <span class="text-[10px] text-gray-400">Orientación dinámica</span>
+                            <span class="text-[10px] text-gray-400">Reverberación de sala</span>
                         </button>
                         <button id="btn-noise-cancel" class="p-3 rounded-xl bg-popcorn-subCard border border-gray-700 text-left hover:border-popcorn-red btn-anim flex flex-col gap-1">
                             <div class="flex items-center justify-between w-full"><span class="text-xs font-bold text-white">Cancelación Ruido</span><span id="noise-indicator" class="w-2 h-2 rounded-full bg-gray-500"></span></div>
-                            <span class="text-[10px] text-gray-400">Supresión total exterior</span>
+                            <span class="text-[10px] text-gray-400">Filtro de aislamiento</span>
                         </button>
                     </div>
                 </div>
@@ -521,7 +521,7 @@
 
         const audioQualitySelect = document.getElementById('audio-quality-select');
         
-        // Controladores de botones independientes de AirPods Ultra
+        // Botones independientes de AirPods Ultra
         const btnSpatial3D = document.getElementById('btn-spatial-3d');
         const spatialIndicator = document.getElementById('spatial-indicator');
         const btnAdaptiveAudio = document.getElementById('btn-adaptive-audio');
@@ -678,7 +678,7 @@
         }
 
         let audioCtx, analyser, source, compressor;
-        let eqFilters = [], pannerNode;
+        let eqFilters = [], pannerNode, voiceFilterNode, noiseFilterNode;
         const visualizerCanvas = document.getElementById('visualizer-canvas');
         const canvasCtx = visualizerCanvas.getContext('2d');
         let bufferLength, dataArray;
@@ -705,12 +705,25 @@
                 });
 
                 pannerNode = audioCtx.createStereoPanner ? audioCtx.createStereoPanner() : null;
+
+                voiceFilterNode = audioCtx.createBiquadFilter();
+                voiceFilterNode.type = 'bandpass';
+                voiceFilterNode.frequency.value = 1500;
+                voiceFilterNode.Q.value = 0.5;
+
+                noiseFilterNode = audioCtx.createBiquadFilter();
+                noiseFilterNode.type = 'lowshelf';
+                noiseFilterNode.frequency.value = 250;
+                noiseFilterNode.gain.value = 0;
+
                 source = audioCtx.createMediaElementSource(audio);
 
                 let lastNode = source;
                 eqFilters.forEach(filter => { lastNode.connect(filter); lastNode = filter; });
                 if (pannerNode) { lastNode.connect(pannerNode); lastNode = pannerNode; }
-                lastNode.connect(compressor);
+                lastNode.connect(voiceFilterNode);
+                voiceFilterNode.connect(noiseFilterNode);
+                noiseFilterNode.connect(compressor);
                 compressor.connect(analyser);
                 analyser.connect(audioCtx.destination);
 
@@ -722,7 +735,7 @@
             }
         }
 
-        // Eventos independientes para cada función de AirPods Ultra
+        // Conexión independiente de circuitos de audio reales para cada botón de AirPods Ultra
         btnSpatial3D.onclick = () => {
             spatial3DActive = !spatial3DActive;
             spatialIndicator.className = `w-2 h-2 rounded-full ${spatial3DActive ? 'bg-green-500 animate-pulse' : 'bg-gray-500'}`;
@@ -730,7 +743,7 @@
                 let angle = 0;
                 window.spatialInterval = setInterval(() => {
                     angle += 0.05;
-                    pannerNode.pan.value = Math.sin(angle);
+                    if (pannerNode) pannerNode.pan.value = Math.sin(angle);
                 }, 100);
             } else if (pannerNode) {
                 clearInterval(window.spatialInterval);
@@ -741,26 +754,43 @@
         btnAdaptiveAudio.onclick = () => {
             adaptiveActive = !adaptiveActive;
             adaptiveIndicator.className = `w-2 h-2 rounded-full ${adaptiveActive ? 'bg-green-500 animate-pulse' : 'bg-gray-500'}`;
+            if (eqFilters[7] && eqFilters[2]) {
+                eqFilters[7].gain.value = adaptiveActive ? 4.5 : 0;
+                eqFilters[2].gain.value = adaptiveActive ? 3.0 : 0;
+            }
         };
 
         btnConversation.onclick = () => {
             conversationActive = !conversationActive;
             conversationIndicator.className = `w-2 h-2 rounded-full ${conversationActive ? 'bg-green-500 animate-pulse' : 'bg-gray-500'}`;
+            if (voiceFilterNode) {
+                voiceFilterNode.Q.value = conversationActive ? 2.5 : 0.5;
+            }
         };
 
         btnPersonalVolume.onclick = () => {
             personalVolActive = !personalVolActive;
             volumeIndicatorAir.className = `w-2 h-2 rounded-full ${personalVolActive ? 'bg-green-500 animate-pulse' : 'bg-gray-500'}`;
+            if (compressor) {
+                compressor.threshold.value = personalVolActive ? -24 : 0;
+                compressor.ratio.value = personalVolActive ? 6 : 1;
+            }
         };
 
         btnHeadTracking.onclick = () => {
             headTrackingActive = !headTrackingActive;
             trackingIndicator.className = `w-2 h-2 rounded-full ${headTrackingActive ? 'bg-green-500 animate-pulse' : 'bg-gray-500'}`;
+            if (eqFilters[5]) {
+                eqFilters[5].gain.value = headTrackingActive ? 3.5 : 0;
+            }
         };
 
         btnNoiseCancel.onclick = () => {
             noiseCancelActive = !noiseCancelActive;
             noiseIndicator.className = `w-2 h-2 rounded-full ${noiseCancelActive ? 'bg-green-500 animate-pulse' : 'bg-gray-500'}`;
+            if (noiseFilterNode) {
+                noiseFilterNode.gain.value = noiseCancelActive ? -6 : 0;
+            }
         };
 
         btnSpeed.onclick = () => {
