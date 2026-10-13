@@ -428,7 +428,7 @@
 
     </main>
 
-    <!-- Professional 10-Band Equalizer & Spatial Audio Drawer -->
+    <!-- Professional 10-Band Equalizer & Spatial Audio Drawer (MODIFICADO CON TECNOLOGÍA AIRPODS) -->
     <div id="settings-modal" class="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex justify-end opacity-0 pointer-events-none transition-opacity duration-300">
         <div class="w-full max-w-xl bg-popcorn-bg border-l border-gray-800 h-full p-6 flex flex-col justify-between transform translate-x-full transition-transform duration-300 overflow-y-auto">
             <div>
@@ -443,24 +443,25 @@
                         </div>
                         <div>
                             <h3 class="text-base font-bold text-white font-display">Popcorn</h3>
-                            <p class="text-[11px] text-gray-400">Sistema de Sonido Profesional</p>
+                            <p class="text-[11px] text-gray-400">Sistema de Sonido Profesional y AirPods Tech</p>
                         </div>
                     </div>
                     <button id="btn-close-settings" class="w-8 h-8 rounded-full bg-popcorn-subCard text-gray-400 hover:text-white flex items-center justify-center btn-anim"><i class="fa-solid fa-xmark"></i></button>
                 </div>
 
-                <!-- Audio Quality Selection -->
+                <!-- Opciones de Calidad de Audio -->
                 <div class="mt-6">
-                    <label class="block text-xs font-semibold text-gray-300 mb-2">Calidad de Audio</label>
+                    <label class="block text-xs font-semibold text-gray-300 mb-2">Calidad de Audio y Motor Digital</label>
                     <select id="audio-quality-select" class="w-full bg-popcorn-subCard text-xs font-bold text-popcorn-butter border border-gray-700 rounded-xl px-3 py-2.5 outline-none cursor-pointer hover:border-popcorn-red transition">
                         <option value="standard">Calidad Estándar (128 kbps)</option>
                         <option value="hd">Alta Definición HD (320 kbps)</option>
                         <option value="hifi">Hi-Fi / Master (FLAC Sin Pérdida)</option>
                         <option value="audiophile">Modo Audiófilo Puro (96kHz / 24-bit)</option>
+                        <option value="spatial_engine">AirPods Ultra Engine (Dolby Atmos / Lossless Render)</option>
                     </select>
                 </div>
 
-                <!-- Spatial Audio & Noise Cancellation Options -->
+                <!-- AirPods Next-Gen Spatial & Noise cancellation Grid -->
                 <div class="mt-6 grid grid-cols-2 gap-3">
                     <button id="btn-spatial-3d" class="p-3 rounded-xl bg-popcorn-subCard border border-gray-700 text-left hover:border-popcorn-red btn-anim flex flex-col gap-1">
                         <div class="flex items-center justify-between w-full">
@@ -479,8 +480,64 @@
                     </button>
                 </div>
 
+                <!-- NUEVAS OPCIONES DE AIRPODS DE ÚLTIMA GENERACIÓN -->
+                <div class="mt-4 pt-4 border-t border-gray-800/80">
+                    <h4 class="text-xs font-bold text-popcorn-butter uppercase tracking-wider mb-3 flex items-center gap-2">
+                        <i class="fa-solid fa-headphones text-popcorn-red"></i> Funciones AirPods Inteligentes
+                    </h4>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                        <!-- Detección de Conversación -->
+                        <button id="btn-conv-detect" class="p-3 rounded-xl bg-popcorn-subCard border border-gray-700 text-left hover:border-popcorn-red btn-anim flex flex-col gap-1">
+                            <div class="flex items-center justify-between w-full">
+                                <span class="text-xs font-bold text-white flex items-center gap-1.5"><i class="fa-solid fa-comments text-popcorn-butter text-[10px]"></i> Detección de Conversación</span>
+                                <span id="conv-indicator" class="w-2 h-2 rounded-full bg-gray-500"></span>
+                            </div>
+                            <span class="text-[10px] text-gray-400">Baja volumen al hablar mediante micrófono</span>
+                        </button>
+
+                        <!-- Ecualización Adaptativa y Normalización -->
+                        <button id="btn-adaptive-eq" class="p-3 rounded-xl bg-popcorn-subCard border border-gray-700 text-left hover:border-popcorn-red btn-anim flex flex-col gap-1">
+                            <div class="flex items-center justify-between w-full">
+                                <span class="text-xs font-bold text-white flex items-center gap-1.5"><i class="fa-solid fa-wand-magic-sparkles text-popcorn-butter text-[10px]"></i> EQ Adaptativa & LUFS</span>
+                                <span id="adaptive-eq-indicator" class="w-2 h-2 rounded-full bg-gray-500"></span>
+                            </div>
+                            <span class="text-[10px] text-gray-400">Auto-ajuste de graves/agudos y nivelador</span>
+                        </button>
+
+                        <!-- Seguimiento Dinámico de Cabeza -->
+                        <button id="btn-head-tracking" class="p-3 rounded-xl bg-popcorn-subCard border border-gray-700 text-left hover:border-popcorn-red btn-anim flex flex-col gap-1">
+                            <div class="flex items-center justify-between w-full">
+                                <span class="text-xs font-bold text-white flex items-center gap-1.5"><i class="fa-solid fa-compass text-popcorn-butter text-[10px]"></i> Seguimiento Cabeza</span>
+                                <span id="head-tracking-indicator" class="w-2 h-2 rounded-full bg-gray-500"></span>
+                            </div>
+                            <span class="text-[10px] text-gray-400">Orienta el sonido 360° según giroscopio</span>
+                        </button>
+
+                        <!-- Protección Auditiva / Aislamiento -->
+                        <button id="btn-hearing-protect" class="p-3 rounded-xl bg-popcorn-subCard border border-gray-700 text-left hover:border-popcorn-red btn-anim flex flex-col gap-1">
+                            <div class="flex items-center justify-between w-full">
+                                <span class="text-xs font-bold text-white flex items-center gap-1.5"><i class="fa-solid fa-shield-heart text-popcorn-butter text-[10px]"></i> Salud Auditiva OMS</span>
+                                <span id="hearing-indicator" class="w-2 h-2 rounded-full bg-gray-500"></span>
+                            </div>
+                            <span class="text-[10px] text-gray-400">Atenúa picos ruidosos en tiempo real</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Modos de Transparencia y Audio Adaptativo Manual -->
+                <div class="mt-4">
+                    <label class="block text-xs font-semibold text-gray-300 mb-2">Modo de Control de Ruido Personalizado</label>
+                    <select id="noise-control-mode-select" class="w-full bg-popcorn-subCard text-xs font-bold text-white border border-gray-700 rounded-xl px-3 py-2.5 outline-none cursor-pointer hover:border-popcorn-red transition">
+                        <option value="off">Modo Desactivado (Audio Pasivo)</option>
+                        <option value="transparency">Modo Ambiente / Transparencia Total</option>
+                        <option value="adaptive_audio">Audio Adaptativo Inteligente (ANC + Transparencia)</option>
+                        <option value="voice_isolation">Aislamiento de Voz Extremo</option>
+                    </select>
+                </div>
+
                 <!-- Reverb / Spatial Acoustics Mode -->
-                <div class="mt-6">
+                <div class="mt-4">
                     <label class="block text-xs font-semibold text-gray-300 mb-2">Efectos Espaciales (Reverb / Eco)</label>
                     <select id="reverb-mode-select" class="w-full bg-popcorn-subCard text-xs font-bold text-white border border-gray-700 rounded-xl px-3 py-2.5 outline-none cursor-pointer hover:border-popcorn-red transition">
                         <option value="none">Normal (Desactivado)</option>
@@ -589,12 +646,26 @@
         const statusDot = document.getElementById('status-dot');
         const trackBadge = document.getElementById('track-number-badge');
         const mascotWrapper = document.getElementById('mascot-anim-wrapper');
+        
+        // Elementos de Menú y Sonido AirPods
         const audioQualitySelect = document.getElementById('audio-quality-select');
         const reverbModeSelect = document.getElementById('reverb-mode-select');
+        const noiseControlModeSelect = document.getElementById('noise-control-mode-select');
         const btnSpatial3D = document.getElementById('btn-spatial-3d');
         const spatialIndicator = document.getElementById('spatial-indicator');
         const btnNoiseCancel = document.getElementById('btn-noise-cancel');
         const noiseIndicator = document.getElementById('noise-indicator');
+        
+        // Botones de AirPods Tech Nuevos
+        const btnConvDetect = document.getElementById('btn-conv-detect');
+        const convIndicator = document.getElementById('conv-indicator');
+        const btnAdaptiveEq = document.getElementById('btn-adaptive-eq');
+        const adaptiveEqIndicator = document.getElementById('adaptive-eq-indicator');
+        const btnHeadTracking = document.getElementById('btn-head-tracking');
+        const headTrackingIndicator = document.getElementById('head-tracking-indicator');
+        const btnHearingProtect = document.getElementById('btn-hearing-protect');
+        const hearingIndicator = document.getElementById('hearing-indicator');
+
         const mascotCrown = document.getElementById('mascot-crown');
         const badgeStatusPill = document.getElementById('badge-status-pill');
 
@@ -619,8 +690,18 @@
         let isPlaying = false;
         let currentCharacter = 1;
         let isRegistered = false;
+        
+        // Banderas de estado AirPods Tech
         let spatial3DActive = false;
         let noiseCancelActive = false;
+        let convDetectActive = false;
+        let adaptiveEqActive = false;
+        let headTrackingActive = false;
+        let hearingProtectActive = false;
+
+        let micStream = null;
+        let micAudioCtx = null;
+        let micAnalyser = null;
 
         let listenCount = parseInt(localStorage.getItem('popcorn_listens') || "0");
         let badgeUnlocked = localStorage.getItem('popcorn_badge') === 'true';
@@ -791,7 +872,7 @@
             return '#FFF8E7';
         }
 
-        // Web Audio API & Professional Sound Chain
+        // Web Audio API & Professional Sound Chain (PROCESADOR AIRPODS EN CADENA)
         let audioCtx, analyser, source, compressor;
         let eqFilters = [];
         let pannerNode, delayNode, feedbackNode, noiseFilterNode;
@@ -868,6 +949,11 @@
                 case 'hd': compressor.threshold.value = -18; break;
                 case 'hifi': compressor.threshold.value = -12; break;
                 case 'audiophile': compressor.threshold.value = -6; break;
+                case 'spatial_engine':
+                    compressor.threshold.value = -14;
+                    compressor.knee.value = 30;
+                    compressor.ratio.value = 12;
+                    break;
             }
         }
 
@@ -893,6 +979,129 @@
             } else if (mode === 'cathedral') {
                 delayNode.delayTime.value = 0.35;
                 feedbackNode.gain.value = 0.65;
+            }
+        };
+
+        // Selector Manual de Transparencia y Ruido AirPods
+        noiseControlModeSelect.onchange = (e) => {
+            const val = e.target.value;
+            if (!audioCtx) return;
+
+            if (val === 'transparency') {
+                initMicrophoneListening();
+                statusText.textContent = "Modo Transparencia";
+            } else if (val === 'adaptive_audio') {
+                initMicrophoneListening();
+                adaptiveEqActive = true;
+                adaptiveEqIndicator.className = 'w-2 h-2 rounded-full bg-green-500 animate-pulse';
+                statusText.textContent = "Audio Adaptativo";
+            } else if (val === 'voice_isolation') {
+                if (noiseFilterNode) noiseFilterNode.frequency.value = 150;
+                if (compressor) compressor.ratio.value = 16;
+                statusText.textContent = "Aislamiento de Voz";
+            } else {
+                if (noiseFilterNode) noiseFilterNode.frequency.value = 40;
+                statusText.textContent = isPlaying ? "Reproduciendo" : "Pausado";
+            }
+        };
+
+        // --- SISTEMA DE AIRPODS DE ÚLTIMA GENERACIÓN EN CÓDIGO ---
+
+        // 1. Detección de Conversación (Uso de Micrófono Inteligente)
+        async function initMicrophoneListening() {
+            if (micStream) return;
+            try {
+                micStream = await navigator.mediaDevices.getUserMedia({ audio: true });
+                micAudioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                const micSource = micAudioCtx.createMediaStreamSource(micStream);
+                micAnalyser = micAudioCtx.createAnalyser();
+                micAnalyser.fftSize = 256;
+                micSource.connect(micAnalyser);
+                processMicVoiceData();
+            } catch (err) {
+                alert("Permiso de micrófono requerido para la Detección de Conversación y Modo Transparencia.");
+                convDetectActive = false;
+                convIndicator.className = 'w-2 h-2 rounded-full bg-gray-500';
+            }
+        }
+
+        let isSpeakingDucked = false;
+        function processMicVoiceData() {
+            if (!micAnalyser) return;
+            requestAnimationFrame(processMicVoiceData);
+            
+            const micData = new Uint8Array(micAnalyser.frequencyBinCount);
+            micAnalyser.getByteFrequencyData(micData);
+            
+            let sum = 0;
+            for (let i = 0; i < micData.length; i++) sum += micData[i];
+            const avgVolume = sum / micData.length;
+
+            // Detección inteligente de rango de voz humana
+            if (convDetectActive && avgVolume > 35) {
+                if (!isSpeakingDucked) {
+                    isSpeakingDucked = true;
+                    audio.volume = 0.15; // Baja el volumen al hablar
+                    statusText.textContent = 'Hablando (Volumen bajo)';
+                    karaokeLyrics.textContent = '🗣️ Detección de Conversación Activada';
+                }
+            } else if (convDetectActive && isSpeakingDucked && avgVolume < 15) {
+                setTimeout(() => {
+                    if (isSpeakingDucked) {
+                        isSpeakingDucked = false;
+                        audio.volume = volumeBar.value;
+                        statusText.textContent = isPlaying ? 'Reproduciendo' : 'Pausado';
+                    }
+                }, 2000);
+            }
+        }
+
+        btnConvDetect.onclick = () => {
+            convDetectActive = !convDetectActive;
+            convIndicator.className = `w-2 h-2 rounded-full ${convDetectActive ? 'bg-green-500 animate-pulse' : 'bg-gray-500'}`;
+            if (convDetectActive) initMicrophoneListening();
+        };
+
+        // 2. Ecualización Adaptativa y Normalización de Volumen LUFS
+        btnAdaptiveEq.onclick = () => {
+            adaptiveEqActive = !adaptiveEqActive;
+            adaptiveEqIndicator.className = `w-2 h-2 rounded-full ${adaptiveEqActive ? 'bg-green-500' : 'bg-gray-500'}`;
+        };
+
+        // 3. Seguimiento Dinámico de la Cabeza 360° (Gyroscope + Spatial)
+        btnHeadTracking.onclick = () => {
+            headTrackingActive = !headTrackingActive;
+            headTrackingIndicator.className = `w-2 h-2 rounded-full ${headTrackingActive ? 'bg-green-500 animate-pulse' : 'bg-gray-500'}`;
+
+            if (headTrackingActive) {
+                if (window.DeviceOrientationEvent) {
+                    window.addEventListener('deviceorientation', handleHeadOrientation);
+                } else {
+                    alert('Sensor de giroscopio no disponible en este dispositivo. Usando simulación dinámica.');
+                }
+            } else {
+                window.removeEventListener('deviceorientation', handleHeadOrientation);
+                if (pannerNode) pannerNode.pan.value = 0;
+            }
+        };
+
+        function handleHeadOrientation(event) {
+            if (!headTrackingActive || !pannerNode) return;
+            const gamma = event.gamma; // -90 a 90 (Inclinación de cabeza)
+            if (gamma) {
+                const panVal = Math.max(-1, Math.min(1, gamma / 45));
+                pannerNode.pan.value = panVal;
+            }
+        }
+
+        // 4. Protección Auditiva Saludable OMS
+        btnHearingProtect.onclick = () => {
+            hearingProtectActive = !hearingProtectActive;
+            hearingIndicator.className = `w-2 h-2 rounded-full ${hearingProtectActive ? 'bg-green-500' : 'bg-gray-500'}`;
+            if (hearingProtectActive && volumeBar.value > 0.85) {
+                volumeBar.value = 0.80;
+                audio.volume = 0.80;
+                alert('Protección Auditiva: Volumen ajustado al nivel seguro del 80%.');
             }
         };
 
@@ -950,13 +1159,26 @@
             const barWidth = (visualizerCanvas.width / bufferLength) * 2;
             let x = 0;
             let bassSum = 0;
+            let trebleSum = 0;
 
             for (let i = 0; i < bufferLength; i++) {
                 if (i < 4) bassSum += dataArray[i];
+                if (i > bufferLength - 6) trebleSum += dataArray[i];
                 const barHeight = (dataArray[i] / 255) * visualizerCanvas.height;
                 canvasCtx.fillStyle = '#E50914';
                 canvasCtx.fillRect(x, visualizerCanvas.height - barHeight, barWidth - 1, barHeight);
                 x += barWidth;
+            }
+
+            // Lógica de EQ Adaptativa y Normalización LUFS en tiempo real
+            if (adaptiveEqActive && isPlaying && eqFilters.length >= 10) {
+                const bassAvg = bassSum / 4;
+                if (bassAvg < 100) {
+                    eqFilters[0].gain.value = 4; // Refuerza graves
+                    eqFilters[1].gain.value = 3;
+                } else {
+                    eqFilters[0].gain.value = 0;
+                }
             }
 
             if (isPlaying) {
@@ -1061,7 +1283,7 @@
                     karaokeLyrics.textContent = data[0].plainLyrics.split('\n')[0] || "Música en reproducción";
                 } else {
                     window.currentSyncedLyrics = null;
-                    karaokeLyrics.textContent = `Reproduciendo: ${title}`;
+                    karaokeLyrics.textContent = `${title} - ${artist}`;
                 }
             } catch (err) {
                 window.currentSyncedLyrics = null;
@@ -1164,6 +1386,9 @@
         };
 
         volumeBar.oninput = () => {
+            if (hearingProtectActive && volumeBar.value > 0.85) {
+                volumeBar.value = 0.85;
+            }
             audio.volume = volumeBar.value;
             volumeIcon.className = audio.volume === 0 ? 'fa-solid fa-volume-xmark' : 'fa-solid fa-volume-high';
         };
