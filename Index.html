@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="Content-Security-Policy" content="default-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.tailwindcss.com https://cdnjs.cloudflare.com https://fonts.googleapis.com https://fonts.gstatic.com blob: data: https://cdn.pixabay.com https://lrclib.net https://pipedapi.kavin.rocks https://api.invidious.io https://invidious.nerdvpn.de https://i.ytimg.com https://*.ggpht.com; connect-src 'self' https://lrclib.net https://pipedapi.kavin.rocks https://*.pipedapi.kavin.rocks https://invidious.nerdvpn.de https://*.invidious.nerdvpn.de; img-src 'self' data: blob: https: https://i.ytimg.com https://*.ggpht.com; media-src 'self' blob: data: https://cdn.pixabay.com https://*.googlevideo.com https://*.piped.video https://*.ryoc.us https://pipedapi.kavin.rocks https://www.soundhelix.com;">
-    <title>Popcorn Music Player</title>
+    <title>Popcorn Music Player - Studio Master Edition</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@600;700;800;900&display=swap" rel="stylesheet">
@@ -341,7 +341,7 @@
         </div>
     </main>
 
-    <!-- DRAWER DE AJUSTES CON BOTONES AIRPODS ULTRA 100% REALES E INDEPENDIENTES -->
+    <!-- DRAWER DE AJUSTES: MASTERIZACIÓN PRO Y EXPORTACIÓN ESTILO ABLETON -->
     <div id="settings-modal" class="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex justify-end opacity-0 pointer-events-none transition-opacity duration-300">
         <div class="w-full max-w-xl bg-popcorn-bg border-l border-gray-800 h-full p-6 flex flex-col justify-between transform translate-x-full transition-transform duration-300 overflow-y-auto">
             <div>
@@ -352,18 +352,43 @@
                         </div>
                         <div>
                             <h3 class="text-base font-bold text-white font-display">Popcorn</h3>
-                            <p class="text-[11px] text-gray-400">Sistema de Sonido Profesional y Masterización</p>
+                            <p class="text-[11px] text-gray-400">Estudio de Masterización Pro y Consola DAW</p>
                         </div>
                     </div>
                     <button id="btn-close-settings" class="w-8 h-8 rounded-full bg-popcorn-subCard text-gray-400 hover:text-white flex items-center justify-center btn-anim"><i class="fa-solid fa-xmark"></i></button>
                 </div>
 
-                <!-- 1. CALIDAD DE AUDIO DIGITAL -->
-                <div class="mt-6 p-4 rounded-2xl bg-popcorn-card border border-gray-800">
-                    <h4 class="text-xs font-bold text-popcorn-butter uppercase tracking-wider mb-2.5 flex items-center gap-2">
-                        <i class="fa-solid fa-compact-disc text-popcorn-red"></i> Menú de Calidad de Audio
+                <!-- 1. APARTADO MAESTRO DE MASTERIZACIÓN PRO Y PRESETS EN GRANDE -->
+                <div class="mt-6 p-5 rounded-2xl bg-popcorn-card border border-popcorn-red/50 shadow-[0_0_25px_rgba(229,9,20,0.2)]">
+                    <h4 class="text-xs font-extrabold text-popcorn-butter uppercase tracking-wider mb-2 flex items-center gap-2">
+                        <i class="fa-solid fa-sliders text-popcorn-red"></i> Rack de Masterización Pro (Presets de Estudio)
                     </h4>
-                    <label class="block text-[11px] text-gray-400 mb-2">Selecciona la tasa de bits y motor de compresión:</label>
+                    <p class="text-[11px] text-gray-300 mb-3 leading-relaxed">
+                        Selecciona el perfil acústico de masterización. Los circuitos virtuales procesarán la dinámica global del tema en tiempo real para optimizar su pegada y claridad en cualquier sistema de sonido.
+                    </p>
+                    <select id="mastering-preset-select" class="w-full bg-popcorn-subCard text-xs font-extrabold text-popcorn-butter border border-popcorn-red/60 rounded-xl px-4 py-3.5 outline-none cursor-pointer hover:border-popcorn-red transition shadow-inner">
+                        <option value="flat">🌟 Master Estándar / Flat (Hi-Fi Neutro)</option>
+                        <option value="club">🔥 Club Bass & Punch Pro (Graves Profundos y Dinámica)</option>
+                        <option value="vocal">💎 Vocal Cristalina & Presencia (Studio Air)</option>
+                        <option value="cinematic">🌌 Cinematic Space Odyssey (Envolvente Ancho 3D)</option>
+                        <option value="warm">📼 Warm Analog Tape Simulation (Calidez de Cinta Analógica)</option>
+                        <option value="maximizer">🚀 Maximizador Comercial (Loudness Pro Estilo Spotify)</option>
+                    </select>
+
+                    <!-- Botón de Exportación de Proyecto Estilo Ableton -->
+                    <div class="mt-4 pt-3 border-t border-gray-800 flex flex-col gap-2">
+                        <button id="btn-export-ableton" class="w-full bg-gradient-to-r from-popcorn-red to-popcorn-redDark hover:from-popcorn-redDark hover:to-popcorn-red text-white font-bold py-3.5 rounded-xl text-xs shadow-lg btn-anim flex items-center justify-center gap-2 border border-popcorn-red/40">
+                            <i class="fa-solid fa-file-export text-popcorn-butter"></i> Exportar Proyecto Máster (WAV Profesional)
+                        </button>
+                        <span id="export-status-text" class="text-[10px] text-center text-gray-400 font-mono">Renderizado sin pérdidas listo para DAW / Ableton.</span>
+                    </div>
+                </div>
+
+                <!-- 2. CALIDAD DE AUDIO DIGITAL -->
+                <div class="mt-5 p-4 rounded-2xl bg-popcorn-card border border-gray-800">
+                    <h4 class="text-xs font-bold text-popcorn-butter uppercase tracking-wider mb-2.5 flex items-center gap-2">
+                        <i class="fa-solid fa-compact-disc text-popcorn-red"></i> Motor de Calidad de Tasa de Bits
+                    </h4>
                     <select id="audio-quality-select" class="w-full bg-popcorn-subCard text-xs font-bold text-white border border-gray-700 rounded-xl px-3 py-2.5 outline-none cursor-pointer hover:border-popcorn-red transition">
                         <option value="standard">Calidad Estándar (128 kbps)</option>
                         <option value="hd">Alta Definición HD (320 kbps)</option>
@@ -372,7 +397,7 @@
                     </select>
                 </div>
 
-                <!-- 2. CONFIGURACIÓN AIRPODS ULTRA (FUNCIONES REALES E INDEPENDIENTES) -->
+                <!-- 3. CONFIGURACIÓN AIRPODS ULTRA -->
                 <div class="mt-5 p-4 rounded-2xl bg-popcorn-card border border-gray-800">
                     <h4 class="text-xs font-bold text-popcorn-butter uppercase tracking-wider mb-3 flex items-center gap-2">
                         <i class="fa-solid fa-headphones text-popcorn-red"></i> Configuración AirPods Ultra (Efectos Reales)
@@ -512,7 +537,6 @@
         const karaokeLyrics = document.getElementById('karaoke-lyrics');
         const playlistContainer = document.getElementById('playlist-container');
         const emptyPlaylist = document.getElementById('empty-playlist');
-        const emptyMsg = document.getElementById('empty-msg');
         const libraryCount = document.getElementById('library-count');
         const statusText = document.getElementById('status-text');
         const statusDot = document.getElementById('status-dot');
@@ -520,8 +544,11 @@
         const mascotWrapper = document.getElementById('mascot-anim-wrapper');
 
         const audioQualitySelect = document.getElementById('audio-quality-select');
+        const masteringPresetSelect = document.getElementById('mastering-preset-select');
+        const btnExportAbleton = document.getElementById('btn-export-ableton');
+        const exportStatusText = document.getElementById('export-status-text');
         
-        // Botones independientes de AirPods Ultra
+        // Botones AirPods Ultra
         const btnSpatial3D = document.getElementById('btn-spatial-3d');
         const spatialIndicator = document.getElementById('spatial-indicator');
         const btnAdaptiveAudio = document.getElementById('btn-adaptive-audio');
@@ -554,10 +581,10 @@
         let currentTab = 'search';
 
         let searchResults = [
-            { name: "Electronic Master Beat", artist: "Popcorn Hi-Fi Studio", url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3", thumbnail: "" },
-            { name: "Chill Out Summer Breeze", artist: "Acoustic Session", url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3", thumbnail: "" },
-            { name: "Bass Power Electro Groove", artist: "VIP Electro Club", url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3", thumbnail: "" },
-            { name: "Ambient Space Odyssey", artist: "SoundHelix Original", url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3", thumbnail: "" }
+            { name: "Electronic Master Beat", artist: "Popcorn Hi-Fi Studio", url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" },
+            { name: "Chill Out Summer Breeze", artist: "Acoustic Session", url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3" },
+            { name: "Bass Power Electro Groove", artist: "VIP Electro Club", url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3" },
+            { name: "Ambient Space Odyssey", artist: "SoundHelix Original", url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3" }
         ];
         let localPlaylist = [];
         let historyPlaylist = JSON.parse(localStorage.getItem('popcorn_history') || "[]");
@@ -735,7 +762,134 @@
             }
         }
 
-        // Conexión independiente de circuitos de audio reales para cada botón de AirPods Ultra
+        // Aplicar Presets de Masterización Pro
+        masteringPresetSelect.onchange = () => {
+            initAudioContext();
+            const preset = masteringPresetSelect.value;
+            
+            eqFilters.forEach(f => f.gain.value = 0);
+            if (compressor) { compressor.threshold.value = 0; compressor.ratio.value = 1; }
+
+            if (preset === 'club') {
+                if (eqFilters[0]) eqFilters[0].gain.value = 8;
+                if (eqFilters[1]) eqFilters[1].gain.value = 6;
+                if (compressor) { compressor.threshold.value = -20; compressor.ratio.value = 4; }
+            } else if (preset === 'vocal') {
+                if (eqFilters[5]) eqFilters[5].gain.value = 5;
+                if (eqFilters[6]) eqFilters[6].gain.value = 6;
+                if (eqFilters[8]) eqFilters[8].gain.value = 4;
+            } else if (preset === 'cinematic') {
+                if (eqFilters[0]) eqFilters[0].gain.value = 4;
+                if (eqFilters[8]) eqFilters[8].gain.value = 5;
+                if (eqFilters[9]) eqFilters[9].gain.value = 6;
+            } else if (preset === 'warm') {
+                if (eqFilters[2]) eqFilters[2].gain.value = 5;
+                if (eqFilters[3]) eqFilters[3].gain.value = 4;
+                if (eqFilters[7]) eqFilters[7].gain.value = -3;
+            } else if (preset === 'maximizer') {
+                if (compressor) { compressor.threshold.value = -28; compressor.ratio.value = 8; }
+                if (eqFilters[2]) eqFilters[2].gain.value = 3;
+                if (eqFilters[7]) eqFilters[7].gain.value = 4;
+            }
+        };
+
+        // Exportador de Proyecto Estilo Ableton (Render WAV Profesional offline)
+        btnExportAbleton.onclick = async () => {
+            if (!audio.src) {
+                alert("Por favor selecciona o sube una pista para exportar.");
+                return;
+            }
+            exportStatusText.textContent = "Renderizando máster en alta fidelidad (WAV)...";
+            exportStatusText.className = "text-[10px] text-center text-popcorn-butter font-mono animate-pulse";
+
+            try {
+                const response = await fetch(audio.src);
+                const arrayBuffer = await response.arrayBuffer();
+                const tempCtx = new (window.AudioContext || window.webkitAudioContext)();
+                const audioBuffer = await tempCtx.decodeAudioData(arrayBuffer);
+
+                const offlineCtx = new OfflineAudioContext(audioBuffer.numberOfChannels, audioBuffer.length, audioBuffer.sampleRate);
+                const offlineSource = offlineCtx.createBufferSource();
+                offlineSource.buffer = audioBuffer;
+
+                // Replicar filtros de masterización activos en el offline context
+                const offCompressor = offlineCtx.createDynamicsCompressor();
+                offCompressor.threshold.value = compressor ? compressor.threshold.value : 0;
+                offCompressor.ratio.value = compressor ? compressor.ratio.value : 1;
+
+                const offFilters = frequencies.map((freq, idx) => {
+                    const f = offlineCtx.createBiquadFilter();
+                    f.type = 'peaking';
+                    f.frequency.value = freq;
+                    f.gain.value = eqFilters[idx] ? eqFilters[idx].gain.value : 0;
+                    return f;
+                });
+
+                let last = offlineSource;
+                offFilters.forEach(f => { last.connect(f); last = f; });
+                last.connect(offCompressor);
+                offCompressor.connect(offlineCtx.destination);
+
+                offlineSource.start(0);
+                const renderedBuffer = await offlineCtx.startRendering();
+
+                // Convertir a WAV blob
+                const wavBlob = bufferToWave(renderedBuffer, renderedBuffer.length);
+                const blobUrl = URL.createObjectURL(wavBlob);
+                const downloadLink = document.createElement('a');
+                downloadLink.href = blobUrl;
+                downloadLink.download = `${songTitle.textContent.replace(/[^a-z0-9]/gi, '_').toLowerCase()}_master.wav`;
+                downloadLink.click();
+
+                exportStatusText.textContent = "¡Exportación completada con éxito!";
+                exportStatusText.className = "text-[10px] text-center text-green-400 font-mono";
+            } catch (err) {
+                console.error("Error al exportar:", err);
+                exportStatusText.textContent = "Error en el renderizado de audio.";
+                exportStatusText.className = "text-[10px] text-center text-red-500 font-mono";
+            }
+        };
+
+        // Utilidad para empaquetar AudioBuffer a archivo WAV estándar
+        function bufferToWave(abuffer, len) {
+            let numOfChan = abuffer.numberOfChannels,
+                length = len * numOfChan * 2 + 44,
+                buffer = new ArrayBuffer(length),
+                view = new DataView(buffer),
+                channels = [], sampleRate = abuffer.sampleRate, offset = 0, pos = 0;
+
+            function setUint16(data) { view.setUint16(pos, data, true); pos += 2; }
+            function setUint32(data) { view.setUint32(pos, data, true); pos += 4; }
+
+            setUint32(0x46464952); // "RIFF"
+            setUint32(length - 8); // file length - 8
+            setUint32(0x45564157); // "WAVE"
+            setUint32(0x20746d66); // "fmt " chunk
+            setUint32(16);         // length = 16
+            setUint16(1);          // PCM (uncompressed)
+            setUint16(numOfChan);
+            setUint32(sampleRate);
+            setUint32(sampleRate * 2 * numOfChan); // avg. bytes/sec
+            setUint16(numOfChan * 2);              // block-align
+            setUint16(16);                         // 16-bit
+            setUint32(0x61746164); // "data" - chunk
+            setUint32(length - pos - 4);
+
+            for (let i = 0; i < abuffer.numberOfChannels; i++) channels.push(abuffer.getChannelData(i));
+
+            while (pos < length) {
+                for (let i = 0; i < numOfChan; i++) {
+                    let sample = Math.max(-1, Math.min(1, channels[i][offset]));
+                    sample = (0.5 + sample < 0 ? sample * 32768 : sample * 32767);
+                    view.setInt16(pos, sample, true);
+                    pos += 2;
+                }
+                offset++;
+            }
+            return new Blob([buffer], { type: "audio/wav" });
+        }
+
+        // Conexión AirPods Ultra
         btnSpatial3D.onclick = () => {
             spatial3DActive = !spatial3DActive;
             spatialIndicator.className = `w-2 h-2 rounded-full ${spatial3DActive ? 'bg-green-500 animate-pulse' : 'bg-gray-500'}`;
@@ -763,9 +917,7 @@
         btnConversation.onclick = () => {
             conversationActive = !conversationActive;
             conversationIndicator.className = `w-2 h-2 rounded-full ${conversationActive ? 'bg-green-500 animate-pulse' : 'bg-gray-500'}`;
-            if (voiceFilterNode) {
-                voiceFilterNode.Q.value = conversationActive ? 2.5 : 0.5;
-            }
+            if (voiceFilterNode) voiceFilterNode.Q.value = conversationActive ? 2.5 : 0.5;
         };
 
         btnPersonalVolume.onclick = () => {
@@ -780,17 +932,13 @@
         btnHeadTracking.onclick = () => {
             headTrackingActive = !headTrackingActive;
             trackingIndicator.className = `w-2 h-2 rounded-full ${headTrackingActive ? 'bg-green-500 animate-pulse' : 'bg-gray-500'}`;
-            if (eqFilters[5]) {
-                eqFilters[5].gain.value = headTrackingActive ? 3.5 : 0;
-            }
+            if (eqFilters[5]) eqFilters[5].gain.value = headTrackingActive ? 3.5 : 0;
         };
 
         btnNoiseCancel.onclick = () => {
             noiseCancelActive = !noiseCancelActive;
             noiseIndicator.className = `w-2 h-2 rounded-full ${noiseCancelActive ? 'bg-green-500 animate-pulse' : 'bg-gray-500'}`;
-            if (noiseFilterNode) {
-                noiseFilterNode.gain.value = noiseCancelActive ? -6 : 0;
-            }
+            if (noiseFilterNode) noiseFilterNode.gain.value = noiseCancelActive ? -6 : 0;
         };
 
         btnSpeed.onclick = () => {
@@ -814,6 +962,7 @@
                 slider.value = 0;
                 if (eqFilters[idx]) eqFilters[idx].gain.value = 0;
             });
+            masteringPresetSelect.value = 'flat';
         };
 
         function animateBeatAndVisualizer() {
@@ -845,15 +994,19 @@
             }
         }
 
+        // Subir música local con CORRECCIÓN para que se reproduzca inmediatamente
         fileInput.addEventListener('change', (e) => {
             const files = Array.from(e.target.files);
             if (files.length === 0) return;
             files.forEach(file => {
                 const url = URL.createObjectURL(file);
-                localPlaylist.push({ name: file.name.replace(/\.[^/.]+$/, ""), artist: "Archivo Local", url, thumbnail: "" });
+                localPlaylist.push({ name: file.name.replace(/\.[^/.]+$/, ""), artist: "Archivo Local", url });
             });
             switchTab('local');
-            if (localPlaylist.length > 0 && !audio.src) loadTrack(0);
+            if (localPlaylist.length > 0) {
+                loadTrack(localPlaylist.length - files.length);
+                playTrack();
+            }
         });
 
         function updatePlaylistUI() {
