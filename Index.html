@@ -341,7 +341,7 @@
         </div>
     </main>
 
-    <!-- DRAWER DE AJUSTES Y CALIDAD DE AUDIO COMPLETA -->
+    <!-- DRAWER DE AJUSTES: MENÚS DE CALIDAD Y AIRPODS 100% SEPARADOS E INDEPENDIENTES -->
     <div id="settings-modal" class="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex justify-end opacity-0 pointer-events-none transition-opacity duration-300">
         <div class="w-full max-w-xl bg-popcorn-bg border-l border-gray-800 h-full p-6 flex flex-col justify-between transform translate-x-full transition-transform duration-300 overflow-y-auto">
             <div>
@@ -352,33 +352,41 @@
                         </div>
                         <div>
                             <h3 class="text-base font-bold text-white font-display">Popcorn</h3>
-                            <p class="text-[11px] text-gray-400">Sistema de Sonido Profesional y AirPods Tech</p>
+                            <p class="text-[11px] text-gray-400">Sistema de Sonido Profesional y Masterización</p>
                         </div>
                     </div>
                     <button id="btn-close-settings" class="w-8 h-8 rounded-full bg-popcorn-subCard text-gray-400 hover:text-white flex items-center justify-center btn-anim"><i class="fa-solid fa-xmark"></i></button>
                 </div>
 
-                <!-- SELECTOR DE CALIDAD DE AUDIO COMPLETO -->
-                <div class="mt-6">
-                    <label class="block text-xs font-semibold text-gray-300 mb-2">Calidad de Audio y Motor Digital</label>
-                    <select id="audio-quality-select" class="w-full bg-popcorn-subCard text-xs font-bold text-popcorn-butter border border-gray-700 rounded-xl px-3 py-2.5 outline-none cursor-pointer hover:border-popcorn-red transition">
+                <!-- 1. APARTADO INDEPENDIENTE: CALIDAD DE AUDIO DIGITAL -->
+                <div class="mt-6 p-4 rounded-2xl bg-popcorn-card border border-gray-800">
+                    <h4 class="text-xs font-bold text-popcorn-butter uppercase tracking-wider mb-2.5 flex items-center gap-2">
+                        <i class="fa-solid fa-compact-disc text-popcorn-red"></i> Menú de Calidad de Audio
+                    </h4>
+                    <label class="block text-[11px] text-gray-400 mb-2">Selecciona la tasa de bits y motor de compresión:</label>
+                    <select id="audio-quality-select" class="w-full bg-popcorn-subCard text-xs font-bold text-white border border-gray-700 rounded-xl px-3 py-2.5 outline-none cursor-pointer hover:border-popcorn-red transition">
                         <option value="standard">Calidad Estándar (128 kbps)</option>
                         <option value="hd">Alta Definición HD (320 kbps)</option>
                         <option value="hifi">Hi-Fi / Master (FLAC Sin Pérdida)</option>
                         <option value="audiophile">Modo Audiófilo Puro (96kHz / 24-bit)</option>
-                        <option value="spatial_engine">AirPods Ultra Engine (Dolby Atmos / Lossless Render)</option>
                     </select>
                 </div>
 
-                <div class="mt-6 grid grid-cols-2 gap-3">
-                    <button id="btn-spatial-3d" class="p-3 rounded-xl bg-popcorn-subCard border border-gray-700 text-left hover:border-popcorn-red btn-anim flex flex-col gap-1">
-                        <div class="flex items-center justify-between w-full"><span class="text-xs font-bold text-white">Sonido Espacial 3D</span><span id="spatial-indicator" class="w-2 h-2 rounded-full bg-gray-500"></span></div>
-                        <span class="text-[10px] text-gray-400">Envolvente Tridimensional</span>
-                    </button>
-                    <button id="btn-noise-cancel" class="p-3 rounded-xl bg-popcorn-subCard border border-gray-700 text-left hover:border-popcorn-red btn-anim flex flex-col gap-1">
-                        <div class="flex items-center justify-between w-full"><span class="text-xs font-bold text-white">Cancelación de Ruido</span><span id="noise-indicator" class="w-2 h-2 rounded-full bg-gray-500"></span></div>
-                        <span class="text-[10px] text-gray-400">Filtro Dinámico y Supresión</span>
-                    </button>
+                <!-- 2. APARTADO INDEPENDIENTE: SISTEMA AIRPODS ULTRA -->
+                <div class="mt-5 p-4 rounded-2xl bg-popcorn-card border border-gray-800">
+                    <h4 class="text-xs font-bold text-popcorn-butter uppercase tracking-wider mb-3 flex items-center gap-2">
+                        <i class="fa-solid fa-headphones text-popcorn-red"></i> Menú Especial AirPods Ultra
+                    </h4>
+                    <div class="grid grid-cols-2 gap-3">
+                        <button id="btn-spatial-3d" class="p-3 rounded-xl bg-popcorn-subCard border border-gray-700 text-left hover:border-popcorn-red btn-anim flex flex-col gap-1">
+                            <div class="flex items-center justify-between w-full"><span class="text-xs font-bold text-white">Sonido Espacial 3D</span><span id="spatial-indicator" class="w-2 h-2 rounded-full bg-gray-500"></span></div>
+                            <span class="text-[10px] text-gray-400">Envolvente Tridimensional</span>
+                        </button>
+                        <button id="btn-noise-cancel" class="p-3 rounded-xl bg-popcorn-subCard border border-gray-700 text-left hover:border-popcorn-red btn-anim flex flex-col gap-1">
+                            <div class="flex items-center justify-between w-full"><span class="text-xs font-bold text-white">Cancelación de Ruido</span><span id="noise-indicator" class="w-2 h-2 rounded-full bg-gray-500"></span></div>
+                            <span class="text-[10px] text-gray-400">Filtro Dinámico y Supresión</span>
+                        </button>
+                    </div>
                 </div>
 
                 <!-- ECUALIZADOR DE 10 BANDAS -->
@@ -797,7 +805,6 @@
             currentIndex = index;
             const track = activePlaylist[currentIndex];
             
-            // Carga rápida y limpia del archivo de audio
             audio.pause();
             audio.src = track.url;
             audio.load();
