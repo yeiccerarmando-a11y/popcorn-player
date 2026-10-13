@@ -109,13 +109,15 @@
             box-shadow: 0 12px 32px rgba(0, 0, 0, 0.5);
         }
 
-        @keyframes dance {
-            0%, 100% { transform: translateY(0) rotate(0deg); }
-            25% { transform: translateY(-8px) rotate(-3deg); }
-            75% { transform: translateY(-4px) rotate(3deg); }
+        /* Speech Bubble Animation */
+        @keyframes popBubble {
+            0% { opacity: 0; transform: translateY(10px) scale(0.8); }
+            15% { opacity: 1; transform: translateY(0) scale(1.05); }
+            85% { opacity: 1; transform: translateY(-4px) scale(1); }
+            100% { opacity: 0; transform: translateY(-12px) scale(0.9); }
         }
-        .dancing {
-            animation: dance 0.6s infinite ease-in-out;
+        .speech-bubble-anim {
+            animation: popBubble 2.2s forwards cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
     </style>
 </head>
@@ -191,17 +193,23 @@
                 </div>
 
                 <!-- 3D Mascot Stage with Particles Canvas -->
-                <div class="my-4 flex items-center justify-center relative">
-                    <div id="mascot-box" class="w-60 h-60 sm:w-64 sm:h-64 rounded-3xl bg-[#12141C] border border-gray-800/80 p-4 flex flex-col items-center justify-center shadow-inner relative overflow-hidden">
+                <div class="my-4 flex items-center justify-center relative w-full">
+                    <div id="mascot-box" class="w-64 h-64 sm:w-72 sm:h-72 rounded-3xl bg-[#12141C] border border-gray-800/80 p-4 flex flex-col items-center justify-center shadow-inner relative overflow-hidden cursor-pointer" title="¡Tócame para hablarme!">
                         
+                        <!-- Floating Interactive Speech Bubble -->
+                        <div id="speech-bubble" class="absolute top-3 z-30 bg-white text-gray-900 text-[11px] font-extrabold px-3.5 py-1.5 rounded-full shadow-2xl border-2 border-popcorn-red opacity-0 pointer-events-none transition-all">
+                            <span id="speech-text">¡Súbele al volumen! 🎶</span>
+                            <div class="absolute -bottom-2 left-1/2 -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-t-6 border-l-transparent border-r-transparent border-t-white"></div>
+                        </div>
+
                         <!-- Canvas for Floating Particles / Sprinkles / Chocolate / Popcorn -->
                         <canvas id="particles-canvas" class="absolute inset-0 w-full h-full pointer-events-none z-10"></canvas>
 
-                        <!-- Dynamic Dance Mascot Container -->
-                        <div id="mascot-anim-wrapper" class="relative z-0 transition-transform duration-75">
+                        <!-- Dynamic Dance Mascot Container (Reacts to Real Bass Beats) -->
+                        <div id="mascot-anim-wrapper" class="relative z-0 transition-transform duration-75 origin-bottom">
                             
                             <!-- PERSONAJE 1: COTUFA (PALOMITA) -->
-                            <svg id="mascot-1" viewBox="0 0 120 120" class="w-44 h-44 sm:w-52 sm:h-52">
+                            <svg id="mascot-1" viewBox="0 0 120 120" class="w-48 h-48 sm:w-56 sm:h-56 filter drop-shadow-xl">
                                 <ellipse cx="60" cy="110" rx="32" ry="7" fill="#000000" opacity="0.5"/>
                                 <path d="M35 45 L42 102 C42 105 45 107 48 107 L72 107 C75 107 78 105 78 102 L85 45 Z" fill="#E50914"/>
                                 <path d="M44 45 L48 107 L54 107 L51 45 Z" fill="#FFFFFF"/>
@@ -222,79 +230,127 @@
                                 <path d="M22 58 C 18 16, 102 16, 98 58" stroke="#E50914" stroke-width="5" stroke-linecap="round" fill="none"/>
                                 <rect x="14" y="48" width="14" height="26" rx="6" fill="#161820" stroke="#E50914" stroke-width="2.5"/>
                                 <rect x="92" y="48" width="14" height="26" rx="6" fill="#161820" stroke="#E50914" stroke-width="2.5"/>
-                                <circle cx="51" cy="70" r="3" fill="#161820"/>
-                                <circle cx="69" cy="70" r="3" fill="#161820"/>
+                                <circle id="m1-eye-l" cx="51" cy="70" r="3" fill="#161820"/>
+                                <circle id="m1-eye-r" cx="69" cy="70" r="3" fill="#161820"/>
                                 <circle cx="45" cy="74" r="2.5" fill="#E50914" opacity="0.6"/>
                                 <circle cx="75" cy="74" r="2.5" fill="#E50914" opacity="0.6"/>
                                 <path d="M56 77 Q60 82 64 77" stroke="#161820" stroke-width="2.5" stroke-linecap="round" fill="none"/>
                             </svg>
 
                             <!-- PERSONAJE 2: DONA ANIMADA 3D CON AUDÍFONOS -->
-                            <svg id="mascot-2" viewBox="0 0 120 120" class="w-44 h-44 sm:w-52 sm:h-52 hidden">
+                            <svg id="mascot-2" viewBox="0 0 120 120" class="w-48 h-48 sm:w-56 sm:h-56 filter drop-shadow-xl hidden">
                                 <ellipse cx="60" cy="110" rx="30" ry="6" fill="#000000" opacity="0.5"/>
-                                <!-- Audífono arco -->
                                 <path d="M28 65 C 20 10, 100 10, 92 65" stroke="#E50914" stroke-width="6" stroke-linecap="round" fill="none"/>
-                                <!-- Dona Base (Rosa/Fucsia) -->
                                 <circle cx="60" cy="65" r="32" fill="#FF69B4" stroke="#C71585" stroke-width="3"/>
                                 <circle cx="60" cy="65" r="12" fill="#12141C"/>
-                                <!-- Glaseado y chispas detalladas -->
                                 <path d="M35 55 Q 60 35 85 55 Q 95 75 75 85 Q 60 95 45 85 Q 25 75 35 55 Z" fill="#FF1493" opacity="0.9"/>
                                 <circle cx="42" cy="48" r="2.5" fill="#FFD700"/><circle cx="52" cy="42" r="2.5" fill="#00FFFF"/><circle cx="70" cy="45" r="2.5" fill="#ADFF2F"/><circle cx="78" cy="58" r="2.5" fill="#FFFFFF"/><circle cx="45" cy="78" r="2.5" fill="#FFA500"/>
-                                <!-- Bracitos y Patitas -->
                                 <path d="M28 65 Q 18 60 22 52" stroke="#FF69B4" stroke-width="5" stroke-linecap="round" fill="none"/>
                                 <path d="M92 65 Q 102 60 98 52" stroke="#FF69B4" stroke-width="5" stroke-linecap="round" fill="none"/>
                                 <path d="M48 95 L 42 108" stroke="#C71585" stroke-width="5" stroke-linecap="round"/>
                                 <path d="M72 95 L 78 108" stroke="#C71585" stroke-width="5" stroke-linecap="round"/>
-                                <!-- Audífonos orejeras -->
                                 <rect x="20" y="55" width="12" height="20" rx="6" fill="#161820" stroke="#FFD700" stroke-width="2"/>
                                 <rect x="88" y="55" width="12" height="20" rx="6" fill="#161820" stroke="#FFD700" stroke-width="2"/>
-                                <!-- Carita -->
-                                <circle cx="53" cy="63" r="3" fill="#161820"/>
-                                <circle cx="67" cy="63" r="3" fill="#161820"/>
+                                <circle id="m2-eye-l" cx="53" cy="63" r="3" fill="#161820"/>
+                                <circle id="m2-eye-r" cx="67" cy="63" r="3" fill="#161820"/>
                                 <path d="M57 70 Q 60 74 63 70" stroke="#161820" stroke-width="2.5" stroke-linecap="round" fill="none"/>
                             </svg>
 
                             <!-- PERSONAJE 3: BARRA DE CHOCOLATE 3D -->
-                            <svg id="mascot-3" viewBox="0 0 120 120" class="w-44 h-44 sm:w-52 sm:h-52 hidden">
+                            <svg id="mascot-3" viewBox="0 0 120 120" class="w-48 h-48 sm:w-56 sm:h-56 filter drop-shadow-xl hidden">
                                 <ellipse cx="60" cy="110" rx="28" ry="6" fill="#000000" opacity="0.5"/>
-                                <!-- Cuerpo Chocolate -->
                                 <rect x="36" y="30" width="48" height="68" rx="8" fill="#5C2C16" stroke="#3B1A0A" stroke-width="3"/>
-                                <!-- Cuadritos de la barra -->
                                 <line x1="36" y1="53" x2="84" y2="53" stroke="#3B1A0A" stroke-width="2"/>
                                 <line x1="36" y1="76" x2="84" y2="76" stroke="#3B1A0A" stroke-width="2"/>
                                 <line x1="60" y1="30" x2="60" y2="98" stroke="#3B1A0A" stroke-width="2"/>
-                                <!-- Manitos y Patitas -->
                                 <path d="M36 60 Q 24 55 28 45" stroke="#5C2C16" stroke-width="5" stroke-linecap="round" fill="none"/>
                                 <path d="M84 60 Q 96 55 92 45" stroke="#5C2C16" stroke-width="5" stroke-linecap="round" fill="none"/>
                                 <path d="M46 98 L 42 108" stroke="#3B1A0A" stroke-width="5" stroke-linecap="round"/>
                                 <path d="M74 98 L 78 108" stroke="#3B1A0A" stroke-width="5" stroke-linecap="round"/>
-                                <!-- Carita -->
-                                <circle cx="51" cy="60" r="3" fill="#FFF8E7"/>
-                                <circle cx="69" cy="60" r="3" fill="#FFF8E7"/>
+                                <circle id="m3-eye-l" cx="51" cy="60" r="3" fill="#FFF8E7"/>
+                                <circle id="m3-eye-r" cx="69" cy="60" r="3" fill="#FFF8E7"/>
                                 <path d="M56 68 Q 60 73 64 68" stroke="#FFF8E7" stroke-width="2.5" stroke-linecap="round" fill="none"/>
                             </svg>
 
                             <!-- PERSONAJE 4: POTE DE NUTELLA 3D -->
-                            <svg id="mascot-4" viewBox="0 0 120 120" class="w-44 h-44 sm:w-52 sm:h-52 hidden">
+                            <svg id="mascot-4" viewBox="0 0 120 120" class="w-48 h-48 sm:w-56 sm:h-56 filter drop-shadow-xl hidden">
                                 <ellipse cx="60" cy="110" rx="30" ry="6" fill="#000000" opacity="0.5"/>
-                                <!-- Tapa blanca destapada arriba -->
                                 <ellipse cx="60" cy="26" rx="20" ry="6" fill="#FFFFFF" stroke="#CCCCCC" stroke-width="2"/>
-                                <!-- Pote de vidrio/cuerpo -->
                                 <path d="M40 32 L 35 92 C 35 96 40 98 44 98 L 76 98 C 80 98 85 96 85 92 L 80 32 Z" fill="#2E1503" stroke="#1A0C01" stroke-width="3"/>
-                                <!-- Etiqueta central -->
                                 <rect x="42" y="48" width="36" height="32" rx="4" fill="#FFFFFF" stroke="#E50914" stroke-width="1.5"/>
                                 <text x="60" y="68" font-family="Outfit" font-size="11" font-weight="bold" fill="#E50914" text-anchor="middle">NUTE</text>
-                                <!-- Chocolate derramandose -->
                                 <path d="M50 32 Q 55 40 53 48 Q 65 42 70 32 Z" fill="#5C2C16"/>
-                                <!-- Manitos y Patitas -->
                                 <path d="M37 65 Q 26 60 30 50" stroke="#5C2C16" stroke-width="5" stroke-linecap="round" fill="none"/>
                                 <path d="M83 65 Q 94 60 90 50" stroke="#5C2C16" stroke-width="5" stroke-linecap="round" fill="none"/>
                                 <path d="M48 98 L 44 108" stroke="#1A0C01" stroke-width="5" stroke-linecap="round"/>
                                 <path d="M72 98 L 76 108" stroke="#1A0C01" stroke-width="5" stroke-linecap="round"/>
-                                <!-- Carita en la etiqueta -->
-                                <circle cx="53" cy="62" r="2.5" fill="#1A0C01"/>
-                                <circle cx="67" cy="62" r="2.5" fill="#1A0C01"/>
+                                <circle id="m4-eye-l" cx="53" cy="62" r="2.5" fill="#1A0C01"/>
+                                <circle id="m4-eye-r" cx="67" cy="62" r="2.5" fill="#1A0C01"/>
                                 <path d="M58 68 Q 60 71 62 68" stroke="#1A0C01" stroke-width="2" stroke-linecap="round" fill="none"/>
+                            </svg>
+
+                            <!-- PERSONAJE 5: HELADO CONO 3D REALISTA (NUEVO) -->
+                            <svg id="mascot-5" viewBox="0 0 120 120" class="w-48 h-48 sm:w-56 sm:h-56 filter drop-shadow-xl hidden">
+                                <ellipse cx="60" cy="112" rx="24" ry="5" fill="#000000" opacity="0.4"/>
+                                <!-- Cono Waffle Renderizado -->
+                                <path d="M42 55 L 60 108 L 78 55 Z" fill="#E89A3E" stroke="#B86D1B" stroke-width="3"/>
+                                <path d="M45 60 L 75 60 M48 70 L 72 70 M51 80 L 69 80 M54 90 L 66 90" stroke="#C27A23" stroke-width="2"/>
+                                <path d="M46 56 L 68 100 M58 56 L 74 90 M68 56 L 52 100 M75 60 L 60 95" stroke="#C27A23" stroke-width="1.5"/>
+                                <!-- Bolas Helado Fresa & Cobertura Choco -->
+                                <path d="M38 58 Q 35 40 60 36 Q 85 40 82 58 Z" fill="#FF8DA1"/>
+                                <path d="M42 45 Q 60 22 78 45 Q 84 52 76 54 Q 68 48 60 52 Q 52 48 44 54 Z" fill="#4A2511"/>
+                                <!-- Cereza arriba -->
+                                <circle cx="60" cy="22" r="7" fill="#E50914"/>
+                                <path d="M60 15 Q 64 8 70 10" stroke="#FFF" stroke-width="2" fill="none"/>
+                                <!-- Chispas -->
+                                <rect x="48" y="32" width="4" height="2" rx="1" fill="#FFD700" transform="rotate(20 48 32)"/>
+                                <rect x="66" y="34" width="4" height="2" rx="1" fill="#00FFFF" transform="rotate(-30 66 34)"/>
+                                <rect x="56" y="40" width="4" height="2" rx="1" fill="#ADFF2F"/>
+                                <!-- Carita -->
+                                <circle id="m5-eye-l" cx="52" cy="46" r="2.5" fill="#FFF"/>
+                                <circle id="m5-eye-r" cx="68" cy="46" r="2.5" fill="#FFF"/>
+                                <path d="M57 50 Q 60 53 63 50" stroke="#FFF" stroke-width="2" stroke-linecap="round" fill="none"/>
+                            </svg>
+
+                            <!-- PERSONAJE 6: TARRINA HELADO CHOCO-CHIPS 3D (NUEVO) -->
+                            <svg id="mascot-6" viewBox="0 0 120 120" class="w-48 h-48 sm:w-56 sm:h-56 filter drop-shadow-xl hidden">
+                                <ellipse cx="60" cy="110" rx="30" ry="6" fill="#000000" opacity="0.4"/>
+                                <!-- Copa/Tarrina Rayada -->
+                                <path d="M34 60 L 38 102 C 38 105 42 107 46 107 L 74 107 C 78 107 82 105 82 102 L 86 60 Z" fill="#FFC0CB" stroke="#E50914" stroke-width="2.5"/>
+                                <path d="M42 60 L 46 107 M54 60 L 56 107 M66 60 L 64 107 M78 60 L 74 107" stroke="#FF69B4" stroke-width="4"/>
+                                <!-- Helado Vainilla Mousse -->
+                                <path d="M32 62 C 28 42, 92 42, 88 62 Z" fill="#FFEAA7"/>
+                                <path d="M40 46 C 45 30, 75 30, 80 46 Z" fill="#FFF3BF"/>
+                                <!-- Barra Choco Real clavada -->
+                                <rect x="26" y="28" width="22" height="28" rx="3" fill="#3B1A0A" transform="rotate(-20 26 28)"/>
+                                <line x1="28" y1="42" x2="48" y2="35" stroke="#241006" stroke-width="1.5"/>
+                                <!-- Cucharita -->
+                                <path d="M82 25 L 72 55" stroke="#E2E8F0" stroke-width="6" stroke-linecap="round"/>
+                                <!-- Chips Chocolate -->
+                                <circle cx="48" cy="48" r="2" fill="#3B1A0A"/><circle cx="62" cy="42" r="2" fill="#3B1A0A"/><circle cx="72" cy="50" r="2" fill="#3B1A0A"/><circle cx="56" cy="54" r="2" fill="#3B1A0A"/>
+                                <!-- Carita -->
+                                <circle id="m6-eye-l" cx="50" cy="62" r="2.5" fill="#3B1A0A"/>
+                                <circle id="m6-eye-r" cx="66" cy="62" r="2.5" fill="#3B1A0A"/>
+                                <path d="M55 67 Q 58 70 61 67" stroke="#3B1A0A" stroke-width="2" stroke-linecap="round" fill="none"/>
+                            </svg>
+
+                            <!-- PERSONAJE 7: TARRINA HELADO CHOCOLATE DERRAMADO 3D (NUEVO) -->
+                            <svg id="mascot-7" viewBox="0 0 120 120" class="w-48 h-48 sm:w-56 sm:h-56 filter drop-shadow-xl hidden">
+                                <ellipse cx="60" cy="110" rx="30" ry="6" fill="#000000" opacity="0.4"/>
+                                <!-- Tarrina Rosa/Amarilla -->
+                                <path d="M34 60 L 38 102 C 38 105 42 107 46 107 L 74 107 C 78 107 82 105 82 102 L 86 60 Z" fill="#FFF3BF" stroke="#D97706" stroke-width="2.5"/>
+                                <path d="M42 60 L 46 107 M54 60 L 56 107 M66 60 L 64 107 M78 60 L 74 107" stroke="#FF6B6B" stroke-width="5"/>
+                                <!-- Helado Fresa + Cobertura Choco Derramada -->
+                                <path d="M32 62 C 28 38, 92 38, 88 62 Z" fill="#FF8DA1"/>
+                                <path d="M32 54 C 36 32, 84 32, 88 54 C 88 68, 78 72, 70 65 C 64 60, 56 75, 48 66 C 40 60, 32 65, 32 54 Z" fill="#3B1A0A"/>
+                                <!-- Galleta Waffle -->
+                                <path d="M70 20 L 85 40 L 75 45 Z" fill="#E89A3E" stroke="#B86D1B" stroke-width="1.5"/>
+                                <!-- Chispas -->
+                                <circle cx="45" cy="45" r="2" fill="#FFD700"/><circle cx="58" cy="40" r="2" fill="#00FFFF"/><circle cx="68" cy="48" r="2" fill="#ADFF2F"/>
+                                <!-- Carita en chocolate -->
+                                <circle id="m7-eye-l" cx="50" cy="52" r="2.5" fill="#FFF"/>
+                                <circle id="m7-eye-r" cx="66" cy="52" r="2.5" fill="#FFF"/>
+                                <path d="M55 57 Q 58 60 61 57" stroke="#FFF" stroke-width="2" stroke-linecap="round" fill="none"/>
                             </svg>
 
                         </div>
@@ -302,19 +358,28 @@
                     </div>
                 </div>
 
-                <!-- Selector de Personajes -->
-                <div class="w-full mt-2 mb-3 bg-[#12141C] p-2.5 rounded-2xl border border-gray-800 flex items-center justify-between gap-1 overflow-x-auto">
-                    <button class="character-btn flex-1 py-1.5 px-2 rounded-xl text-xs font-bold bg-popcorn-subCard text-popcorn-butter border border-popcorn-red btn-anim flex items-center justify-center gap-1.5" data-char="1">
-                        <i class="fa-solid fa-cookie"></i> Cotufa
+                <!-- Selector de Personajes 3D -->
+                <div class="w-full mt-2 mb-3 bg-[#12141C] p-2 rounded-2xl border border-gray-800 flex items-center justify-start gap-2 overflow-x-auto">
+                    <button class="character-btn flex-shrink-0 py-1.5 px-3 rounded-xl text-xs font-bold bg-popcorn-subCard text-popcorn-butter border border-popcorn-red btn-anim flex items-center gap-1.5" data-char="1">
+                        🍿 Cotufa
                     </button>
-                    <button class="character-btn flex-1 py-1.5 px-2 rounded-xl text-xs font-semibold bg-[#161820] text-gray-400 border border-gray-800 hover:text-white btn-anim flex items-center justify-center gap-1.5" data-char="2">
-                        <i class="fa-solid fa-circle-notch"></i> Dona <span class="text-[9px] bg-popcorn-red text-white px-1 rounded">VIP</span>
+                    <button class="character-btn flex-shrink-0 py-1.5 px-3 rounded-xl text-xs font-semibold bg-[#161820] text-gray-400 border border-gray-800 hover:text-white btn-anim flex items-center gap-1.5" data-char="2">
+                        🍩 Dona <span class="text-[9px] bg-popcorn-red text-white px-1 rounded">VIP</span>
                     </button>
-                    <button class="character-btn flex-1 py-1.5 px-2 rounded-xl text-xs font-semibold bg-[#161820] text-gray-400 border border-gray-800 hover:text-white btn-anim flex items-center justify-center gap-1.5" data-char="3">
-                        <i class="fa-solid fa-cube"></i> Choco <span class="text-[9px] bg-popcorn-red text-white px-1 rounded">VIP</span>
+                    <button class="character-btn flex-shrink-0 py-1.5 px-3 rounded-xl text-xs font-semibold bg-[#161820] text-gray-400 border border-gray-800 hover:text-white btn-anim flex items-center gap-1.5" data-char="3">
+                        🍫 Choco <span class="text-[9px] bg-popcorn-red text-white px-1 rounded">VIP</span>
                     </button>
-                    <button class="character-btn flex-1 py-1.5 px-2 rounded-xl text-xs font-semibold bg-[#161820] text-gray-400 border border-gray-800 hover:text-white btn-anim flex items-center justify-center gap-1.5" data-char="4">
-                        <i class="fa-solid fa-jar"></i> Nutella <span class="text-[9px] bg-popcorn-red text-white px-1 rounded">VIP</span>
+                    <button class="character-btn flex-shrink-0 py-1.5 px-3 rounded-xl text-xs font-semibold bg-[#161820] text-gray-400 border border-gray-800 hover:text-white btn-anim flex items-center gap-1.5" data-char="4">
+                        🏺 Nutella <span class="text-[9px] bg-popcorn-red text-white px-1 rounded">VIP</span>
+                    </button>
+                    <button class="character-btn flex-shrink-0 py-1.5 px-3 rounded-xl text-xs font-semibold bg-[#161820] text-gray-400 border border-gray-800 hover:text-white btn-anim flex items-center gap-1.5" data-char="5">
+                        🍦 Cono 3D <span class="text-[9px] bg-popcorn-red text-white px-1 rounded">VIP</span>
+                    </button>
+                    <button class="character-btn flex-shrink-0 py-1.5 px-3 rounded-xl text-xs font-semibold bg-[#161820] text-gray-400 border border-gray-800 hover:text-white btn-anim flex items-center gap-1.5" data-char="6">
+                        🍨 Copa Chips 3D <span class="text-[9px] bg-popcorn-red text-white px-1 rounded">VIP</span>
+                    </button>
+                    <button class="character-btn flex-shrink-0 py-1.5 px-3 rounded-xl text-xs font-semibold bg-[#161820] text-gray-400 border border-gray-800 hover:text-white btn-anim flex items-center gap-1.5" data-char="7">
+                        🍧 Copa Choco 3D <span class="text-[9px] bg-popcorn-red text-white px-1 rounded">VIP</span>
                     </button>
                 </div>
 
@@ -497,7 +562,7 @@
                     </div>
                     <div>
                         <h3 class="text-lg font-bold text-white font-display">Acceso VIP de Personajes</h3>
-                        <p class="text-xs text-gray-400">Desbloquea todos los avatares bailando</p>
+                        <p class="text-xs text-gray-400">Desbloquea todos los avatares 3D</p>
                     </div>
                 </div>
                 <button id="btn-close-auth" class="w-8 h-8 rounded-full bg-popcorn-subCard text-gray-400 hover:text-white flex items-center justify-center btn-anim">
@@ -585,13 +650,21 @@
         const statusDot = document.getElementById('status-dot');
         const trackBadge = document.getElementById('track-number-badge');
         const mascotWrapper = document.getElementById('mascot-anim-wrapper');
+        const mascotBox = document.getElementById('mascot-box');
+        const speechBubble = document.getElementById('speech-bubble');
+        const speechText = document.getElementById('speech-text');
 
         // Character Elements
         const characterBtns = document.querySelectorAll('.character-btn');
-        const mascot1 = document.getElementById('mascot-1');
-        const mascot2 = document.getElementById('mascot-2');
-        const mascot3 = document.getElementById('mascot-3');
-        const mascot4 = document.getElementById('mascot-4');
+        const mascots = [
+            document.getElementById('mascot-1'),
+            document.getElementById('mascot-2'),
+            document.getElementById('mascot-3'),
+            document.getElementById('mascot-4'),
+            document.getElementById('mascot-5'),
+            document.getElementById('mascot-6'),
+            document.getElementById('mascot-7')
+        ];
 
         // Auth & Modals Elements
         const settingsModal = document.getElementById('settings-modal');
@@ -612,12 +685,43 @@
         let playlist = [];
         let currentIndex = 0;
         let isPlaying = false;
-        let isShuffle = false;
-        let isRepeat = false;
         let currentCharacter = 1;
         let isRegistered = false;
 
-        // Particles Canvas for each character
+        // Interactive Quotes for Characters
+        const quotes = [
+            "¡Súbele al volumen! 🎶",
+            "¡Ese tema está brutal! 🔥",
+            "¡A bailar sin parar! 🕺🍿",
+            "¡Siento los graves en el alma! 🔊",
+            "¡Popcorn Player manda! 👑",
+            "¡Demasiado bueno! ✨"
+        ];
+
+        // Speech bubble trigger
+        mascotBox.onclick = () => {
+            // Wink Animation Effect on active mascot
+            const eyeL = document.getElementById(`m${currentCharacter}-eye-l`);
+            if (eyeL) {
+                eyeL.setAttribute('r', '0.5');
+                setTimeout(() => eyeL.setAttribute('r', '2.5'), 300);
+            }
+
+            // Jump animation
+            mascotWrapper.style.transform = "scale(1.25) translateY(-15px) rotate(5deg)";
+            setTimeout(() => {
+                mascotWrapper.style.transform = "scale(1)";
+            }, 250);
+
+            // Show Speech
+            const randomQuote = quotes[Math.floor(Math.random() * quotes.length)];
+            speechText.textContent = randomQuote;
+            speechBubble.classList.remove('opacity-0', 'pointer-events-none', 'speech-bubble-anim');
+            void speechBubble.offsetWidth; // trigger reflow
+            speechBubble.classList.add('speech-bubble-anim');
+        };
+
+        // Particles Canvas Setup
         const particlesCanvas = document.getElementById('particles-canvas');
         const pCtx = particlesCanvas.getContext('2d');
         let particles = [];
@@ -633,13 +737,12 @@
             pCtx.clearRect(0, 0, particlesCanvas.width, particlesCanvas.height);
             if (!isPlaying) return;
 
-            // Spawn particles based on character type
-            if (Math.random() < 0.3) {
+            if (Math.random() < 0.35) {
                 particles.push({
-                    x: particlesCanvas.width / 2 + (Math.random() * 60 - 30),
+                    x: particlesCanvas.width / 2 + (Math.random() * 80 - 40),
                     y: particlesCanvas.height / 2 + (Math.random() * 20 - 10),
                     vx: Math.random() * 4 - 2,
-                    vy: -Math.random() * 3 - 2,
+                    vy: -Math.random() * 3.5 - 2,
                     size: Math.random() * 6 + 3,
                     color: getParticleColor(currentCharacter),
                     alpha: 1
@@ -660,18 +763,11 @@
                 pCtx.globalAlpha = p.alpha;
                 pCtx.fillStyle = p.color;
                 pCtx.beginPath();
-                if (currentCharacter === 2) {
-                    // Sprinkles (rects for donut)
+                if ([2, 5].includes(currentCharacter)) {
                     pCtx.fillRect(p.x, p.y, p.size, p.size * 0.5);
-                } else if (currentCharacter === 3) {
-                    // Chocolate bits
+                } else if ([3, 6, 7].includes(currentCharacter)) {
                     pCtx.fillRect(p.x, p.y, p.size, p.size);
-                } else if (currentCharacter === 4) {
-                    // Chocolate drops (Nutella)
-                    pCtx.arc(p.x, p.y, p.size * 0.7, 0, Math.PI * 2);
-                    pCtx.fill();
                 } else {
-                    // Popcorn particles
                     pCtx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
                     pCtx.fill();
                 }
@@ -680,18 +776,16 @@
         }
 
         function getParticleColor(char) {
-            if (char === 2) {
+            if ([2, 5].includes(char)) {
                 const colors = ['#FFD700', '#00FFFF', '#ADFF2F', '#FFFFFF', '#FFA500'];
                 return colors[Math.floor(Math.random() * colors.length)];
-            } else if (char === 3) {
+            } else if ([3, 4, 6, 7].includes(char)) {
                 return '#3B1A0A';
-            } else if (char === 4) {
-                return '#5C2C16';
             }
-            return '#FFF8E7'; // Popcorn
+            return '#FFF8E7';
         }
 
-        // Audio Context & Visualizer Setup
+        // Audio Context, Real Beat Sync & Visualizer
         let audioCtx, analyser, source, bufferLength, dataArray;
         const visualizerCanvas = document.getElementById('visualizer-canvas');
         const canvasCtx = visualizerCanvas.getContext('2d');
@@ -706,25 +800,41 @@
             analyser.connect(audioCtx.destination);
             bufferLength = analyser.frequencyBinCount;
             dataArray = new Uint8Array(bufferLength);
-            drawVisualizer();
+            animateBeatAndVisualizer();
         }
 
-        function drawVisualizer() {
-            requestAnimationFrame(drawVisualizer);
+        function animateBeatAndVisualizer() {
+            requestAnimationFrame(animateBeatAndVisualizer);
             updateParticles();
+
             if (!analyser) return;
 
             analyser.getByteFrequencyData(dataArray);
             canvasCtx.clearRect(0, 0, visualizerCanvas.width, visualizerCanvas.height);
 
+            // Draw Visualizer Bars
             const barWidth = (visualizerCanvas.width / bufferLength) * 2;
             let x = 0;
 
+            let bassSum = 0;
             for (let i = 0; i < bufferLength; i++) {
+                if (i < 4) bassSum += dataArray[i]; // Low Bass Frequencies
                 const barHeight = (dataArray[i] / 255) * visualizerCanvas.height;
                 canvasCtx.fillStyle = '#E50914';
                 canvasCtx.fillRect(x, visualizerCanvas.height - barHeight, barWidth - 1, barHeight);
                 x += barWidth;
+            }
+
+            // Real Beat Sync: Character reacts & bounces to Bass
+            if (isPlaying) {
+                const bassAvg = bassSum / 4;
+                const bounce = (bassAvg / 255) * 18; // Bounce height
+                const scale = 1 + (bassAvg / 255) * 0.12; // Pulse scale
+                const rotate = Math.sin(Date.now() / 150) * 4; // Gentle swaying
+
+                mascotWrapper.style.transform = `translateY(-${bounce}px) scale(${scale}) rotate(${rotate}deg)`;
+            } else {
+                mascotWrapper.style.transform = 'translateY(0) scale(1) rotate(0deg)';
             }
         }
 
@@ -792,7 +902,6 @@
             playIcon.className = 'fa-solid fa-pause';
             statusText.textContent = 'Reproduciendo';
             statusDot.className = 'w-2 h-2 rounded-full bg-green-500 animate-pulse';
-            mascotWrapper.classList.add('dancing');
         }
 
         function pauseTrack() {
@@ -801,7 +910,7 @@
             playIcon.className = 'fa-solid fa-play ml-1';
             statusText.textContent = 'Pausado';
             statusDot.className = 'w-2 h-2 rounded-full bg-yellow-500';
-            mascotWrapper.classList.remove('dancing');
+            mascotWrapper.style.transform = 'translateY(0) scale(1) rotate(0deg)';
         }
 
         btnPlay.onclick = () => {
@@ -860,7 +969,7 @@
             btn.onclick = () => {
                 const charId = parseInt(btn.getAttribute('data-char'));
                 
-                // Check VIP status for characters 2, 3, 4
+                // VIP Check for 2 to 7
                 if (charId > 1 && !isRegistered) {
                     openAuthModal();
                     return;
@@ -868,26 +977,21 @@
 
                 currentCharacter = charId;
                 
-                // Update buttons visual style
+                // Update button styles
                 characterBtns.forEach(b => {
-                    b.className = "character-btn flex-1 py-1.5 px-2 rounded-xl text-xs font-semibold bg-[#161820] text-gray-400 border border-gray-800 hover:text-white btn-anim flex items-center justify-center gap-1.5";
+                    b.className = "character-btn flex-shrink-0 py-1.5 px-3 rounded-xl text-xs font-semibold bg-[#161820] text-gray-400 border border-gray-800 hover:text-white btn-anim flex items-center gap-1.5";
                 });
-                btn.className = "character-btn flex-1 py-1.5 px-2 rounded-xl text-xs font-bold bg-popcorn-subCard text-popcorn-butter border border-popcorn-red btn-anim flex items-center justify-center gap-1.5";
+                btn.className = "character-btn flex-shrink-0 py-1.5 px-3 rounded-xl text-xs font-bold bg-popcorn-subCard text-popcorn-butter border border-popcorn-red btn-anim flex items-center gap-1.5";
 
-                // Show/Hide SVGs
-                mascot1.classList.add('hidden');
-                mascot2.classList.add('hidden');
-                mascot3.classList.add('hidden');
-                mascot4.classList.add('hidden');
-
-                if (charId === 1) mascot1.classList.remove('hidden');
-                if (charId === 2) mascot2.classList.remove('hidden');
-                if (charId === 3) mascot3.classList.remove('hidden');
-                if (charId === 4) mascot4.classList.remove('hidden');
+                // Toggle visibility
+                mascots.forEach((m, idx) => {
+                    if (idx + 1 === charId) m.classList.remove('hidden');
+                    else m.classList.add('hidden');
+                });
             };
         });
 
-        // Auth & Modal Handlers
+        // Auth & Settings Modals
         function openSettings() {
             settingsModal.classList.remove('opacity-0', 'pointer-events-none');
             settingsModal.children[0].classList.remove('translate-x-full');
@@ -927,7 +1031,7 @@
             authBtnLabel.textContent = username;
             closeAuthModal();
 
-            // Show welcome notification
+            // Show welcome
             welcomeNotification.classList.remove('opacity-0', 'pointer-events-none');
             welcomeNotification.children[0].classList.remove('scale-90');
             welcomeNotification.children[0].classList.add('scale-100');
