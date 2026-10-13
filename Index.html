@@ -3,6 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Security: Content Security Policy (CSP) -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.tailwindcss.com https://cdnjs.cloudflare.com https://fonts.googleapis.com https://fonts.gstatic.com blob: data: https://cdn.pixabay.com; img-src 'self' data: blob: https:; media-src 'self' blob: data: https://cdn.pixabay.com https://www.soundhelix.com;">
     <title>Popcorn Music Player</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -109,6 +111,43 @@
             box-shadow: 0 12px 32px rgba(0, 0, 0, 0.5);
         }
 
+        /* Levitating Logo Animation */
+        @keyframes floatLevitate {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-7px) rotate(3deg); }
+        }
+        .logo-levitate {
+            animation: floatLevitate 3.5s ease-in-out infinite;
+        }
+
+        /* Title Glow Animation Loop (10s Cycle) */
+        @keyframes titleGlowLoop {
+            0% {
+                color: #FFFFFF;
+                text-shadow: 0 0 0px transparent;
+                transform: scale(1);
+            }
+            15% {
+                color: #FFC107;
+                text-shadow: 0 0 16px rgba(255, 193, 7, 0.8), 0 0 30px rgba(229, 9, 20, 0.6);
+                transform: scale(1.05);
+            }
+            30% {
+                color: #FFFFFF;
+                text-shadow: 0 0 0px transparent;
+                transform: scale(1);
+            }
+            100% {
+                color: #FFFFFF;
+                text-shadow: 0 0 0px transparent;
+                transform: scale(1);
+            }
+        }
+        .animated-title-loop {
+            display: inline-block;
+            animation: titleGlowLoop 10s ease-in-out infinite;
+        }
+
         /* Speech Bubble Animation */
         @keyframes popBubble {
             0% { opacity: 0; transform: translateY(10px) scale(0.8); }
@@ -126,8 +165,8 @@
     <!-- Header -->
     <header class="w-full px-5 py-4 bg-[#12141C] border-b border-gray-800/80 sticky top-0 z-40 flex items-center justify-between">
         <div class="flex items-center gap-3">
-            <div class="w-10 h-10 flex items-center justify-center btn-anim cursor-pointer">
-                <!-- Mini Logo Icon -->
+            <!-- Levitating Popcorn Logo -->
+            <div class="w-10 h-10 flex items-center justify-center btn-anim cursor-pointer logo-levitate">
                 <svg viewBox="0 0 120 120" class="w-10 h-10 filter drop-shadow-md">
                     <ellipse cx="60" cy="108" rx="28" ry="6" fill="#000000" opacity="0.4"/>
                     <path d="M35 45 L42 102 C42 105 45 107 48 107 L72 107 C75 107 78 105 78 102 L85 45 Z" fill="#E50914"/>
@@ -152,7 +191,8 @@
                 </svg>
             </div>
             <div>
-                <h1 class="font-display text-2xl font-extrabold tracking-wide text-white">Popcorn</h1>
+                <!-- Title with 10s Animation Loop -->
+                <h1 class="font-display text-2xl font-extrabold tracking-wide animated-title-loop">Popcorn</h1>
             </div>
         </div>
 
@@ -289,65 +329,49 @@
                                 <path d="M58 68 Q 60 71 62 68" stroke="#1A0C01" stroke-width="2" stroke-linecap="round" fill="none"/>
                             </svg>
 
-                            <!-- PERSONAJE 5: HELADO CONO 3D REALISTA (NUEVO) -->
+                            <!-- PERSONAJE 5: HELADO CONO 3D REALISTA -->
                             <svg id="mascot-5" viewBox="0 0 120 120" class="w-48 h-48 sm:w-56 sm:h-56 filter drop-shadow-xl hidden">
                                 <ellipse cx="60" cy="112" rx="24" ry="5" fill="#000000" opacity="0.4"/>
-                                <!-- Cono Waffle Renderizado -->
                                 <path d="M42 55 L 60 108 L 78 55 Z" fill="#E89A3E" stroke="#B86D1B" stroke-width="3"/>
                                 <path d="M45 60 L 75 60 M48 70 L 72 70 M51 80 L 69 80 M54 90 L 66 90" stroke="#C27A23" stroke-width="2"/>
                                 <path d="M46 56 L 68 100 M58 56 L 74 90 M68 56 L 52 100 M75 60 L 60 95" stroke="#C27A23" stroke-width="1.5"/>
-                                <!-- Bolas Helado Fresa & Cobertura Choco -->
                                 <path d="M38 58 Q 35 40 60 36 Q 85 40 82 58 Z" fill="#FF8DA1"/>
                                 <path d="M42 45 Q 60 22 78 45 Q 84 52 76 54 Q 68 48 60 52 Q 52 48 44 54 Z" fill="#4A2511"/>
-                                <!-- Cereza arriba -->
                                 <circle cx="60" cy="22" r="7" fill="#E50914"/>
                                 <path d="M60 15 Q 64 8 70 10" stroke="#FFF" stroke-width="2" fill="none"/>
-                                <!-- Chispas -->
                                 <rect x="48" y="32" width="4" height="2" rx="1" fill="#FFD700" transform="rotate(20 48 32)"/>
                                 <rect x="66" y="34" width="4" height="2" rx="1" fill="#00FFFF" transform="rotate(-30 66 34)"/>
                                 <rect x="56" y="40" width="4" height="2" rx="1" fill="#ADFF2F"/>
-                                <!-- Carita -->
                                 <circle id="m5-eye-l" cx="52" cy="46" r="2.5" fill="#FFF"/>
                                 <circle id="m5-eye-r" cx="68" cy="46" r="2.5" fill="#FFF"/>
                                 <path d="M57 50 Q 60 53 63 50" stroke="#FFF" stroke-width="2" stroke-linecap="round" fill="none"/>
                             </svg>
 
-                            <!-- PERSONAJE 6: TARRINA HELADO CHOCO-CHIPS 3D (NUEVO) -->
+                            <!-- PERSONAJE 6: TARRINA HELADO CHOCO-CHIPS 3D -->
                             <svg id="mascot-6" viewBox="0 0 120 120" class="w-48 h-48 sm:w-56 sm:h-56 filter drop-shadow-xl hidden">
                                 <ellipse cx="60" cy="110" rx="30" ry="6" fill="#000000" opacity="0.4"/>
-                                <!-- Copa/Tarrina Rayada -->
                                 <path d="M34 60 L 38 102 C 38 105 42 107 46 107 L 74 107 C 78 107 82 105 82 102 L 86 60 Z" fill="#FFC0CB" stroke="#E50914" stroke-width="2.5"/>
                                 <path d="M42 60 L 46 107 M54 60 L 56 107 M66 60 L 64 107 M78 60 L 74 107" stroke="#FF69B4" stroke-width="4"/>
-                                <!-- Helado Vainilla Mousse -->
                                 <path d="M32 62 C 28 42, 92 42, 88 62 Z" fill="#FFEAA7"/>
                                 <path d="M40 46 C 45 30, 75 30, 80 46 Z" fill="#FFF3BF"/>
-                                <!-- Barra Choco Real clavada -->
                                 <rect x="26" y="28" width="22" height="28" rx="3" fill="#3B1A0A" transform="rotate(-20 26 28)"/>
                                 <line x1="28" y1="42" x2="48" y2="35" stroke="#241006" stroke-width="1.5"/>
-                                <!-- Cucharita -->
                                 <path d="M82 25 L 72 55" stroke="#E2E8F0" stroke-width="6" stroke-linecap="round"/>
-                                <!-- Chips Chocolate -->
                                 <circle cx="48" cy="48" r="2" fill="#3B1A0A"/><circle cx="62" cy="42" r="2" fill="#3B1A0A"/><circle cx="72" cy="50" r="2" fill="#3B1A0A"/><circle cx="56" cy="54" r="2" fill="#3B1A0A"/>
-                                <!-- Carita -->
                                 <circle id="m6-eye-l" cx="50" cy="62" r="2.5" fill="#3B1A0A"/>
                                 <circle id="m6-eye-r" cx="66" cy="62" r="2.5" fill="#3B1A0A"/>
                                 <path d="M55 67 Q 58 70 61 67" stroke="#3B1A0A" stroke-width="2" stroke-linecap="round" fill="none"/>
                             </svg>
 
-                            <!-- PERSONAJE 7: TARRINA HELADO CHOCOLATE DERRAMADO 3D (NUEVO) -->
+                            <!-- PERSONAJE 7: TARRINA HELADO CHOCOLATE DERRAMADO 3D -->
                             <svg id="mascot-7" viewBox="0 0 120 120" class="w-48 h-48 sm:w-56 sm:h-56 filter drop-shadow-xl hidden">
                                 <ellipse cx="60" cy="110" rx="30" ry="6" fill="#000000" opacity="0.4"/>
-                                <!-- Tarrina Rosa/Amarilla -->
                                 <path d="M34 60 L 38 102 C 38 105 42 107 46 107 L 74 107 C 78 107 82 105 82 102 L 86 60 Z" fill="#FFF3BF" stroke="#D97706" stroke-width="2.5"/>
                                 <path d="M42 60 L 46 107 M54 60 L 56 107 M66 60 L 64 107 M78 60 L 74 107" stroke="#FF6B6B" stroke-width="5"/>
-                                <!-- Helado Fresa + Cobertura Choco Derramada -->
                                 <path d="M32 62 C 28 38, 92 38, 88 62 Z" fill="#FF8DA1"/>
                                 <path d="M32 54 C 36 32, 84 32, 88 54 C 88 68, 78 72, 70 65 C 64 60, 56 75, 48 66 C 40 60, 32 65, 32 54 Z" fill="#3B1A0A"/>
-                                <!-- Galleta Waffle -->
                                 <path d="M70 20 L 85 40 L 75 45 Z" fill="#E89A3E" stroke="#B86D1B" stroke-width="1.5"/>
-                                <!-- Chispas -->
                                 <circle cx="45" cy="45" r="2" fill="#FFD700"/><circle cx="58" cy="40" r="2" fill="#00FFFF"/><circle cx="68" cy="48" r="2" fill="#ADFF2F"/>
-                                <!-- Carita en chocolate -->
                                 <circle id="m7-eye-l" cx="50" cy="52" r="2.5" fill="#FFF"/>
                                 <circle id="m7-eye-r" cx="66" cy="52" r="2.5" fill="#FFF"/>
                                 <path d="M55 57 Q 58 60 61 57" stroke="#FFF" stroke-width="2" stroke-linecap="round" fill="none"/>
@@ -389,7 +413,7 @@
                         Popcorn Player
                     </h2>
                     <p id="song-artist" class="text-gray-400 font-medium text-sm truncate mt-1">
-                        Sube o selecciona tu música favorita
+                        Sube tus archivos o escucha canciones en streaming
                     </p>
                 </div>
 
@@ -441,68 +465,56 @@
             </div>
         </div>
 
-        <!-- Right Sidebar (Playlist & Headphone Enhancers) -->
+        <!-- Right Sidebar (Music Library, Streaming & History) -->
         <div class="lg:col-span-5 w-full space-y-6">
 
-            <!-- Audio Enhancers Card -->
+            <!-- Audio Quality Selector -->
             <div class="card-3d rounded-3xl p-5 border border-gray-800">
                 <div class="flex items-center justify-between pb-3 border-b border-gray-800">
                     <div class="flex items-center gap-2">
                         <i class="fa-solid fa-headphones text-popcorn-red"></i>
-                        <h3 class="font-bold text-sm text-white">Mejora para Audífonos</h3>
+                        <h3 class="font-bold text-sm text-white">Calidad de Audio</h3>
                     </div>
-                    <span class="text-[10px] text-popcorn-butter bg-popcorn-subCard px-2 py-0.5 rounded font-mono">Audio Limpio HD</span>
+                    <span class="text-[10px] text-popcorn-butter bg-popcorn-subCard px-2 py-0.5 rounded font-mono">Pro HD</span>
                 </div>
 
-                <div class="grid grid-cols-2 gap-3 pt-4">
-                    <div class="bg-popcorn-subCard p-3 rounded-2xl border border-gray-800 flex flex-col justify-between">
-                        <div class="flex justify-between items-center mb-1">
-                            <span class="text-xs font-semibold text-white">Sonido Envolvente 3D</span>
-                            <input type="checkbox" id="toggle-3d" class="accent-popcorn-red cursor-pointer w-4 h-4">
-                        </div>
-                        <p class="text-[10px] text-gray-400">Espacial para audífonos</p>
-                    </div>
-
-                    <div class="bg-popcorn-subCard p-3 rounded-2xl border border-gray-800 flex flex-col justify-between">
-                        <div class="flex justify-between items-center mb-1">
-                            <span class="text-xs font-semibold text-white">Refuerzo de Graves</span>
-                            <input type="checkbox" id="toggle-bass" class="accent-popcorn-red cursor-pointer w-4 h-4">
-                        </div>
-                        <p class="text-[10px] text-gray-400">Bass Boost limpio</p>
-                    </div>
-                </div>
-
-                <div class="mt-4 pt-3 border-t border-gray-800 flex items-center justify-between">
-                    <span class="text-xs font-semibold text-gray-300">Preset Rápido:</span>
-                    <select id="eq-presets" class="bg-popcorn-subCard text-xs font-semibold text-popcorn-butter border border-gray-700 rounded-xl px-2.5 py-1.5 outline-none cursor-pointer">
-                        <option value="flat">Plano / Cristalino</option>
-                        <option value="bass">Bass Boost</option>
-                        <option value="pop">Pop Popcorn</option>
-                        <option value="rock">Rock Potente</option>
-                        <option value="jazz">Jazz Cálido</option>
-                        <option value="vocal">Voces Nítidas</option>
+                <div class="mt-3">
+                    <select id="audio-quality-select" class="w-full bg-popcorn-subCard text-xs font-bold text-popcorn-butter border border-gray-700 rounded-xl px-3 py-2 outline-none cursor-pointer hover:border-popcorn-red transition">
+                        <option value="standard">🎧 Calidad Estándar (128 kbps)</option>
+                        <option value="hd">⚡ Alta Definición HD (320 kbps)</option>
+                        <option value="hifi">🔥 Hi-Fi / Master (FLAC Sin Pérdida)</option>
+                        <option value="audiophile">✨ Modo Audiófilo Puro (96kHz / 24-bit)</option>
                     </select>
                 </div>
             </div>
 
-            <!-- Scrollable Playlist -->
-            <div class="card-3d rounded-3xl p-5 flex flex-col h-[360px]">
+            <!-- Tabbed Music Library (Streaming, Local & History) -->
+            <div class="card-3d rounded-3xl p-5 flex flex-col h-[380px]">
                 
+                <!-- Navigation Tabs -->
                 <div class="flex items-center justify-between pb-3 border-b border-gray-800">
-                    <div class="flex items-center gap-2">
-                        <i class="fa-solid fa-list text-popcorn-butter"></i>
-                        <h3 class="font-bold text-sm text-white">Lista de Reproducción</h3>
+                    <div class="flex gap-2">
+                        <button id="tab-btn-online" class="py-1 px-3 rounded-lg text-xs font-bold bg-popcorn-red text-white btn-anim">
+                            🌐 Online
+                        </button>
+                        <button id="tab-btn-local" class="py-1 px-3 rounded-lg text-xs font-semibold bg-[#12141C] text-gray-400 hover:text-white btn-anim">
+                            📁 Local
+                        </button>
+                        <button id="tab-btn-history" class="py-1 px-3 rounded-lg text-xs font-semibold bg-[#12141C] text-gray-400 hover:text-white btn-anim">
+                            📜 Historial
+                        </button>
                     </div>
-                    <span id="playlist-count" class="text-xs text-gray-400 bg-popcorn-subCard px-2.5 py-1 rounded-full font-semibold">
-                        0 Canciones
+                    <span id="library-count" class="text-xs text-gray-400 bg-popcorn-subCard px-2 py-1 rounded-full font-semibold">
+                        4 Canciones
                     </span>
                 </div>
 
+                <!-- Tab Content Containers -->
                 <div id="playlist-container" class="flex-1 overflow-y-auto mt-3 pr-1 space-y-2"></div>
 
-                <div id="empty-playlist" class="flex-1 flex flex-col items-center justify-center text-gray-500 text-xs">
+                <div id="empty-playlist" class="flex-1 flex flex-col items-center justify-center text-gray-500 text-xs hidden">
                     <i class="fa-solid fa-music text-3xl mb-2 text-gray-600"></i>
-                    <span>Sube tus canciones locales para comenzar</span>
+                    <span id="empty-msg">Sube tus canciones locales para comenzar</span>
                 </div>
             </div>
 
@@ -615,7 +627,7 @@
 
             <h2 class="font-display text-2xl font-bold text-white mb-2">Popcorn</h2>
             <p id="welcome-msg-text" class="text-sm text-gray-300 mb-6 leading-relaxed font-medium">
-                ¡Gracias por haberte registrado! Ahora puedes probar todas las funciones de la página.
+                ¡Gracias por haberte registrado! Tu sesión e historial se mantendrán siempre guardados.
             </p>
 
             <button id="btn-close-welcome" class="w-full bg-popcorn-red hover:bg-popcorn-redDark text-white font-bold py-3 rounded-xl text-sm shadow-lg btn-anim">
@@ -628,7 +640,12 @@
     <audio id="main-audio"></audio>
 
     <script>
-        // Core Player Elements
+        function sanitizeInput(str) {
+            const temp = document.createElement('div');
+            temp.textContent = str;
+            return temp.innerHTML;
+        }
+
         const audio = document.getElementById('main-audio');
         const fileInput = document.getElementById('audio-file-input');
         const btnPlay = document.getElementById('btn-play');
@@ -645,7 +662,8 @@
         const songArtist = document.getElementById('song-artist');
         const playlistContainer = document.getElementById('playlist-container');
         const emptyPlaylist = document.getElementById('empty-playlist');
-        const playlistCount = document.getElementById('playlist-count');
+        const emptyMsg = document.getElementById('empty-msg');
+        const libraryCount = document.getElementById('library-count');
         const statusText = document.getElementById('status-text');
         const statusDot = document.getElementById('status-dot');
         const trackBadge = document.getElementById('track-number-badge');
@@ -653,20 +671,46 @@
         const mascotBox = document.getElementById('mascot-box');
         const speechBubble = document.getElementById('speech-bubble');
         const speechText = document.getElementById('speech-text');
+        const audioQualitySelect = document.getElementById('audio-quality-select');
 
-        // Character Elements
+        // Tabs
+        const tabBtnOnline = document.getElementById('tab-btn-online');
+        const tabBtnLocal = document.getElementById('tab-btn-local');
+        const tabBtnHistory = document.getElementById('tab-btn-history');
+        let currentTab = 'online';
+
+        // Online Pre-loaded Streaming Tracks
+        const onlineTracks = [
+            { name: "Electronic Beats BeatSync", artist: "Popcorn Originals", url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" },
+            { name: "Lo-Fi Summer Breeze", artist: "Chill Out Studio", url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3" },
+            { name: "Bass Power Reggaeton Beat", artist: "VIP Electro", url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3" },
+            { name: "Popcorn Disco Fever", artist: "Retro Funk", url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3" }
+        ];
+
+        let localPlaylist = [];
+        let historyPlaylist = JSON.parse(localStorage.getItem('popcorn_history') || "[]");
+        let activePlaylist = onlineTracks;
+
+        let currentIndex = 0;
+        let isPlaying = false;
+        let currentCharacter = 1;
+        let isRegistered = false;
+
+        // Restore Session
+        const savedUser = localStorage.getItem('popcorn_user');
+        if (savedUser) {
+            isRegistered = true;
+            document.getElementById('auth-btn-label').textContent = sanitizeInput(savedUser);
+        }
+
         const characterBtns = document.querySelectorAll('.character-btn');
         const mascots = [
-            document.getElementById('mascot-1'),
-            document.getElementById('mascot-2'),
-            document.getElementById('mascot-3'),
-            document.getElementById('mascot-4'),
-            document.getElementById('mascot-5'),
-            document.getElementById('mascot-6'),
+            document.getElementById('mascot-1'), document.getElementById('mascot-2'),
+            document.getElementById('mascot-3'), document.getElementById('mascot-4'),
+            document.getElementById('mascot-5'), document.getElementById('mascot-6'),
             document.getElementById('mascot-7')
         ];
 
-        // Auth & Modals Elements
         const settingsModal = document.getElementById('settings-modal');
         const btnOpenSettings = document.getElementById('btn-open-settings');
         const btnCloseSettings = document.getElementById('btn-close-settings');
@@ -676,50 +720,49 @@
         const btnOpenAuth = document.getElementById('btn-open-auth');
         const btnCloseAuth = document.getElementById('btn-close-auth');
         const authForm = document.getElementById('auth-form');
-        const authBtnLabel = document.getElementById('auth-btn-label');
 
         const welcomeNotification = document.getElementById('welcome-notification');
         const btnCloseWelcome = document.getElementById('btn-close-welcome');
 
-        // State Variables
-        let playlist = [];
-        let currentIndex = 0;
-        let isPlaying = false;
-        let currentCharacter = 1;
-        let isRegistered = false;
-
-        // Interactive Quotes for Characters
         const quotes = [
-            "¡Súbele al volumen! 🎶",
-            "¡Ese tema está brutal! 🔥",
-            "¡A bailar sin parar! 🕺🍿",
-            "¡Siento los graves en el alma! 🔊",
-            "¡Popcorn Player manda! 👑",
-            "¡Demasiado bueno! ✨"
+            "¡Súbele al volumen! 🎶", "¡Ese tema está brutal! 🔥",
+            "¡A bailar sin parar! 🕺🍿", "¡Siento los graves en el alma! 🔊",
+            "¡Popcorn Player manda! 👑", "¡Modo Hi-Fi activado! ✨"
         ];
 
-        // Speech bubble trigger
         mascotBox.onclick = () => {
-            // Wink Animation Effect on active mascot
             const eyeL = document.getElementById(`m${currentCharacter}-eye-l`);
             if (eyeL) {
                 eyeL.setAttribute('r', '0.5');
                 setTimeout(() => eyeL.setAttribute('r', '2.5'), 300);
             }
 
-            // Jump animation
             mascotWrapper.style.transform = "scale(1.25) translateY(-15px) rotate(5deg)";
-            setTimeout(() => {
-                mascotWrapper.style.transform = "scale(1)";
-            }, 250);
+            setTimeout(() => mascotWrapper.style.transform = "scale(1)", 250);
 
-            // Show Speech
-            const randomQuote = quotes[Math.floor(Math.random() * quotes.length)];
-            speechText.textContent = randomQuote;
+            speechText.textContent = quotes[Math.floor(Math.random() * quotes.length)];
             speechBubble.classList.remove('opacity-0', 'pointer-events-none', 'speech-bubble-anim');
-            void speechBubble.offsetWidth; // trigger reflow
+            void speechBubble.offsetWidth;
             speechBubble.classList.add('speech-bubble-anim');
         };
+
+        // Tab Switching Logic
+        tabBtnOnline.onclick = () => switchTab('online');
+        tabBtnLocal.onclick = () => switchTab('local');
+        tabBtnHistory.onclick = () => switchTab('history');
+
+        function switchTab(tab) {
+            currentTab = tab;
+            tabBtnOnline.className = `py-1 px-3 rounded-lg text-xs font-semibold btn-anim ${tab === 'online' ? 'bg-popcorn-red text-white font-bold' : 'bg-[#12141C] text-gray-400 hover:text-white'}`;
+            tabBtnLocal.className = `py-1 px-3 rounded-lg text-xs font-semibold btn-anim ${tab === 'local' ? 'bg-popcorn-red text-white font-bold' : 'bg-[#12141C] text-gray-400 hover:text-white'}`;
+            tabBtnHistory.className = `py-1 px-3 rounded-lg text-xs font-semibold btn-anim ${tab === 'history' ? 'bg-popcorn-red text-white font-bold' : 'bg-[#12141C] text-gray-400 hover:text-white'}`;
+
+            if (tab === 'online') activePlaylist = onlineTracks;
+            else if (tab === 'local') activePlaylist = localPlaylist;
+            else activePlaylist = historyPlaylist;
+
+            updatePlaylistUI();
+        }
 
         // Particles Canvas Setup
         const particlesCanvas = document.getElementById('particles-canvas');
@@ -776,17 +819,13 @@
         }
 
         function getParticleColor(char) {
-            if ([2, 5].includes(char)) {
-                const colors = ['#FFD700', '#00FFFF', '#ADFF2F', '#FFFFFF', '#FFA500'];
-                return colors[Math.floor(Math.random() * colors.length)];
-            } else if ([3, 4, 6, 7].includes(char)) {
-                return '#3B1A0A';
-            }
+            if ([2, 5].includes(char)) return '#FFD700';
+            if ([3, 4, 6, 7].includes(char)) return '#3B1A0A';
             return '#FFF8E7';
         }
 
-        // Audio Context, Real Beat Sync & Visualizer
-        let audioCtx, analyser, source, bufferLength, dataArray;
+        // Audio Context & Quality
+        let audioCtx, analyser, source, biquadFilter, compressor, bufferLength, dataArray;
         const visualizerCanvas = document.getElementById('visualizer-canvas');
         const canvasCtx = visualizerCanvas.getContext('2d');
 
@@ -795,13 +834,37 @@
             audioCtx = new (window.AudioContext || window.webkitAudioContext)();
             analyser = audioCtx.createAnalyser();
             analyser.fftSize = 64;
+
+            biquadFilter = audioCtx.createBiquadFilter();
+            compressor = audioCtx.createDynamicsCompressor();
+
             source = audioCtx.createMediaElementSource(audio);
-            source.connect(analyser);
+            source.connect(biquadFilter);
+            biquadFilter.connect(compressor);
+            compressor.connect(analyser);
             analyser.connect(audioCtx.destination);
+
             bufferLength = analyser.frequencyBinCount;
             dataArray = new Uint8Array(bufferLength);
+            applyAudioQualityProfile(audioQualitySelect.value);
             animateBeatAndVisualizer();
         }
+
+        function applyAudioQualityProfile(quality) {
+            if (!biquadFilter || !compressor) return;
+            switch(quality) {
+                case 'standard':
+                    biquadFilter.type = 'lowpass'; biquadFilter.frequency.value = 14000; compressor.threshold.value = -20; break;
+                case 'hd':
+                    biquadFilter.type = 'highshelf'; biquadFilter.frequency.value = 6000; biquadFilter.gain.value = 3; compressor.threshold.value = -24; break;
+                case 'hifi':
+                    biquadFilter.type = 'peaking'; biquadFilter.frequency.value = 8000; biquadFilter.gain.value = 5; compressor.threshold.value = -30; break;
+                case 'audiophile':
+                    biquadFilter.type = 'peaking'; biquadFilter.frequency.value = 12000; biquadFilter.gain.value = 7.5; compressor.threshold.value = -35; break;
+            }
+        }
+
+        audioQualitySelect.onchange = (e) => applyAudioQualityProfile(e.target.value);
 
         function animateBeatAndVisualizer() {
             requestAnimationFrame(animateBeatAndVisualizer);
@@ -812,56 +875,58 @@
             analyser.getByteFrequencyData(dataArray);
             canvasCtx.clearRect(0, 0, visualizerCanvas.width, visualizerCanvas.height);
 
-            // Draw Visualizer Bars
             const barWidth = (visualizerCanvas.width / bufferLength) * 2;
             let x = 0;
-
             let bassSum = 0;
+
             for (let i = 0; i < bufferLength; i++) {
-                if (i < 4) bassSum += dataArray[i]; // Low Bass Frequencies
+                if (i < 4) bassSum += dataArray[i];
                 const barHeight = (dataArray[i] / 255) * visualizerCanvas.height;
                 canvasCtx.fillStyle = '#E50914';
                 canvasCtx.fillRect(x, visualizerCanvas.height - barHeight, barWidth - 1, barHeight);
                 x += barWidth;
             }
 
-            // Real Beat Sync: Character reacts & bounces to Bass
             if (isPlaying) {
                 const bassAvg = bassSum / 4;
-                const bounce = (bassAvg / 255) * 18; // Bounce height
-                const scale = 1 + (bassAvg / 255) * 0.12; // Pulse scale
-                const rotate = Math.sin(Date.now() / 150) * 4; // Gentle swaying
-
+                const bounce = (bassAvg / 255) * 18;
+                const scale = 1 + (bassAvg / 255) * 0.12;
+                const rotate = Math.sin(Date.now() / 150) * 4;
                 mascotWrapper.style.transform = `translateY(-${bounce}px) scale(${scale}) rotate(${rotate}deg)`;
             } else {
                 mascotWrapper.style.transform = 'translateY(0) scale(1) rotate(0deg)';
             }
         }
 
-        // File Loading
+        // Upload local files
         fileInput.addEventListener('change', (e) => {
             const files = Array.from(e.target.files);
             if (files.length === 0) return;
 
             files.forEach(file => {
                 const url = URL.createObjectURL(file);
-                playlist.push({ name: file.name.replace(/\.[^/.]+$/, ""), url });
+                localPlaylist.push({ name: sanitizeInput(file.name.replace(/\.[^/.]+$/, "")), artist: "Archivo Local", url });
             });
 
-            updatePlaylistUI();
-            if (playlist.length > 0 && !audio.src) {
+            switchTab('local');
+            if (localPlaylist.length > 0 && !audio.src) {
                 loadTrack(0);
             }
         });
 
         function updatePlaylistUI() {
-            if (playlist.length > 0) {
-                emptyPlaylist.classList.add('hidden');
-            }
-            playlistCount.textContent = `${playlist.length} Canciones`;
+            libraryCount.textContent = `${activePlaylist.length} Canciones`;
             playlistContainer.innerHTML = '';
 
-            playlist.forEach((track, index) => {
+            if (activePlaylist.length === 0) {
+                emptyPlaylist.classList.remove('hidden');
+                emptyMsg.textContent = currentTab === 'local' ? "Sube tus canciones locales para comenzar" : "Aún no has escuchado canciones";
+                return;
+            } else {
+                emptyPlaylist.classList.add('hidden');
+            }
+
+            activePlaylist.forEach((track, index) => {
                 const item = document.createElement('div');
                 item.className = `p-3 rounded-2xl border flex items-center justify-between cursor-pointer text-xs font-semibold transition ${
                     index === currentIndex 
@@ -871,7 +936,10 @@
                 item.innerHTML = `
                     <div class="flex items-center gap-3 truncate">
                         <i class="fa-solid ${index === currentIndex && isPlaying ? 'fa-volume-high text-popcorn-red' : 'fa-music text-gray-500'}"></i>
-                        <span class="truncate">${track.name}</span>
+                        <div class="truncate">
+                            <p class="truncate font-bold">${track.name}</p>
+                            <p class="text-[10px] text-gray-400 font-normal">${track.artist}</p>
+                        </div>
                     </div>
                 `;
                 item.onclick = () => {
@@ -883,20 +951,27 @@
         }
 
         function loadTrack(index) {
-            if (playlist.length === 0) return;
+            if (activePlaylist.length === 0) return;
             currentIndex = index;
-            audio.src = playlist[currentIndex].url;
-            songTitle.textContent = playlist[currentIndex].name;
-            songArtist.textContent = 'Archivo Local';
-            trackBadge.textContent = `${currentIndex + 1} / ${playlist.length}`;
+            const track = activePlaylist[currentIndex];
+            audio.src = track.url;
+            songTitle.textContent = track.name;
+            songArtist.textContent = track.artist;
+            trackBadge.textContent = `${currentIndex + 1} / ${activePlaylist.length}`;
+
+            // Save to history automatically
+            if (!historyPlaylist.some(t => t.name === track.name)) {
+                historyPlaylist.unshift(track);
+                if (historyPlaylist.length > 20) historyPlaylist.pop();
+                localStorage.setItem('popcorn_history', JSON.stringify(historyPlaylist));
+            }
+
             updatePlaylistUI();
         }
 
         function playTrack() {
             initAudioContext();
-            if (audioCtx.state === 'suspended') {
-                audioCtx.resume();
-            }
+            if (audioCtx.state === 'suspended') audioCtx.resume();
             audio.play();
             isPlaying = true;
             playIcon.className = 'fa-solid fa-pause';
@@ -914,21 +989,21 @@
         }
 
         btnPlay.onclick = () => {
-            if (playlist.length === 0) return;
+            if (activePlaylist.length === 0) return;
             if (isPlaying) pauseTrack();
             else playTrack();
         };
 
         btnNext.onclick = () => {
-            if (playlist.length === 0) return;
-            currentIndex = (currentIndex + 1) % playlist.length;
+            if (activePlaylist.length === 0) return;
+            currentIndex = (currentIndex + 1) % activePlaylist.length;
             loadTrack(currentIndex);
             playTrack();
         };
 
         btnPrev.onclick = () => {
-            if (playlist.length === 0) return;
-            currentIndex = (currentIndex - 1 + playlist.length) % playlist.length;
+            if (activePlaylist.length === 0) return;
+            currentIndex = (currentIndex - 1 + activePlaylist.length) % activePlaylist.length;
             loadTrack(currentIndex);
             playTrack();
         };
@@ -947,16 +1022,10 @@
 
         volumeBar.oninput = () => {
             audio.volume = volumeBar.value;
-            if (audio.volume === 0) {
-                volumeIcon.className = 'fa-solid fa-volume-xmark';
-            } else {
-                volumeIcon.className = 'fa-solid fa-volume-high';
-            }
+            volumeIcon.className = audio.volume === 0 ? 'fa-solid fa-volume-xmark' : 'fa-solid fa-volume-high';
         };
 
-        audio.onended = () => {
-            btnNext.click();
-        };
+        audio.onended = () => btnNext.click();
 
         function formatTime(sec) {
             const m = Math.floor(sec / 60);
@@ -964,34 +1033,20 @@
             return `${m}:${s < 10 ? '0' : ''}${s}`;
         }
 
-        // Character Selection Logic
         characterBtns.forEach(btn => {
             btn.onclick = () => {
                 const charId = parseInt(btn.getAttribute('data-char'));
-                
-                // VIP Check for 2 to 7
                 if (charId > 1 && !isRegistered) {
                     openAuthModal();
                     return;
                 }
-
                 currentCharacter = charId;
-                
-                // Update button styles
-                characterBtns.forEach(b => {
-                    b.className = "character-btn flex-shrink-0 py-1.5 px-3 rounded-xl text-xs font-semibold bg-[#161820] text-gray-400 border border-gray-800 hover:text-white btn-anim flex items-center gap-1.5";
-                });
+                characterBtns.forEach(b => b.className = "character-btn flex-shrink-0 py-1.5 px-3 rounded-xl text-xs font-semibold bg-[#161820] text-gray-400 border border-gray-800 hover:text-white btn-anim flex items-center gap-1.5");
                 btn.className = "character-btn flex-shrink-0 py-1.5 px-3 rounded-xl text-xs font-bold bg-popcorn-subCard text-popcorn-butter border border-popcorn-red btn-anim flex items-center gap-1.5";
-
-                // Toggle visibility
-                mascots.forEach((m, idx) => {
-                    if (idx + 1 === charId) m.classList.remove('hidden');
-                    else m.classList.add('hidden');
-                });
+                mascots.forEach((m, idx) => m.classList.toggle('hidden', idx + 1 !== charId));
             };
         });
 
-        // Auth & Settings Modals
         function openSettings() {
             settingsModal.classList.remove('opacity-0', 'pointer-events-none');
             settingsModal.children[0].classList.remove('translate-x-full');
@@ -1005,6 +1060,16 @@
         btnDoneEq.onclick = closeSettings;
 
         function openAuthModal() {
+            if (isRegistered) {
+                if (confirm(`¿Quieres cerrar la sesión de ${localStorage.getItem('popcorn_user')}?`)) {
+                    localStorage.removeItem('popcorn_user');
+                    isRegistered = false;
+                    document.getElementById('auth-btn-label').textContent = 'Iniciar Sesión';
+                    currentCharacter = 1;
+                    characterBtns[0].click();
+                }
+                return;
+            }
             authModal.classList.remove('opacity-0', 'pointer-events-none');
             authModal.children[0].classList.remove('scale-95');
             authModal.children[0].classList.add('scale-100');
@@ -1019,7 +1084,7 @@
 
         authForm.onsubmit = (e) => {
             e.preventDefault();
-            const username = document.getElementById('auth-user').value.trim();
+            const rawUser = document.getElementById('auth-user').value.trim();
             const pass = document.getElementById('auth-pass').value;
 
             if (pass.length < 5) {
@@ -1027,11 +1092,12 @@
                 return;
             }
 
+            const username = sanitizeInput(rawUser);
+            localStorage.setItem('popcorn_user', username);
             isRegistered = true;
-            authBtnLabel.textContent = username;
+            document.getElementById('auth-btn-label').textContent = username;
             closeAuthModal();
 
-            // Show welcome
             welcomeNotification.classList.remove('opacity-0', 'pointer-events-none');
             welcomeNotification.children[0].classList.remove('scale-90');
             welcomeNotification.children[0].classList.add('scale-100');
@@ -1042,6 +1108,10 @@
             welcomeNotification.children[0].classList.remove('scale-100');
             welcomeNotification.children[0].classList.add('scale-90');
         };
+
+        // Initialize UI with Streaming Tracks
+        switchTab('online');
+        loadTrack(0);
     </script>
 </body>
 </html>
